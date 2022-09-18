@@ -91,7 +91,7 @@ void    put_pixel(t_frame *img, int x, int y, int color)
 
 void	draw_triangle(t_frame *img, t_triangle triangle)
 {
- 	/* t_coor	point;
+ 	t_coor	point;
 	int	i = 0;
 	int	j = 0;
 	
@@ -107,11 +107,11 @@ void	draw_triangle(t_frame *img, t_triangle triangle)
 			j++;
 		}
 		i++;
-	} */
+	}
 
-	put_pixel(img, triangle.a.x, triangle.a.y ,triangle.color);
-/* 	put_pixel(img, triangle.b.x, triangle.b.y ,triangle.color);
-	put_pixel(img, triangle.c.x, triangle.c.y ,triangle.color); */
+	put_pixel(img, triangle.a.x, triangle.a.y ,0x0000FF00);
+	put_pixel(img, triangle.b.x, triangle.b.y ,0x00FF00FF);
+	put_pixel(img, triangle.c.x, triangle.c.y ,0x00F0F000);
 	put_pixel(img, triangle.milieu.x, triangle.milieu.y, 0x00FF0000);
 
 }
@@ -134,97 +134,131 @@ int	moove(int keycode, t_frame *img)
 	(void)img;
 	//char *buffer = ft_itoa(keycode);
 	//write(1, buffer, 20);
+	new_frame(img);
 	 if (UP == keycode)
 	{
 		write(1, "UP ", 3);
-		new_frame(img);
-		if (img->triangle.a.y - 5 > 0)
+		if (img->triangle.a.y - 5 > 0 && img->triangle.b.y - 5 > 0 && 
+			img->triangle.c.y - 5 > 0)
 		{
 			img->triangle.a.y -= 5;
 			img->triangle.b.y -= 5;
 			img->triangle.c.y -= 5;
+			img->triangle.milieu.y -= 5;
 		}
-		draw_triangle(img, img->triangle);
-		push_frame(img);
 	}
 	else if (DOWN == keycode)
 	{
 		write(1, "DOWN ", 5);
-		new_frame(img);
-		if (img->triangle.b.y + 5 < 200 || img->triangle.c.y + 5 < 200 )
+		if (img->triangle.milieu.y + 5 < 200)
 		{
 			img->triangle.a.y += 5;
 			img->triangle.b.y += 5;
 			img->triangle.c.y += 5;
+			img->triangle.milieu.y += 5;
 		}
-		draw_triangle(img, img->triangle);
-		push_frame(img);
 	}
 	else if (RIGHT == keycode)
 	{
 		write(1, "RIGHT ", 6);
-		new_frame(img);
-		img->triangle.a.x += 5;
-		img->triangle.b.x += 5;
-		img->triangle.c.x += 5;
-		draw_triangle(img, img->triangle);
-		push_frame(img);
+		if (img->triangle.c.x < 200)
+		{
+			img->triangle.a.x += 5;
+			img->triangle.b.x += 5;
+			img->triangle.c.x += 5;
+			img->triangle.milieu.x += 5;
+		}
 	}
 	else if (LEFT == keycode)
 	{
 		write(1, "LEFT ", 5);
-		new_frame(img);
-		img->triangle.a.x -= 5;
-		img->triangle.b.x -= 5;
-		img->triangle.c.x -= 5;
-		draw_triangle(img, img->triangle);
-		push_frame(img);
+		if (img->triangle.b.x >= 0)
+		{
+			img->triangle.a.x -= 5;
+			img->triangle.b.x -= 5;
+			img->triangle.c.x -= 5;
+			img->triangle.milieu.x -= 5;
+		}
 	}
 	else if (VRIGHT == keycode)
 	{
-		int		angle = 90;
+		double		angle = 10;
 
 		write(1, "CAM_RIGTH \n", 11);
-		new_frame(img);
 
-		draw_triangle(img, img->triangle);
+		//draw_triangle(img, img->triangle);
 
-		int	apos_x = img->triangle.milieu.x - img->triangle.a.x;
-		int	apos_y = img->triangle.milieu.y - img->triangle.a.y;
+		double	apos_x = img->triangle.milieu.x - img->triangle.a.x;
+		double	apos_y = img->triangle.milieu.y - img->triangle.a.y;
 
 		img->triangle.a.x = (apos_x * cos(angle)) + (apos_y * -sin(angle));
 		img->triangle.a.x += img->triangle.milieu.x;
 
 		img->triangle.a.y = (apos_x * sin(angle)) + (apos_y* cos(angle));
-		ft_putnbr_fd(img->triangle.a.y, 1);
 		img->triangle.a.y += img->triangle.milieu.y;
 
-		ft_putnbr_fd(img->triangle.a.y, 1);
 
-/* 
-		img->triangle.b.x = (img->triangle.b.x - img->triangle.milieu.x) * cos(angle) - 
-			(img->triangle.b.y - img->triangle.milieu.y)  * sin(angle) + img->triangle.milieu.x;
+		double	bpos_x = img->triangle.milieu.x - img->triangle.b.x;
+		double	bpos_y = img->triangle.milieu.y - img->triangle.b.y;
 
-		img->triangle.b.y = (img->triangle.b.x - img->triangle.milieu.x) * sin(angle) + 
-		(img->triangle.b.y - img->triangle.milieu.y)  * cos(angle) + img->triangle.milieu.y;
+		img->triangle.b.x = (bpos_x * cos(angle)) + (bpos_y * -sin(angle));
+		img->triangle.b.x += img->triangle.milieu.x;
+
+		img->triangle.b.y = (bpos_x * sin(angle)) + (bpos_y * cos(angle));
+		img->triangle.b.y += img->triangle.milieu.y;
 
 
-		img->triangle.c.x = (img->triangle.c.x - img->triangle.milieu.x) * cos(angle) - 
-			(img->triangle.c.y - img->triangle.milieu.y)  * sin(angle) + img->triangle.milieu.x;
+		double	cpos_x = img->triangle.milieu.x - img->triangle.c.x;
+		double	cpos_y = img->triangle.milieu.y - img->triangle.c.y;
 
-		img->triangle.c.y = (img->triangle.c.x - img->triangle.milieu.x) * sin(angle) + 
-		(img->triangle.c.y - img->triangle.milieu.y)  * cos(angle) + img->triangle.milieu.y;
- */
+		img->triangle.c.x = (cpos_x * cos(angle)) + (cpos_y * -sin(angle));
+		img->triangle.c.x += img->triangle.milieu.x;
 
-		//draw_triangle(img, img->triangle);
-		/* put_pixel(img, img->triangle.a.x, img->triangle.a.y, 0xFABC);
-		put_pixel(img, img->triangle.b.x, img->triangle.c.y, 0xFABC);
-		put_pixel(img, img->triangle.c.x, img->triangle.c.y, 0xFABC); */
-
-		draw_triangle(img, img->triangle);
-		push_frame(img);
+		img->triangle.c.y = (cpos_x * sin(angle)) + (cpos_y* cos(angle));
+		img->triangle.c.y += img->triangle.milieu.y;
 
 	}
+	else if (VLEFT == keycode)
+	{
+		double		angle = 100;
+
+		write(1, "CAM_LEFT \n", 11);
+
+		//draw_triangle(img, img->triangle);
+
+		double	apos_x = img->triangle.milieu.x - img->triangle.a.x;
+		double	apos_y = img->triangle.milieu.y - img->triangle.a.y;
+
+		img->triangle.a.x = (apos_x * -cos(angle)) + (apos_y * sin(angle));
+		img->triangle.a.x += img->triangle.milieu.x;
+
+		img->triangle.a.y = (apos_x * -sin(angle)) + (apos_y* -cos(angle));
+		img->triangle.a.y += img->triangle.milieu.y;
+
+
+		double	bpos_x = img->triangle.milieu.x - img->triangle.b.x;
+		double	bpos_y = img->triangle.milieu.y - img->triangle.b.y;
+
+		img->triangle.b.x = (bpos_x * -cos(angle)) + (bpos_y * sin(angle));
+		img->triangle.b.x += img->triangle.milieu.x;
+
+		img->triangle.b.y = (bpos_x * -sin(angle)) + (bpos_y * -cos(angle));
+		img->triangle.b.y += img->triangle.milieu.y;
+
+
+		double	cpos_x = img->triangle.milieu.x - img->triangle.c.x;
+		double	cpos_y = img->triangle.milieu.y - img->triangle.c.y;
+
+		img->triangle.c.x = (cpos_x * -cos(angle)) + (cpos_y * sin(angle));
+		img->triangle.c.x += img->triangle.milieu.x;
+
+		img->triangle.c.y = (cpos_x * -sin(angle)) + (cpos_y* -cos(angle));
+		img->triangle.c.y += img->triangle.milieu.y;
+
+	}
+
+	draw_triangle(img, img->triangle);
+	push_frame(img);
 	return (0); 
 } 
 
@@ -246,16 +280,16 @@ int main()
 	img.triangle.a.x = 50;
 	img.triangle.a.y = 50;
 
-	img.triangle.b.x = 40;
-	img.triangle.b.y = 70;
+	img.triangle.b.x = 20;
+	img.triangle.b.y = 80;
 
-	img.triangle.c.x = 70;
-	img.triangle.c.y = 70;
+	img.triangle.c.x = 80;
+	img.triangle.c.y = 80;
 
-	img.triangle.milieu.x = 55;
-	img.triangle.milieu.y = 65;
+	img.triangle.milieu.x = 50;
+	img.triangle.milieu.y = 70;
 
-	img.triangle.color = 0xFFFFFF;
+	img.triangle.color = 0x00FFFFFF;
 
 	put_pixel(&img, img.triangle.milieu.x, img.triangle.milieu.y, 0x00FF0000);
 
