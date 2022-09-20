@@ -24,7 +24,7 @@ void	draw_triangle(t_frame *img, t_triangle triangle)
  	t_coor	point;
 	int	i = 0;
 	int	j = 0;
-	
+		
 	while (i < LENGTH * 20)
 	{
 		j = 0;
@@ -39,10 +39,10 @@ void	draw_triangle(t_frame *img, t_triangle triangle)
 		i++;
 	}
 
-	/* put_pixel(img, triangle.a.x, triangle.a.y ,0x0000FF00);
-	put_pixel(img, triangle.b.x, triangle.b.y ,0x00FF00FF);
-	put_pixel(img, triangle.c.x, triangle.c.y ,0x00F0F000); */
-	//put_pixel(img, triangle.milieu.x, triangle.milieu.y, 0x00FF0000);
+	/* put_pixel(img, triangle.a.y, triangle.a.x ,0x0000FF00);
+	put_pixel(img, triangle.b.y, triangle.b.x ,0x00FF00FF);
+	put_pixel(img, triangle.c.y, triangle.c.x ,0x00F0F000);
+	put_pixel(img, triangle.milieu.y, triangle.milieu.x, 0x00FFFFFF); */
 
 }
 

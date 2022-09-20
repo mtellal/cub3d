@@ -16,10 +16,7 @@ FLAGS = -Wall -Wextra -Werror
 
 NAME = cub3d
 
-SRC =	main.c \
-		draw.c \
-		operations.c \
-		move.c
+SRC =	$(addprefix src/, main.c draw.c operations.c move/move.c)
 
 OBJ = $(SRC:.c=.o)
 
@@ -31,8 +28,8 @@ LIBMLX  =  -Llibft/ -lft -L/usr/lib/ -lmlx_Linux -lmlx -lXext -lX11 -lm -lz
 
 all: $(NAME)
 
-$(OBJ): $(SRC)
-	$(CC) $(FLAGS) $(HEADERMLX) -c $(SRC)
+%.o: %.c
+	$(CC) $(FLAGS) $(HEADERMLX) -o $@ -c $<
 
 $(NAME): $(OBJ) $(HEADERS)
 	make -C libft/ 

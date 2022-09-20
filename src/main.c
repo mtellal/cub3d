@@ -67,11 +67,11 @@ void	fillWalls(t_frame *img, char map[14][35])
 				img->triangle.c.y = i * 20 + 15;
 
 				img->triangle.milieu.x = j * 20 + 10;
-				img->triangle.milieu.y = i * 20 + 10;
+				img->triangle.milieu.y = i * 20 + 12;
 
 				img->triangle.color = 0x00F50600;
 
-				put_pixel(img, img->triangle.milieu.y, img->triangle.milieu.x, 0x00FFFFFF);
+				put_pixel(img, img->triangle.milieu.y, img->triangle.milieu.x, 0x00FF5689);
 				//draw_wall(img, w, i * w.size, j * w.size);
 
 				draw_triangle(img, img->triangle);
