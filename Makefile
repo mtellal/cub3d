@@ -16,11 +16,16 @@ FLAGS = -Wall -Wextra -Werror
 
 NAME = cub3d
 
-SRC = main.c
+SRC =	main.c \
+		draw.c \
+		operations.c \
+		move.c
 
 OBJ = $(SRC:.c=.o)
 
-HEADERMLX = -I/usr/include -I./libft/ 
+HEADERMLX = -I/usr/include -I./libft/ -I./include/
+
+HEADERS = $(addprefix include/, cub3d.h draw.h operations.h types.h)
 
 LIBMLX  =  -Llibft/ -lft -L/usr/lib/ -lmlx_Linux -lmlx -lXext -lX11 -lm -lz
 
@@ -29,9 +34,10 @@ all: $(NAME)
 $(OBJ): $(SRC)
 	$(CC) $(FLAGS) $(HEADERMLX) -c $(SRC)
 
-$(NAME): $(OBJ) $(HEADER)
-	make -C libft/
+$(NAME): $(OBJ) $(HEADERS)
+	make -C libft/ 
 	$(CC) $(FLAGS) $(HEADERMLX) -o $(NAME) $(OBJ) $(LIBMLX)
+
 
 clean:
 	make clean -C libft/
