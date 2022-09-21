@@ -45,11 +45,14 @@ typedef struct s_frame
 	void				*window;
 	void				*img;
 	char				*addr;
+
 	int					bpp;
 	int					length;
 	int					endian;
-	struct s_triangle	triangle;
-}		t_frame;
 
+	struct s_triangle	triangle;
+	int					move;
+
+}		t_frame;
 
 #endif

@@ -26,6 +26,13 @@
 #define HEIGHT 14
 #define LENGTH 35
 
+#define U 1
+#define D 2
+#define R 4
+#define L 8
+#define VR 16
+#define VL 32
+
 #include <mlx.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -36,8 +43,44 @@
 
 #include "types.h"
 
-#include "draw.h"
-#include "operations.h"
+
+extern char	map[HEIGHT][LENGTH];
+
+/////////////////           OPERATIONS      //////////////////
+
+float barycentre (t_coor p1, t_coor p2, t_coor p3);
+int dansLeTriangle (t_coor pt, t_triangle t);
+
+/////////////////           DRAW            ///////////////////
+
+void    put_pixel(t_frame *img, int x, int y, int color);
+void	draw_triangle(t_frame *img, t_triangle triangle);
+void	draw_wall(t_frame *, t_wall, int, int);
+
+void	new_frame(t_frame *img);
+void	push_frame(t_frame *img);
+
+void    move(t_frame *img);
+void	fillWalls(t_frame *img, char map[14][35]);
+
+
+////////////////            MOVE            /////////////////
+
+// move.c
+void    moveVLEFT(t_frame *img);
+void    moveVRIGHT(t_frame *img);
+void    refillWalls(t_frame *img, char m[14][35]);
+
+// movements.c
+void    moveUP(t_frame *img);
+void    moveDOWN(t_frame *img);
+void    moveRIGHT(t_frame *img);
+void    moveLEFT(t_frame *img);
+
+
+// utils.c
+int     checkWall(char map[HEIGHT][LENGTH], int x, int y);
+
 
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static char	map[14][35] = 
+char map[HEIGHT][LENGTH] = 
 {
 {'0','0','0','0','0','0','0','0','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'},
 {'0','0','0','0','0','0','0','0','1','0','0','0','0','0','0','0','0','0','1','1','0','0','0','0','0','0','0','0','0','0','0','0','1'},
@@ -82,6 +82,72 @@ void	fillWalls(t_frame *img, char map[14][35])
 	}
 }
 
+int keyReleased(int keycode, t_frame *img)
+{
+	if (keycode == UP)
+	{
+		img->move &= ~U;
+	}
+	if (keycode == DOWN)
+	{
+		img->move &= ~D;
+	}
+	if (keycode == RIGHT)
+	{
+		img->move &= ~R;
+	}
+	if (keycode == LEFT)
+	{
+		img->move &= ~L;
+	}
+	if (keycode == VRIGHT)
+	{
+		img->move &= ~VR;
+	}
+	if (keycode == VLEFT)
+	{
+		img->move &= ~VL;
+	}
+	return (0);
+}
+
+int	handle_input(void *img)
+{
+	move(img);
+	return (0);
+}
+
+int keyPressed(int keycode, t_frame *img)
+{
+	(void)img;
+	if (keycode == UP)
+	{
+		img->move |= U;
+	}
+	if (keycode == DOWN)
+	{
+		img->move |= D;
+	}
+	if (keycode == RIGHT)
+	{
+		img->move |= R;
+	}
+	if (keycode == LEFT)
+	{
+		img->move |= L;
+	}
+	if (keycode == VRIGHT)
+	{
+		img->move |= VR;
+	}
+	if (keycode == VLEFT)
+	{
+		img->move |= VL;
+	}
+
+	return (0);
+}
+
 int main()
 {
 	t_frame	img;
@@ -94,12 +160,12 @@ int main()
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.length, &img.endian);
 
 	fillWalls(&img, map);
-	
-	mlx_hook(img.window, 2, 1L<<0,  moove, &img);
-	
-	
-	push_frame(&img);
-	
+
+	mlx_hook(img.window, 3, 1L<<1, keyReleased, &img);
+
+	mlx_hook(img.window, 2, 1L<<0,  keyPressed, &img);
+
+	mlx_loop_hook(img.mlx, handle_input, &img);
 	mlx_loop(img.mlx);
 	
 }
