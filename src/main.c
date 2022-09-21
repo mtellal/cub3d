@@ -159,6 +159,8 @@ int main()
 	
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.length, &img.endian);
 
+	//img.move = 0;
+
 	fillWalls(&img, map);
 
  	mlx_hook(img.window, 3, 1L<<1, keyReleased, &img);
@@ -167,5 +169,4 @@ int main()
  
 	mlx_loop_hook(img.mlx, handle_input, &img);
 	mlx_loop(img.mlx);
-	
 }

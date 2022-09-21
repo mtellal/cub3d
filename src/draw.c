@@ -22,13 +22,13 @@ void    put_pixel(t_frame *img, int x, int y, int color)
 void	draw_triangle(t_frame *img, t_triangle triangle)
 {
  	t_coor	point;
-	int	i = 0;
-	int	j = 0;
-		
-	while (i < LENGTH * GRID)
+	int	i = triangle.ipos.y;
+	int	j = triangle.ipos.x;
+
+	while (i < triangle.ipos.y + GRID)
 	{
 		j = 0;
-		while (j < HEIGHT * GRID)
+		while (j < triangle.ipos.x + GRID)
 		{
 			point.x = i;
 			point.y = j;

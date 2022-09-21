@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int pixel = 1;
+double pixel = 0.08;
 
 ///////// MOVEMENTS /////////////
 

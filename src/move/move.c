@@ -104,12 +104,30 @@ void    moveVLEFT(t_frame *img)
     img->triangle.c.y += img->triangle.milieu.y;
 }
 
+void	fillGrid(t_frame *img, size_t x, size_t y)
+{
+	size_t	i = x;
+	size_t	j = y;
+
+	while (i < GRID + x)
+	{
+		j = y;
+		while (j < GRID + y)
+		{
+			put_pixel(img, i, j, 0);
+			j++;
+		}
+		i++;
+	}
+}
+
 void    move(t_frame *img)
 {
     if (!img->move)
         return ;
 
-    new_frame(img);
+    fillGrid(img, img->triangle.ipos.x, img->triangle.ipos.y);
+    //new_frame(img);
 
     if (img->move & U)
             moveUP(img);
@@ -124,7 +142,7 @@ void    move(t_frame *img)
     if (img->move & VL)
             moveVLEFT(img);
 	draw_triangle(img, img->triangle);
-    refillWalls(img, map);
+    //refillWalls(img, map);
 	push_frame(img);
 } 
 
