@@ -25,10 +25,10 @@ void	draw_triangle(t_frame *img, t_triangle triangle)
 	int	i = 0;
 	int	j = 0;
 		
-	while (i < LENGTH * 20)
+	while (i < LENGTH * GRID)
 	{
 		j = 0;
-		while (j < HEIGHT * 20)
+		while (j < HEIGHT * GRID)
 		{
 			point.x = i;
 			point.y = j;
@@ -67,7 +67,7 @@ void	draw_wall(t_frame *img, t_wall w, int x, int y)
 
 void	new_frame(t_frame *img)
 {
-	img->img = mlx_new_image(img->mlx, LENGTH * 20 , HEIGHT * 20);
+	img->img = mlx_new_image(img->mlx, LENGTH * GRID , HEIGHT * GRID);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
 
 }

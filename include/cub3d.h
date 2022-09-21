@@ -25,13 +25,16 @@
 
 #define HEIGHT 14
 #define LENGTH 35
+#define GRID 25
 
+//  mask movements
 #define U 1
 #define D 2
 #define R 4
 #define L 8
 #define VR 16
 #define VL 32
+
 
 #include <mlx.h>
 #include <stdio.h>

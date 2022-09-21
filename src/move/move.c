@@ -18,7 +18,7 @@ void    refillWalls(t_frame *img, char m[14][35])
 	int j = 0;
 	t_wall	w;
 
-	w.size = 20;
+	w.size = GRID;
 	w.color = 0x00B0FF00;
 
 	while (i < HEIGHT)
@@ -72,7 +72,7 @@ void    moveVRIGHT(t_frame *img)
 
 void    moveVLEFT(t_frame *img)
 {
-    double		angle = 100;
+    double		angle = 10;
 
     double	apos_x = img->triangle.milieu.x - img->triangle.a.x;
     double	apos_y = img->triangle.milieu.y - img->triangle.a.y;
@@ -108,7 +108,7 @@ void    move(t_frame *img)
 {
     if (!img->move)
         return ;
-        
+
     new_frame(img);
 
     if (img->move & U)
@@ -119,6 +119,10 @@ void    move(t_frame *img)
             moveRIGHT(img);
     if (img->move & L)
             moveLEFT(img);
+    if (img->move & VR)
+            moveVRIGHT(img);
+    if (img->move & VL)
+            moveVLEFT(img);
 	draw_triangle(img, img->triangle);
     refillWalls(img, map);
 	push_frame(img);

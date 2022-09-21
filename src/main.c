@@ -40,7 +40,7 @@ void	fillWalls(t_frame *img, char map[14][35])
 	t_wall	w;
 /* 	t_wall	perso; */
 
-	w.size = 20;
+	w.size = GRID;
 	w.color = 0x00B0FF00;
 /* 	perso.size = 20;
 	perso.color = 0x00250060; */
@@ -57,17 +57,17 @@ void	fillWalls(t_frame *img, char map[14][35])
 				img->triangle.ipos.x = i * w.size;
 				img->triangle.ipos.y = j * w.size;
 
-				img->triangle.a.x = j * 20 + 10;
-				img->triangle.a.y = i * 20 + 5;
+				img->triangle.a.x = j * GRID + GRID / 2;
+				img->triangle.a.y = i * GRID + GRID / 4;
 
-				img->triangle.b.x = j * 20 + 5;
-				img->triangle.b.y = i * 20 + 15;
+				img->triangle.b.x = j * GRID + GRID / 4;
+				img->triangle.b.y = i * GRID + GRID * 0.75;
 
-				img->triangle.c.x = j * 20 + 15;
-				img->triangle.c.y = i * 20 + 15;
+				img->triangle.c.x = j * GRID + GRID * 0.75;
+				img->triangle.c.y = i * GRID + GRID * 0.75;
 
-				img->triangle.milieu.x = j * 20 + 10;
-				img->triangle.milieu.y = i * 20 + 12;
+				img->triangle.milieu.x = j * GRID + GRID / 2;
+				img->triangle.milieu.y = i * GRID + GRID / 2;
 
 				img->triangle.color = 0x00F50600;
 
@@ -153,18 +153,18 @@ int main()
 	t_frame	img;
 
 	img.mlx = mlx_init();
-	img.window = mlx_new_window(img.mlx, LENGTH * 20, HEIGHT * 20, "cub3d");
+	img.window = mlx_new_window(img.mlx, LENGTH * GRID, HEIGHT * GRID, "cub3d");
 	
-	img.img = mlx_new_image(img.mlx, LENGTH * 20, HEIGHT * 20);
+	img.img = mlx_new_image(img.mlx, LENGTH * GRID, HEIGHT * GRID);
 	
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.length, &img.endian);
 
 	fillWalls(&img, map);
 
-	mlx_hook(img.window, 3, 1L<<1, keyReleased, &img);
+ 	mlx_hook(img.window, 3, 1L<<1, keyReleased, &img);
 
 	mlx_hook(img.window, 2, 1L<<0,  keyPressed, &img);
-
+ 
 	mlx_loop_hook(img.mlx, handle_input, &img);
 	mlx_loop(img.mlx);
 	
