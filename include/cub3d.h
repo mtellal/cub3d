@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:16:28 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/22 15:34:17 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:26:50 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		parse_map(t_data *data, char *line);
 int		ft_maplen(char **map);
 int		ft_mapsize(char **map);
 int		nb_of_zeros(char **map);
+void	final_map(t_data *data);
 
 //Todelete
 void	print_map(char	**map);

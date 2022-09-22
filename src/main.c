@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:15:36 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/22 15:42:52 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:27:12 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	init_struct_and_parsing(t_data *data, char *str)
 	read_cub(data, str);
 	chck_map_elem(data);
 	chck_map_edges(data);
+	final_map(data);
 }
 
 int	main(int argc, char **argv)
