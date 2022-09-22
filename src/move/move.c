@@ -38,7 +38,7 @@ void    refillWalls(t_frame *img, char m[14][35])
 
 void    moveVRIGHT(t_frame *img)
 {
-    double  angle = 10;
+    double  angle = 0.001;
 
     double	apos_x = img->triangle.milieu.x - img->triangle.a.x;
     double	apos_y = img->triangle.milieu.y - img->triangle.a.y;
@@ -72,7 +72,7 @@ void    moveVRIGHT(t_frame *img)
 
 void    moveVLEFT(t_frame *img)
 {
-    double		angle = 10;
+    double		angle = 0.003;
 
     double	apos_x = img->triangle.milieu.x - img->triangle.a.x;
     double	apos_y = img->triangle.milieu.y - img->triangle.a.y;
@@ -104,31 +104,33 @@ void    moveVLEFT(t_frame *img)
     img->triangle.c.y += img->triangle.milieu.y;
 }
 
-void	fillGrid(t_frame *img, size_t x, size_t y)
+void	erase_triangle(t_frame *img, t_triangle triangle)
 {
-	size_t	i = x;
-	size_t	j = y;
+ 	t_coor	point;
+	int	i = triangle.ipos.y;
+	int	j = triangle.ipos.x;
 
-	while (i < GRID + x)
+	while (i < triangle.ipos.y + GRID)
 	{
-		j = y;
-		while (j < GRID + y)
+		j = 0;
+		while (j < triangle.ipos.x + GRID)
 		{
-			put_pixel(img, i, j, 0);
+			point.x = i;
+			point.y = j;
+			if (dansLeTriangle(point, triangle))
+				put_pixel(img, j, i, 0);
 			j++;
 		}
 		i++;
 	}
+
 }
 
 void    move(t_frame *img)
 {
     if (!img->move)
         return ;
-
-    fillGrid(img, img->triangle.ipos.x, img->triangle.ipos.y);
-    //new_frame(img);
-
+    erase_triangle(img, img->triangle);
     if (img->move & U)
             moveUP(img);
     if (img->move & D)
@@ -142,7 +144,6 @@ void    move(t_frame *img)
     if (img->move & VL)
             moveVLEFT(img);
 	draw_triangle(img, img->triangle);
-    //refillWalls(img, map);
 	push_frame(img);
 } 
 
