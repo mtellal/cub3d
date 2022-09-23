@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:15:36 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/22 17:27:12 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:24:35 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,11 @@ int	main(int argc, char **argv)
 	t_data data;
 
 	if (argc != 2)
-		exit_message(&data, "Wrong number of files");
+	{
+		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Not enough arguments", 2);
+		return (-1);
+	}
 	init_struct_and_parsing(&data, argv[1]);
 	print_map(data.map); // pour check la map
 	free_texture(&data);
