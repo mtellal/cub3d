@@ -18,7 +18,7 @@ NAME = cub3d
 
 SRC =	$(addprefix src/, main.c draw.c operations.c $(MOVEDIR))
 
-MOVEDIR = $(addprefix move/, move.c movements.c utils.c)
+MOVEDIR = $(addprefix move/, move.c movements.c utils.c vmovements.c)
 
 OBJ = $(SRC:.c=.o)
 

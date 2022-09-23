@@ -67,7 +67,7 @@ void	fillWalls(t_frame *img, char map[14][35])
 				img->triangle.c.y = i * GRID + GRID * 0.75;
 
 				img->triangle.milieu.x = j * GRID + GRID / 2;
-				img->triangle.milieu.y = i * GRID + GRID / 2;
+				img->triangle.milieu.y = i * GRID + GRID * 0.6;
 
 				img->triangle.color = 0x00F50600;
 

@@ -80,6 +80,9 @@ void    moveDOWN(t_frame *img);
 void    moveRIGHT(t_frame *img);
 void    moveLEFT(t_frame *img);
 
+//  vmovements.c
+void    moveVRIGHT(t_frame *img);
+void    moveVLEFT(t_frame *img);
 
 // utils.c
 int     checkWall(char map[HEIGHT][LENGTH], int x, int y);

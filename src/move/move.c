@@ -36,74 +36,6 @@ void    refillWalls(t_frame *img, char m[14][35])
 
 //////////////  VMOVEMENTS  //////
 
-void    moveVRIGHT(t_frame *img)
-{
-    double  angle = 0.001;
-
-    double	apos_x = img->triangle.milieu.x - img->triangle.a.x;
-    double	apos_y = img->triangle.milieu.y - img->triangle.a.y;
-
-    img->triangle.a.x = (apos_x * cos(angle)) + (apos_y * -sin(angle));
-    img->triangle.a.x += img->triangle.milieu.x;
-
-    img->triangle.a.y = (apos_x * sin(angle)) + (apos_y* cos(angle));
-    img->triangle.a.y += img->triangle.milieu.y;
-
-
-    double	bpos_x = img->triangle.milieu.x - img->triangle.b.x;
-    double	bpos_y = img->triangle.milieu.y - img->triangle.b.y;
-
-    img->triangle.b.x = (bpos_x * cos(angle)) + (bpos_y * -sin(angle));
-    img->triangle.b.x += img->triangle.milieu.x;
-
-    img->triangle.b.y = (bpos_x * sin(angle)) + (bpos_y * cos(angle));
-    img->triangle.b.y += img->triangle.milieu.y;
-
-
-    double	cpos_x = img->triangle.milieu.x - img->triangle.c.x;
-    double	cpos_y = img->triangle.milieu.y - img->triangle.c.y;
-
-    img->triangle.c.x = (cpos_x * cos(angle)) + (cpos_y * -sin(angle));
-    img->triangle.c.x += img->triangle.milieu.x;
-
-    img->triangle.c.y = (cpos_x * sin(angle)) + (cpos_y* cos(angle));
-    img->triangle.c.y += img->triangle.milieu.y;
-}
-
-void    moveVLEFT(t_frame *img)
-{
-    double		angle = 0.003;
-
-    double	apos_x = img->triangle.milieu.x - img->triangle.a.x;
-    double	apos_y = img->triangle.milieu.y - img->triangle.a.y;
-
-    img->triangle.a.x = (apos_x * -cos(angle)) + (apos_y * sin(angle));
-    img->triangle.a.x += img->triangle.milieu.x;
-
-    img->triangle.a.y = (apos_x * -sin(angle)) + (apos_y* -cos(angle));
-    img->triangle.a.y += img->triangle.milieu.y;
-
-
-    double	bpos_x = img->triangle.milieu.x - img->triangle.b.x;
-    double	bpos_y = img->triangle.milieu.y - img->triangle.b.y;
-
-    img->triangle.b.x = (bpos_x * -cos(angle)) + (bpos_y * sin(angle));
-    img->triangle.b.x += img->triangle.milieu.x;
-
-    img->triangle.b.y = (bpos_x * -sin(angle)) + (bpos_y * -cos(angle));
-    img->triangle.b.y += img->triangle.milieu.y;
-
-
-    double	cpos_x = img->triangle.milieu.x - img->triangle.c.x;
-    double	cpos_y = img->triangle.milieu.y - img->triangle.c.y;
-
-    img->triangle.c.x = (cpos_x * -cos(angle)) + (cpos_y * sin(angle));
-    img->triangle.c.x += img->triangle.milieu.x;
-
-    img->triangle.c.y = (cpos_x * -sin(angle)) + (cpos_y* -cos(angle));
-    img->triangle.c.y += img->triangle.milieu.y;
-}
-
 void	erase_triangle(t_frame *img, t_triangle triangle)
 {
  	t_coor	point;
@@ -144,6 +76,7 @@ void    move(t_frame *img)
     if (img->move & VL)
             moveVLEFT(img);
 	draw_triangle(img, img->triangle);
-	push_frame(img);
+    put_pixel(img, img->triangle.milieu.y, img->triangle.milieu.x, 0x00FFFFFF);
+    push_frame(img);
 } 
 
