@@ -12,6 +12,10 @@
 
 #include "cub3d.h"
 
+/*	formule mathematique pour trouver si un point est inclus dans un triangle
+ *	forumle utilisee pour re/display le triangle avec ou sans rotation
+ */
+
 float barycentre (t_coor p1, t_coor p2, t_coor p3)
 {
     return (float)((p1.x - p3.x) * (p2.y - p3.y)) - (float)((p2.x - p3.x) * (p1.y - p3.y));

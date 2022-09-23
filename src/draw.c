@@ -17,7 +17,17 @@ void    put_pixel(t_frame *img, int x, int y, int color)
 	*(unsigned int *)(img->addr + (x * img->length) + y * (img->bpp / 8)) = color;
 }
 
-// a opti l x h (20x20 et non pas 200x400)
+void	new_frame(t_frame *img)
+{
+	img->img = mlx_new_image(img->mlx, LENGTH * GRID , HEIGHT * GRID);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
+
+}
+
+void	push_frame(t_frame *img)
+{
+	mlx_put_image_to_window(img->mlx, img->window, img->img, 0, 0);
+}
 
 void	draw_triangle(t_frame *img, t_triangle triangle)
 {
@@ -46,6 +56,34 @@ void	draw_triangle(t_frame *img, t_triangle triangle)
 
 }
 
+/*	colorie le triangle en noir (revient a l'effacer)
+*/
+
+void	erase_triangle(t_frame *img, t_triangle triangle)
+{
+ 	t_coor	point;
+	int	i = triangle.ipos.y;
+	int	j = triangle.ipos.x;
+
+	while (i < triangle.ipos.y + GRID)
+	{
+		j = 0;
+		while (j < triangle.ipos.x + GRID)
+		{
+			point.x = i;
+			point.y = j;
+			if (dansLeTriangle(point, triangle))
+				put_pixel(img, j, i, 0);
+			j++;
+		}
+		i++;
+	}
+
+}
+
+/*	display un mur au sein d'une cellule
+ *	le mur affiche est plus petit que la cellule d'ou le 0.1/0.9
+*/
 void	draw_wall(t_frame *img, t_wall w, int x, int y)
 {
 	size_t	i = x;
@@ -63,16 +101,4 @@ void	draw_wall(t_frame *img, t_wall w, int x, int y)
 		}
 		i++;
 	}
-}
-
-void	new_frame(t_frame *img)
-{
-	img->img = mlx_new_image(img->mlx, LENGTH * GRID , HEIGHT * GRID);
-	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
-
-}
-
-void	push_frame(t_frame *img)
-{
-	mlx_put_image_to_window(img->mlx, img->window, img->img, 0, 0);
 }

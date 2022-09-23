@@ -12,45 +12,27 @@
 
 #include "cub3d.h"
 
-double      rotateX(double angle, double x, double y, int r)
+/*  rotate chaque point du triangle
+*/
+
+double  deg2rad(double degrees)
 {
-    if (r)
-        return (x * -cos(angle) + y * sin(angle));
-    return (x * cos(angle) + y * -sin(angle));
+    return (degrees * (M_PI / 180));
 }
 
-double      rotateY(double angle, double x, double y, int r)
+double  rad2deg(double radians)
 {
-    if (r)
-        return (x * -sin(angle) + y * -cos(angle));
-    return ((x * sin(angle) + y * cos(angle)));
-}
+    return (radians * (180 / M_PI));
+}   
 
-void        rotatePoint(double angle, double *x, double *y, t_coor origine)
-{
-    double opos_x = *x - origine.x;
-    double opos_y = origine.y - *y;
+// column = 35
+// fov = deg2rad(60);
 
-    *x = rotateX(angle, opos_x, opos_y, 0);
-    *x += origine.x;
-    *y = rotateY(angle, opos_x, opos_y, 0);
-    *y = origine.y - *y;
-}
-
-void        rrotatePoint(double angle, double *x, double *y, t_coor origine)
-{
-    double opos_x = origine.x - *x;
-    double opos_y = origine.y - *y;
-
-    *x = rotateX(angle, opos_x, opos_y, 1);
-    *x += origine.x;
-    *y = rotateY(angle, opos_x, opos_y, 1);
-    *y += origine.y;
-}
+//  rayangle += fov / column
 
 void    moveVLEFT(t_frame *img)
 {    
-    double  angle = 0.003;
+    double  angle = deg2rad(0.3);
 
     rotatePoint(angle, &img->triangle.a.x, &img->triangle.a.y, img->triangle.milieu);
 
@@ -61,7 +43,7 @@ void    moveVLEFT(t_frame *img)
 
 void    moveVRIGHT(t_frame *img)
 {
-    double		angle = 0.003;
+    double		angle = deg2rad(0.3);
 
     rrotatePoint(angle, &img->triangle.a.x, &img->triangle.a.y, img->triangle.milieu);
 

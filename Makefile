@@ -16,15 +16,15 @@ FLAGS = -Wall -Wextra -Werror
 
 NAME = cub3d
 
-SRC =	$(addprefix src/, main.c draw.c operations.c $(MOVEDIR))
+SRC =	$(addprefix src/, main.c draw.c operations.c events.c init.c $(MOVEDIR))
 
-MOVEDIR = $(addprefix move/, move.c movements.c utils.c vmovements.c)
+MOVEDIR = $(addprefix move/, move.c movements.c utils.c vmovements.c rotate.c)
 
 OBJ = $(SRC:.c=.o)
 
 HEADERMLX = -I/usr/include -I./libft/ -I./include/
 
-HEADERS = $(addprefix include/, types.h)
+HEADERS = $(addprefix include/, types.h cub3d.h )
 
 LIBMLX  =  -Llibft/ -lft -L/usr/lib/ -lmlx_Linux -lmlx -lXext -lX11 -lm -lz
 

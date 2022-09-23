@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-double pixel = 0.04;
+double pixel = 0.08;
 
 ///////// MOVEMENTS /////////////
 
@@ -37,7 +37,7 @@ void    moveDOWN(t_frame *img)
 {
     if (img->triangle.milieu.y + pixel < HEIGHT * GRID && 
             !checkWall(map, (img->triangle.ipos.x  + (GRID * 0.8)) / GRID, (img->triangle.ipos.y + (GRID * 0.2)) / GRID) &&
-            !checkWall(map, (img->triangle.ipos.x  + (GRID * 0.8)) / GRID, (img->triangle.ipos.y + (GRID * 0.8)) / GRID))
+            !checkWall(map, (img->triangle.ipos.x  + (GRID * 0.9)) / GRID, (img->triangle.ipos.y + (GRID * 0.8)) / GRID))
     {
         img->triangle.a.y += pixel;
         img->triangle.b.y += pixel;
