@@ -6,7 +6,7 @@
 #    By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 15:56:25 by antbarbi          #+#    #+#              #
-#    Updated: 2022/09/22 17:27:21 by antbarbi         ###   ########.fr        #
+#    Updated: 2022/09/23 12:48:27 by antbarbi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ MYLIB = libft
 SRC = $(GNL) $(PARSING)
 
 GNL = get_next_line.c get_next_line_utils.c
-PARSING = parse_content.c parse_file.c parse_map.c parse_map_utils.c chck_edge.c trim_map.c
+PARSING = parse_content.c parse_file.c parse_map.c parse_map_utils.c chck_edge.c trim_map.c chck_player.c
 
 GNL := $(GNL:%.c=get_next_line/%.c)
 PARSING := $(PARSING:%.c=parsing/%.c)

@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:49:24 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/22 15:37:39 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:46:33 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_mapsize(char	**map)
 int	is_forb_elem(char c)
 {
 	int			i;
-	static int	cpt = 0;
 	static char	str[] = " 01NSWE";
 
 	i = 0;
@@ -51,11 +50,7 @@ int	is_forb_elem(char c)
 		{
 			if (str[i] == 'N' || str[i] == 'S' || str[i] == 'W'
 				|| str[i] == 'E')
-			{
-				cpt++;
-				if (cpt > 1)
-					return (1);
-			}
+				return (-1);
 			return (0);
 		}
 		i++;
@@ -67,19 +62,27 @@ void	chck_map_elem(t_data *data)
 {
 	int	i;
 	int	j;
+	int	ret;
+	int	player;
 
 	i = 0;
+	player = 0;
 	while (data->map[i])
 	{
 		j = 0;
 		while (data->map[i][j])
 		{
-			if (is_forb_elem(data->map[i][j]))
+			ret = is_forb_elem(data->map[i][j]);
+			if (ret == 1)
 				exit_message(data, "Forbidden elem in map found");
+			if (ret == -1)
+				player++;
 			j++;
 		}
 		i++;
 	}
+	if (player != 1)
+		exit_message(data, "Wrong number of player in map");
 }
 
 int	nb_of_zeros(char **map)
@@ -106,7 +109,7 @@ int	nb_of_zeros(char **map)
 
 void	print_map(char	**map) //to delete
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!map)

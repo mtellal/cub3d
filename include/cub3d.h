@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:16:28 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/22 17:42:29 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/09/23 12:47:33 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int		ft_maplen(char **map);
 int		ft_mapsize(char **map);
 int		nb_of_zeros(char **map);
 void	final_map(t_data *data);
+
+void	stock_player_and_replace(char **map);
 
 //Todelete
 void	print_map(char	**map);

@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 13:10:58 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/22 15:34:30 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/09/23 14:15:45 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,17 @@ void	chck_map_edges(t_data *data)
 	char	**new_map;
 	int		cpt_zeros;
 
-	cpt_zeros = nb_of_zeros(data->map);
+	cpt_zeros = nb_of_zeros(data->map) + 1;
 	new_map = floodable_map_alloc(data);
 	if (!new_map)
 		exit_message(data, "new_map alloc failed");
 	floodable_map_assign(data, new_map, '0');
-	cpt_zeros = nb_of_zeros(data->map);
 	map_insert(data, new_map);
+	stock_player_and_replace(new_map);
 	flood_algo(new_map, 0, 0);
 	free_map(data);
 	data->map = new_map;
 	if (cpt_zeros != nb_of_zeros(data->map))
 		exit_message(data, "Map is not closed");
+	stock_player_and_replace(data->map); // doesnt work yet
 }
