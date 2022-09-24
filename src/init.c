@@ -35,6 +35,23 @@ void	initTriangle(t_frame *img, int i, int j)
 	img->triangle.milieu.y = i * GRID + GRID * 0.6;
 
 	img->triangle.color = 0x00F50600;
+//////////////////////////////////////////////////////////////////////
+	img->ray.b.x = img->triangle.ipos.y + GRID / 2;
+	img->ray.b.y = img->triangle.ipos.x - GRID;
+
+	img->ray.c.x = img->triangle.ipos.y + GRID / 2;
+	img->ray.c.y = img->triangle.ipos.x - GRID;
+
+	img->ray.a.x = img->triangle.milieu.x;
+	img->ray.a.y = img->triangle.milieu.y;
+
+	img->ray.ipos.x = img->triangle.ipos.x - GRID;
+	img->ray.ipos.y = img->triangle.ipos.y;
+
+	img->ray.color = 0x00FFFFFF;
+
+	rotatePoint(M_PI / 6, &img->ray.b.x, &img->ray.b.y, img->triangle.milieu);
+	rrotatePoint(M_PI / 6, &img->ray.c.x, &img->ray.c.y, img->triangle.milieu);
 }
 
 /* affiche les murs et init le triangle lorsque N est trouve
@@ -79,7 +96,8 @@ void	init(t_frame *img)
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
 
 	img->move = 0;
-
+	
 	fillWalls(img, map);
+	
 	push_frame(img);
 }

@@ -51,6 +51,8 @@ typedef struct s_frame
 	int					endian;
 
 	struct s_triangle	triangle;
+	struct s_triangle	ray;
+
 	int					move;
 
 }		t_frame;

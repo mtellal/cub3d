@@ -22,11 +22,11 @@ MOVEDIR = $(addprefix move/, move.c movements.c utils.c vmovements.c rotate.c)
 
 OBJ = $(SRC:.c=.o)
 
-HEADERMLX = -I/usr/include -I./libft/ -I./include/
+HEADERMLX = -I/usr/include -I./libft/ -I./include/ -I./minilibx-linux
 
 HEADERS = $(addprefix include/, types.h cub3d.h )
 
-LIBMLX  =  -Llibft/ -lft -L/usr/lib/ -lmlx_Linux -lmlx -lXext -lX11 -lm -lz
+LIBMLX  =  -Llibft/ -lft -L./minilibx-linux -lmlx_Linux -lmlx -lXext -lX11 -lm -lz
 
 all: $(NAME)
 
@@ -35,15 +35,20 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADERS)
 	make -C libft/ 
+	make -C minilibx-linux/
 	$(CC) $(FLAGS) $(HEADERMLX) -o $(NAME) $(OBJ) $(LIBMLX)
 
 
 clean:
-	make clean -C libft/
 	rm -rf $(OBJ)
+	make clean -C libft/
+	make clean -C minilibx-linux/
+	
 
-fclean: clean 
-	make fclean -C libft/
+fclean: clean
 	rm -rf $(NAME)
+	make fclean -C libft/
+	make fclean -C minilibx-linux/
+	
 
 re: fclean all 
