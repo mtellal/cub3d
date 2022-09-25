@@ -36,11 +36,17 @@ void	initTriangle(t_frame *img, int i, int j)
 
 	img->triangle.color = 0x00F50600;
 //////////////////////////////////////////////////////////////////////
-	img->ray.b.x = img->triangle.ipos.l + GRID / 2;
+	/* img->ray.b.x = img->triangle.ipos.l + GRID / 2;
 	img->ray.b.y = img->triangle.ipos.h - GRID;
 
 	img->ray.c.x = img->triangle.ipos.l + GRID / 2;
-	img->ray.c.y = img->triangle.ipos.h - GRID;
+	img->ray.c.y = img->triangle.ipos.h - GRID; */
+
+	img->ray.b.x = img->triangle.a.x;
+	img->ray.b.y = img->triangle.a.y;
+
+	img->ray.c.x = img->triangle.a.x;
+	img->ray.c.y = img->triangle.a.y;
 
 	img->ray.a.x = img->triangle.milieu.x;
 	img->ray.a.y = img->triangle.milieu.y;

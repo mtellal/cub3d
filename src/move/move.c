@@ -72,19 +72,35 @@ void	castRays(t_frame *img, t_frame *img2, t_coor origine, int nbrays)
 	t_coor c2;
 
 	(void)img2;
+	(void)nbrays;
 	draw_line(img, img->ray.b, origine, &b2, 0x00FFFFFF);
 	draw_line(img, img->ray.c, origine, &c2, 0x00FFFFFF);
 
-	double v;
+/* 	double v;
 	double distance = 0;
 
 	v = sqrt(pow(origine.y - b2.y, 2) + pow(origine.x - b2.x, 2));
 	distance += v * sin(deg2rad(ANGLE));
 	v = sqrt(pow(origine.y - c2.y, 2) + pow(origine.x - c2.x, 2));
-	distance += v * sin(deg2rad(ANGLE));
+	distance += v * sin(deg2rad(ANGLE)); */
 
-	double angleinc = (ANGLE * 2) / nbrays;
+	double angleinc = ANGLE / (nbrays / 2);
 	int i = 0;
+	
+	t_coor cx;
+
+	cx.x = c2.x;
+	cx.y = c2.y;
+
+	while (i < nbrays)
+	{
+		rotatePoint(deg2rad(angleinc), &cx.x, &cx.y, img->triangle.milieu);
+		draw_line(img, cx, origine, NULL, 0x00FFFFFF);
+		i++;
+	}
+
+	i = 0;
+
 	t_coor bx;
 
 	bx.x = b2.x;
@@ -105,19 +121,35 @@ void	erasecastRays(t_frame *img, t_frame *img2, t_coor origine, int nbrays)
 	t_coor c2;
 
 	(void)img2;
+	(void)nbrays;
 	draw_line(img, img->ray.b, origine, &b2, 0);
 	draw_line(img, img->ray.c, origine, &c2, 0);
 
-	double v;
+	/* double v;
 	double distance = 0;
 
 	v = sqrt(pow(origine.y - b2.y, 2) + pow(origine.x - b2.x, 2));
 	distance += v * sin(deg2rad(ANGLE));
 	v = sqrt(pow(origine.y - c2.y, 2) + pow(origine.x - c2.x, 2));
-	distance += v * sin(deg2rad(ANGLE));
+	distance += v * sin(deg2rad(ANGLE)); */
 
-	double angleinc = (ANGLE * 2) / nbrays;
+	double angleinc = ANGLE / (nbrays / 2);
 	int i = 0;
+	
+	t_coor cx;
+
+	cx.x = c2.x;
+	cx.y = c2.y;
+
+	while (i < nbrays)
+	{
+		rotatePoint(deg2rad(angleinc), &cx.x, &cx.y, img->triangle.milieu);
+		draw_line(img, cx, origine, NULL, 0);
+		i++;
+	}
+
+	i = 0;
+
 	t_coor bx;
 
 	bx.x = b2.x;
@@ -141,7 +173,7 @@ void    move(t_data *data)
     		return ;
 	draw_line(img, img->ray.b, img->triangle.a, NULL, 0);
 	draw_line(img, img->ray.c, img->triangle.a, NULL, 0);
-	erasecastRays(&data->img, &data->img2, img->triangle.a, 10);
+	erasecastRays(&data->img, &data->img2, img->triangle.milieu, 30);
    	draw_triangle(img, img->triangle, 0);
 	/* erase_line(img, img->ray.b, img->triangle.a);
 	erase_line(img, img->ray.c, img->triangle.a); */
@@ -158,13 +190,13 @@ void    move(t_data *data)
     if (img->move & VL)
             moveVLEFT(img);
 	//draw_triangle2(img, img->ray);
-	draw_triangle(img, img->triangle, img->triangle.color);
    /*  put_pixel(img, img->triangle.milieu.y, img->triangle.milieu.x, 0x00FFFFFF);
-	put_pixel(img, img->ray.b.y, img->ray.b.x, 0x00FFFFFF); */
-	//put_pixel(img, img->ray.c.y, img->ray.c.x, 0x00FFFFFF);
-	//put_pixel(img, img->ray.a.y, img->ray.a.x, 0x00F0FFFF);
+	put_pixel(img, img->ray.b.y, img->ray.b.x, 0x00FFFFFF);
+	put_pixel(img, img->ray.c.y, img->ray.c.x, 0x00FFFFFF);
+	put_pixel(img, img->ray.a.y, img->ray.a.x, 0x00F0FFFF); */
 	//put_pixel(img, img->ray.ipos.x, img->ray.ipos.y - 50, 0x00FFFFFF);
-	castRays(&data->img, &data->img2, img->triangle.a, 10);
+	castRays(&data->img, &data->img2, img->triangle.milieu, 30);
+	draw_triangle(img, img->triangle, img->triangle.color);
     push_frame(img);
 } 
 
