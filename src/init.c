@@ -19,8 +19,8 @@
 
 void	initTriangle(t_frame *img, int i, int j)
 {
-	img->triangle.ipos.x = i * GRID;
-	img->triangle.ipos.y = j * GRID;
+	img->triangle.ipos.h = i * GRID;
+	img->triangle.ipos.l = j * GRID;
 
 	img->triangle.a.x = j * GRID + GRID / 2;
 	img->triangle.a.y = i * GRID + GRID / 4;
@@ -36,17 +36,17 @@ void	initTriangle(t_frame *img, int i, int j)
 
 	img->triangle.color = 0x00F50600;
 //////////////////////////////////////////////////////////////////////
-	img->ray.b.x = img->triangle.ipos.y + GRID / 2;
-	img->ray.b.y = img->triangle.ipos.x - GRID;
+	img->ray.b.x = img->triangle.ipos.l + GRID / 2;
+	img->ray.b.y = img->triangle.ipos.h - GRID;
 
-	img->ray.c.x = img->triangle.ipos.y + GRID / 2;
-	img->ray.c.y = img->triangle.ipos.x - GRID;
+	img->ray.c.x = img->triangle.ipos.l + GRID / 2;
+	img->ray.c.y = img->triangle.ipos.h - GRID;
 
 	img->ray.a.x = img->triangle.milieu.x;
 	img->ray.a.y = img->triangle.milieu.y;
 
-	img->ray.ipos.x = img->triangle.ipos.x - GRID;
-	img->ray.ipos.y = img->triangle.ipos.y;
+	img->ray.ipos.h = img->triangle.ipos.h - GRID;
+	img->ray.ipos.l = img->triangle.ipos.l;
 
 	img->ray.color = 0x00FFFFFF;
 
@@ -86,18 +86,22 @@ void	fillWalls(t_frame *img, char map[14][35])
 	}
 }
 
-void	init(t_frame *img)
+void	initImg(t_frame *img)
 {
 	img->mlx = mlx_init();
 	img->window = mlx_new_window(img->mlx, LENGTH * GRID, HEIGHT * GRID, "cub3d");
-	
 	img->img = mlx_new_image(img->mlx, LENGTH * GRID, HEIGHT * GRID);
-	
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
-
 	img->move = 0;
+}
+
+void	init(t_data *data)
+{
+	initImg(&data->img);
+	//initImg(&data->img2);
+	//data->img2.mlx = data->img.mlx;
+
+	fillWalls(&data->img, map);
 	
-	fillWalls(img, map);
-	
-	push_frame(img);
+	push_frame(&data->img);
 }

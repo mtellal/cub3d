@@ -19,9 +19,15 @@ typedef struct s_coor
 	double y;
 }			t_coor;
 
+typedef struct s_coor_map
+{
+	double h;
+	double l;
+}				t_coor_map;
+
 typedef struct s_triangle
 {
-	struct s_coor ipos;
+	struct s_coor_map ipos;
 
 	struct s_coor a;
 	struct s_coor b;
@@ -56,5 +62,11 @@ typedef struct s_frame
 	int					move;
 
 }		t_frame;
+
+typedef struct s_data
+{
+	t_frame img;
+	t_frame img2;
+}				t_data;
 
 #endif

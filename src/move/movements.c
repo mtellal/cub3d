@@ -20,7 +20,7 @@ void    addPixelX(t_triangle *t, double pixel)
     t->b.x += pixel;
     t->c.x += pixel;
     t->milieu.x += pixel;
-    t->ipos.y += pixel;
+    t->ipos.l += pixel;
 }
 
 void    addPixelY(t_triangle *t, double pixel)
@@ -29,7 +29,7 @@ void    addPixelY(t_triangle *t, double pixel)
     t->b.y += pixel;
     t->c.y += pixel;
     t->milieu.y += pixel;
-    t->ipos.x += pixel;
+    t->ipos.h += pixel;
 }
 
 ///////// MOVEMENTS /////////////
@@ -39,8 +39,8 @@ void    moveUP(t_frame *img)
     if (img->triangle.a.y - pixel > 0 &&
         img->triangle.b.y - pixel > 0 &&
         img->triangle.c.y - pixel > 0 && 
-            !checkWall(map, (img->triangle.ipos.x + (GRID * 0.2)) / GRID, (img->triangle.ipos.y + (GRID * 0.2)) / GRID) &&
-            !checkWall(map, (img->triangle.ipos.x + (GRID * 0.2)) / GRID, (img->triangle.ipos.y + (GRID * 0.8)) / GRID))
+            !checkWall(map, (img->triangle.ipos.h + (GRID * 0.2)) / GRID, (img->triangle.ipos.l + (GRID * 0.2)) / GRID) &&
+            !checkWall(map, (img->triangle.ipos.h + (GRID * 0.2)) / GRID, (img->triangle.ipos.l + (GRID * 0.8)) / GRID))
     {
         addPixelY(&img->triangle, -pixel);
         addPixelY(&img->ray, -pixel);       
@@ -50,8 +50,8 @@ void    moveUP(t_frame *img)
 void    moveDOWN(t_frame *img)
 {
     if (img->triangle.milieu.y + pixel < HEIGHT * GRID && 
-            !checkWall(map, (img->triangle.ipos.x  + (GRID * 0.8)) / GRID, (img->triangle.ipos.y + (GRID * 0.2)) / GRID) &&
-            !checkWall(map, (img->triangle.ipos.x  + (GRID * 0.9)) / GRID, (img->triangle.ipos.y + (GRID * 0.8)) / GRID))
+            !checkWall(map, (img->triangle.ipos.h  + (GRID * 0.8)) / GRID, (img->triangle.ipos.l + (GRID * 0.2)) / GRID) &&
+            !checkWall(map, (img->triangle.ipos.h  + (GRID * 0.9)) / GRID, (img->triangle.ipos.l + (GRID * 0.8)) / GRID))
     {
         addPixelY(&img->triangle, pixel);
         addPixelY(&img->ray, pixel);
@@ -64,8 +64,8 @@ void    moveRIGHT(t_frame *img)
     put_pixel(img, img->triangle.ipos.x + (GRID * 0.8),  img->triangle.ipos.y + (GRID * 0.8), 0x00FFFFFF); */
 
     if (img->triangle.c.x + pixel < LENGTH * GRID && 
-            !checkWall(map, (img->triangle.ipos.x + (GRID * 0.2)) / GRID, (img->triangle.ipos.y + (GRID * 0.8)) / GRID) &&
-            !checkWall(map, (img->triangle.ipos.x + (GRID * 0.8)) / GRID, (img->triangle.ipos.y + (GRID * 0.8)) / GRID))
+            !checkWall(map, (img->triangle.ipos.h + (GRID * 0.2)) / GRID, (img->triangle.ipos.l + (GRID * 0.8)) / GRID) &&
+            !checkWall(map, (img->triangle.ipos.h + (GRID * 0.8)) / GRID, (img->triangle.ipos.l + (GRID * 0.8)) / GRID))
     {
         addPixelX(&img->triangle, pixel);
         addPixelX(&img->ray, pixel);
@@ -75,8 +75,8 @@ void    moveRIGHT(t_frame *img)
 void    moveLEFT(t_frame *img)
 {
     if (img->triangle.b.x >= 0 && 
-            !checkWall(map, (img->triangle.ipos.x + (GRID * 0.2)) / GRID, (img->triangle.ipos.y + (GRID * 0.2)) / GRID) &&
-            !checkWall(map, (img->triangle.ipos.x + (GRID * 0.8)) / GRID, (img->triangle.ipos.y + (GRID * 0.2)) / GRID))
+            !checkWall(map, (img->triangle.ipos.h + (GRID * 0.2)) / GRID, (img->triangle.ipos.l + (GRID * 0.2)) / GRID) &&
+            !checkWall(map, (img->triangle.ipos.h + (GRID * 0.8)) / GRID, (img->triangle.ipos.l + (GRID * 0.2)) / GRID))
     {
         addPixelX(&img->triangle, -pixel);
         addPixelX(&img->ray, -pixel);

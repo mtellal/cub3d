@@ -54,7 +54,7 @@ void	fillWalls(t_frame *img, char map[14][35]);
 // init.c
 void	initTriangle(t_frame *img, int i, int j);
 void	fillWalls(t_frame *img, char map[14][35]);
-void	init(t_frame *img);
+void	init(t_data *img);
 
 /////////////////           OPERATIONS      //////////////////
 

@@ -32,13 +32,13 @@ void	push_frame(t_frame *img)
 void	draw_triangle(t_frame *img, t_triangle triangle)
 {
  	t_coor	point;
-	int	i = triangle.ipos.y;
-	int	j = triangle.ipos.x;
+	int	i = triangle.ipos.l;
+	int	j = triangle.ipos.h;
 
-	while (i < triangle.ipos.y + GRID)
+	while (i < triangle.ipos.l + GRID)
 	{
 		j = 0;
-		while (j < triangle.ipos.x + GRID)
+		while (j < triangle.ipos.h + GRID)
 		{
 			point.x = i;
 			point.y = j;
@@ -62,13 +62,13 @@ void	draw_triangle(t_frame *img, t_triangle triangle)
 void	erase_triangle(t_frame *img, t_triangle triangle)
 {
  	t_coor	point;
-	int	i = triangle.ipos.y;
-	int	j = triangle.ipos.x;
+	int	i = triangle.ipos.l;
+	int	j = triangle.ipos.h;
 
-	while (i < triangle.ipos.y + GRID)
+	while (i < triangle.ipos.l + GRID)
 	{
 		j = 0;
-		while (j < triangle.ipos.x + GRID)
+		while (j < triangle.ipos.h + GRID)
 		{
 			point.x = i;
 			point.y = j;

@@ -18,29 +18,6 @@
  *	display le triangle et push l'image dans la fenetre
  */
 
-void	draw_triangle2(t_frame *img, t_triangle triangle)
-{
- 	t_coor	point;
-	int	i = triangle.ipos.y;
-	int	j = triangle.ipos.x;
-
-	while (i < triangle.ipos.y + 100)
-	{
-		j = 0;
-		while (j < triangle.ipos.x + 100)
-		{
-			point.x = i;
-			point.y = j;
-			if (dansLeTriangle(point, triangle))
-			{
-				put_pixel(img, j, i, triangle.color);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
 
 void	draw_line(t_frame *img,  t_coor point, t_coor origine)
 {
@@ -73,7 +50,9 @@ void	draw_line(t_frame *img,  t_coor point, t_coor origine)
 	double x = origine.x;
 	double y = origine.y;
 
-	while (map[(int)(y / GRID)][(int)(x / GRID)] != '1')
+	while (map[(int)(y / GRID)][(int)(x / GRID)] != '1' && 
+		y >= 0 && y < GRID * HEIGHT && 
+		x >= 0 && x < GRID * LENGTH)
 	{
 		put_pixel(img, y, x, 0x00FFFFFF);
 		y += yinc;
@@ -113,7 +92,9 @@ void	erase_line(t_frame *img,  t_coor point, t_coor origine)
 	double x = origine.x;
 	double y = origine.y;
 
-	while (map[(int)(y / GRID)][(int)(x / GRID)] != '1')
+	while (map[(int)(y / GRID)][(int)(x / GRID)] != '1' && 
+		y >= 0 && y < GRID * HEIGHT && 
+		x >= 0 && x < GRID * LENGTH)
 	{
 		put_pixel(img, y, x, 0);
 		y += yinc;
