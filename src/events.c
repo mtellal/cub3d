@@ -16,9 +16,9 @@
  *	update l'image lors des mouvements
  */
 
-int	handle_input(void *img)
+int	handle_input(void *data)
 {
-	move(img);
+	move(data);
 	return (0);
 }
 

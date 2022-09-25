@@ -36,7 +36,7 @@ void	game(t_data *data)
 
 	mlx_hook(data->img.window, 2, 1L<<0,  keyPressed, &data->img);
  
-	mlx_loop_hook(data->img.mlx, handle_input, &data->img);
+	mlx_loop_hook(data->img.mlx, handle_input, data);
 }
 
 //	data->img = plan 2d

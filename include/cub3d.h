@@ -35,6 +35,8 @@
 #define VR 16
 #define VL 32
 
+#define ANGLE 45
+
 #include <mlx.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -64,9 +66,8 @@ int dansLeTriangle (t_coor pt, t_triangle t);
 /////////////////           DRAW            ///////////////////
 
 void    put_pixel(t_frame *img, int x, int y, int color);
-void	draw_triangle(t_frame *img, t_triangle triangle);
+void	draw_triangle(t_frame *img, t_triangle triangle, int color);
 void	draw_wall(t_frame *, t_wall, int, int);
-void	erase_triangle(t_frame *img, t_triangle triangle);
 
 void	new_frame(t_frame *img);
 void	push_frame(t_frame *img);
@@ -77,7 +78,7 @@ void	fillWalls(t_frame *img, char map[14][35]);
 ////////////////            MOVE            /////////////////
 
 // move.c
-void    move(t_frame *img);
+void    move(t_data *img);
 
 // movements.c
 void    moveUP(t_frame *img);
@@ -86,8 +87,11 @@ void    moveRIGHT(t_frame *img);
 void    moveLEFT(t_frame *img);
 
 //  vmovements.c
+double  deg2rad(double degrees);
+double  rad2deg(double radians);
 void    moveVRIGHT(t_frame *img);
 void    moveVLEFT(t_frame *img);
+
 
 //  rotate.c
 double      rotateX(double angle, double x, double y, int r);

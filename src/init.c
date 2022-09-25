@@ -48,10 +48,10 @@ void	initTriangle(t_frame *img, int i, int j)
 	img->ray.ipos.h = img->triangle.ipos.h - GRID;
 	img->ray.ipos.l = img->triangle.ipos.l;
 
-	img->ray.color = 0x00FFFFFF;
+	img->ray.color = 0x00FFF0FF;
 
-	rotatePoint(M_PI / 6, &img->ray.b.x, &img->ray.b.y, img->triangle.milieu);
-	rrotatePoint(M_PI / 6, &img->ray.c.x, &img->ray.c.y, img->triangle.milieu);
+	rotatePoint(deg2rad(ANGLE), &img->ray.b.x, &img->ray.b.y, img->triangle.milieu);
+	rrotatePoint(deg2rad(ANGLE), &img->ray.c.x, &img->ray.c.y, img->triangle.milieu);
 }
 
 /* affiche les murs et init le triangle lorsque N est trouve
@@ -78,7 +78,7 @@ void	fillWalls(t_frame *img, char map[14][35])
 			{
 				initTriangle(img, i, j);
 				put_pixel(img, img->triangle.milieu.y, img->triangle.milieu.x, 0x00FF5689);
-				draw_triangle(img, img->triangle);
+				draw_triangle(img, img->triangle, img->triangle.color);
  			}
 			j++;
 		}
@@ -98,8 +98,8 @@ void	initImg(t_frame *img)
 void	init(t_data *data)
 {
 	initImg(&data->img);
-	//initImg(&data->img2);
-	//data->img2.mlx = data->img.mlx;
+	/* initImg(&data->img2);
+	data->img2.mlx = data->img.mlx; */
 
 	fillWalls(&data->img, map);
 	

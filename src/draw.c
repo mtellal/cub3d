@@ -29,7 +29,7 @@ void	push_frame(t_frame *img)
 	mlx_put_image_to_window(img->mlx, img->window, img->img, 0, 0);
 }
 
-void	draw_triangle(t_frame *img, t_triangle triangle)
+void	draw_triangle(t_frame *img, t_triangle triangle, int color)
 {
  	t_coor	point;
 	int	i = triangle.ipos.l;
@@ -43,7 +43,7 @@ void	draw_triangle(t_frame *img, t_triangle triangle)
 			point.x = i;
 			point.y = j;
 			if (dansLeTriangle(point, triangle))
-				put_pixel(img, j, i, triangle.color);
+				put_pixel(img, j, i, color);
 			j++;
 		}
 		i++;
@@ -53,31 +53,6 @@ void	draw_triangle(t_frame *img, t_triangle triangle)
 	put_pixel(img, triangle.b.y, triangle.b.x ,0x00FF00FF);
 	put_pixel(img, triangle.c.y, triangle.c.x ,0x00F0F000);
 	put_pixel(img, triangle.milieu.y, triangle.milieu.x, 0x00FFFFFF); */
-
-}
-
-/*	colorie le triangle en noir (revient a l'effacer)
-*/
-
-void	erase_triangle(t_frame *img, t_triangle triangle)
-{
- 	t_coor	point;
-	int	i = triangle.ipos.l;
-	int	j = triangle.ipos.h;
-
-	while (i < triangle.ipos.l + GRID)
-	{
-		j = 0;
-		while (j < triangle.ipos.h + GRID)
-		{
-			point.x = i;
-			point.y = j;
-			if (dansLeTriangle(point, triangle))
-				put_pixel(img, j, i, 0);
-			j++;
-		}
-		i++;
-	}
 
 }
 
