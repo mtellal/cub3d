@@ -104,8 +104,8 @@ void	initImg(t_frame *img)
 void	init(t_data *data)
 {
 	initImg(&data->img);
-	/* initImg(&data->img2);
-	data->img2.mlx = data->img.mlx; */
+	initImg(&data->img2);
+	data->img2.mlx = data->img.mlx;
 
 	fillWalls(&data->img, map);
 	
