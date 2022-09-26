@@ -182,7 +182,7 @@ void    move(t_data *data)
 
     if (!img->move)
     		return ;
-	erasecastRays(&data->img, &data->img2, img->triangle.milieu, 200);
+	erasecastRays(&data->img, &data->img2, img->triangle.milieu, 500);
    	draw_triangle(img, img->triangle, 0);
     if (img->move & U)
             moveUP(img);
@@ -202,7 +202,7 @@ void    move(t_data *data)
 	put_pixel(img, img->ray.c.y, img->ray.c.x, 0x00FFFFFF);
 	put_pixel(img, img->ray.a.y, img->ray.a.x, 0x00F0FFFF); */
 	//put_pixel(img, img->ray.ipos.x, img->ray.ipos.y - 50, 0x00FFFFFF);
-	castRays(&data->img, &data->img2, img->triangle.milieu, 200);
+	castRays(&data->img, &data->img2, img->triangle.milieu, 500);
 	draw_triangle(img, img->triangle, img->triangle.color);
     push_frame(img);
 	push_frame(&data->img2);
