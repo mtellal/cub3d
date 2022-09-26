@@ -94,14 +94,15 @@ void	draw_square(t_frame *img, int h, int l, t_coor_map pos, int color)
 	}
 }
 
-void	castRays(t_frame *img, t_frame *img2, t_coor origine, int nbrays)
+
+void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays)
 {
 	t_coor b2;
 
 	(void)img2;
 	draw_line(img, img->ray.b, origine, &b2, 0x00FFFFFF, NULL);
 
-	double angleinc = ANGLE * 2 / nbrays;
+	double angleinc = ((ANGLE * 2) / nbrays);
 	int i = 0;
 
 	i = 0;
@@ -124,8 +125,6 @@ void	castRays(t_frame *img, t_frame *img2, t_coor origine, int nbrays)
 	while (i < nbrays)
 	{
 		rrotatePoint(deg2rad(angleinc), &bx.x, &bx.y, img->triangle.milieu);
-		/* ft_putnbr_fd(angleinc * 50, 1);
-		ft_putstr_fd(" ", 1); */
 
 		draw_line(img, bx, origine, NULL, 0x00FFFFFF, &length);
 		draw_square(img2, HEIGHT * GRID - 2 * ipos.h, ((LENGTH * GRID)) / nbrays, ipos, 0x00FF0F60);
@@ -136,7 +135,7 @@ void	castRays(t_frame *img, t_frame *img2, t_coor origine, int nbrays)
 }
 
 
-void	erasecastRays(t_frame *img, t_frame *img2, t_coor origine, int nbrays)
+void	erasecastRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays)
 {
 	t_coor b2;
 
@@ -144,7 +143,7 @@ void	erasecastRays(t_frame *img, t_frame *img2, t_coor origine, int nbrays)
 	(void)nbrays;
 	draw_line(img, img->ray.b, origine, &b2, 0, NULL);
 
-	double angleinc = ANGLE * 2 / nbrays;
+	double angleinc = ((ANGLE * 2) / nbrays);
 	int i = 0;
 
 	i = 0;
@@ -183,7 +182,7 @@ void    move(t_data *data)
 
     if (!img->move)
     		return ;
-	erasecastRays(&data->img, &data->img2, img->triangle.milieu, 90);
+	erasecastRays(&data->img, &data->img2, img->triangle.milieu, 200);
    	draw_triangle(img, img->triangle, 0);
     if (img->move & U)
             moveUP(img);
@@ -203,7 +202,7 @@ void    move(t_data *data)
 	put_pixel(img, img->ray.c.y, img->ray.c.x, 0x00FFFFFF);
 	put_pixel(img, img->ray.a.y, img->ray.a.x, 0x00F0FFFF); */
 	//put_pixel(img, img->ray.ipos.x, img->ray.ipos.y - 50, 0x00FFFFFF);
-	castRays(&data->img, &data->img2, img->triangle.milieu, 90);
+	castRays(&data->img, &data->img2, img->triangle.milieu, 200);
 	draw_triangle(img, img->triangle, img->triangle.color);
     push_frame(img);
 	push_frame(&data->img2);
