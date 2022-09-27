@@ -87,7 +87,33 @@ void	draw_square(t_frame *img, int h, int l, t_coor_map pos, int color)
 		j = 0;
 		while (j < l)
 		{
-			put_pixel(img, i + pos.h, j + pos.l, color);
+				if (color != 0 && (i == 0 || i == h - 1))
+					put_pixel(img, i + pos.h, j + pos.l, 0x00FFFFFF);
+				else 
+					put_pixel(img, i + pos.h, j + pos.l, color);
+
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_square2(t_frame *img, int h, int l, t_coor_map pos, int color)
+{
+	int i = 0;
+	int j = 0;
+	(void)color;
+
+	while (i < h)
+	{
+		j = 0;
+		while (j < l)
+		{
+				/* if (color != 0 && (j == 0 && j == l - 1)) */
+					put_pixel(img, i + pos.h, j + pos.l, 0x00FFFFFF);
+				/* else 
+					put_pixel(img, i + pos.h, j + pos.l, color); */
+
 			j++;
 		}
 		i++;
@@ -127,9 +153,12 @@ void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays)
 		rrotatePoint(deg2rad(angleinc), &bx.x, &bx.y, img->triangle.milieu);
 
 		draw_line(img, bx, origine, NULL, 0x00FFFFFF, &length);
-		draw_square(img2, HEIGHT * GRID - 2 * ipos.h, ((LENGTH * GRID)) / nbrays, ipos, 0x00FF0F60);
+		if (abs_value(length - ipos.h) > ((2 * LENGTH * GRID)) / nbrays)
+			draw_square2(img2, 2 * HEIGHT * GRID - 2 * ipos.h, ((2 * LENGTH * GRID)) / nbrays, ipos, 0x00FF0F60);
+		else 
+			draw_square(img2, 2 * HEIGHT * GRID - 2 * ipos.h, ((2 * LENGTH * GRID)) / nbrays, ipos, 0x00FF0F60);
 		ipos.h = length;
-		ipos.l += ((LENGTH * GRID)) / nbrays;
+		ipos.l += ((2 * LENGTH * GRID)) / nbrays;
 		i++;
 	}
 }
@@ -157,7 +186,7 @@ void	erasecastRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays)
 	double v = sqrt(pow(origine.y - b2.y, 2) + pow(origine.x - b2.x, 2));
 
 	t_coor_map ipos;
-	ipos.h = v;
+	ipos.h = v; 
 	ipos.l = 0;
 
 	int length = 0;
@@ -167,13 +196,12 @@ void	erasecastRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays)
 		rrotatePoint(deg2rad(angleinc), &bx.x, &bx.y, img->triangle.milieu);
 
 		draw_line(img, bx, origine, NULL, 0, &length);
-		draw_square(img2, HEIGHT * GRID - 2 * ipos.h, ((LENGTH * GRID)) / nbrays, ipos, 0);
+		draw_square(img2, 2 * HEIGHT * GRID - 2 * ipos.h, ((LENGTH * GRID * 2)) / nbrays, ipos, 0);
 		ipos.h = length;
-		ipos.l += ((LENGTH * GRID)) / nbrays;
+		ipos.l += ((LENGTH * GRID * 2)) / nbrays;
 		i++;
 	}
 }
-
 
 
 void    move(t_data *data)

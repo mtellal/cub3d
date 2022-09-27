@@ -101,10 +101,19 @@ void	initImg(t_frame *img)
 	img->move = 0;
 }
 
+void	initImg3D(t_frame *img)
+{
+	img->mlx = mlx_init();
+	img->window = mlx_new_window(img->mlx, 2 * LENGTH * GRID, 2 * HEIGHT * GRID, "cub3d");
+	img->img = mlx_new_image(img->mlx, 2 * LENGTH * GRID, 2 * HEIGHT * GRID);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
+	img->move = 0;
+}
+
 void	init(t_data *data)
 {
 	initImg(&data->img);
-	initImg(&data->img2);
+	initImg3D(&data->img2);
 	data->img2.mlx = data->img.mlx;
 
 	fillWalls(&data->img, map);
