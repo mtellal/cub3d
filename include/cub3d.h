@@ -35,7 +35,7 @@
 #define VR 16
 #define VL 32
 
-#define ANGLE 45
+#define ANGLE 60
 
 #include <mlx.h>
 #include <stdio.h>
@@ -57,6 +57,15 @@ void	fillWalls(t_frame *img, char map[14][35]);
 void	initTriangle(t_frame *img, int i, int j);
 void	fillWalls(t_frame *img, char map[14][35]);
 void	init(t_data *img);
+
+//  rays.c
+double	abs_value(double value);
+void	draw_line(t_frame *img,  t_coor point, t_coor origine, t_coor *ray, int color, double *length);
+void	draw_square(t_frame *img, int h, int l, t_coor_map pos, int color);
+void	edgeSquare(t_frame *img, int h, int l, t_coor_map pos, int color);
+void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays);
+void	erasecastRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays);
+
 
 /////////////////           OPERATIONS      //////////////////
 

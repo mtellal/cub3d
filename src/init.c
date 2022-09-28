@@ -56,8 +56,8 @@ void	initTriangle(t_frame *img, int i, int j)
 
 	img->ray.color = 0x00FFF0FF;
 
-	rotatePoint(deg2rad(ANGLE), &img->ray.b.x, &img->ray.b.y, img->triangle.milieu);
-	rrotatePoint(deg2rad(ANGLE), &img->ray.c.x, &img->ray.c.y, img->triangle.milieu);
+	rotatePoint(deg2rad(ANGLE / 2), &img->ray.b.x, &img->ray.b.y, img->triangle.milieu);
+	rrotatePoint(deg2rad(ANGLE / 2), &img->ray.c.x, &img->ray.c.y, img->triangle.milieu);
 }
 
 /* affiche les murs et init le triangle lorsque N est trouve

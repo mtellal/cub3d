@@ -16,7 +16,7 @@ FLAGS = -Wall -Wextra -Werror
 
 NAME = cub3d
 
-SRC =	$(addprefix src/, main.c draw.c operations.c events.c init.c $(MOVEDIR))
+SRC =	$(addprefix src/, main.c draw.c operations.c events.c init.c rays.c $(MOVEDIR))
 
 MOVEDIR = $(addprefix move/, move.c movements.c utils.c vmovements.c rotate.c)
 

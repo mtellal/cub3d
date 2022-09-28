@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-double pixel = 0.6;
+double pixel = 0.1;
 
 void    addPixelX(t_triangle *t, double pixel)
 {
