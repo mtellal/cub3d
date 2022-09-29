@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 17:33:04 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/22 15:38:09 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:18:24 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ char	*chck_texture_id(char *id, char *line)
 	while (line[i])
 	{
 		if (line[i] == id[0] && line[i + 1] == id[1])
+		{
 			found = 1;
-		if (found && line[i] == '.')
+			i++;
+		}
+		else if (found && line[i] != ' ')
 			return (line + i);
 		i++;
 	}
@@ -41,7 +44,7 @@ char	*chck_fc_color(char c, char *line)
 	{
 		if (line[i] == c)
 			found = 1;
-		if (found && (line[i] > '0' && line[i] < '9'))
+		else if (found && line[i] != 32)
 			return (line + i);
 		i++;
 	}
@@ -60,8 +63,6 @@ int	parse_by_id(char **texture, char *line, char *id)
 	while (ptr[i] && (ptr[i] > 32 && ptr[i] < 127))
 		i++;
 	*texture = malloc(sizeof(char) * i + 1);
-	if (!*texture)
-		return (-1);
 	i = 0;
 	while (ptr[i] && (ptr[i] > 32 && ptr[i] < 127))
 	{
@@ -69,6 +70,12 @@ int	parse_by_id(char **texture, char *line, char *id)
 		i++;
 	}
 	texture[0][i] = '\0';
+	while (ptr[i])
+	{
+		if (ptr[i] != ' ')
+			return (0);
+		i++;
+	}
 	return (1);
 }
 
@@ -91,5 +98,11 @@ int	parse_color(char **texture, char *line, char c)
 		i++;
 	}
 	texture[0][i] = '\0';
+	while (ptr[i])
+	{
+		if (ptr[i] != ' ')
+			return (0);
+		i++;
+	}
 	return (1);
 }

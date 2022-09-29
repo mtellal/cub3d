@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:15:36 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/23 13:39:15 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:11:29 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	init_struct_and_parsing(t_data *data, char *str)
 	data->c_texture = NULL;
 	check_file_name(data, str);
 	read_cub(data, str);
+	chck_textures(data);
 	chck_map_elem(data);
 	chck_map_edges(data);
 	final_map(data);
@@ -86,6 +87,12 @@ int	main(int argc, char **argv)
 		return (-1);
 	}
 	init_struct_and_parsing(&data, argv[1]);
+	ft_putendl_fd(data.c_texture, 1);
+	ft_putendl_fd(data.f_texture, 1);
+	ft_putendl_fd(data.n_texture, 1);
+	ft_putendl_fd(data.s_texture, 1);
+	ft_putendl_fd(data.e_texture, 1);
+	ft_putendl_fd(data.w_texture, 1);
 	print_map(data.map); // pour check la map
 	free_texture(&data);
 	free_map(&data);

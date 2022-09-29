@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 13:10:58 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/23 14:15:45 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/09/29 16:35:55 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,5 @@ void	chck_map_edges(t_data *data)
 	data->map = new_map;
 	if (cpt_zeros != nb_of_zeros(data->map))
 		exit_message(data, "Map is not closed");
-	stock_player_and_replace(data->map); // doesnt work yet
+	stock_player_and_replace(data->map);
 }
