@@ -47,6 +47,6 @@ void    move(t_data *data)
 	castRays(&data->img, &data->img2, img->triangle.milieu, LENGTH * GRID);
 	draw_triangle(img, img->triangle, img->triangle.color);
         push_frame(img);
-        push_frame(&data->img2);
+       /*  push_frame(&data->img2); */
 } 
 
