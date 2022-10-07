@@ -16,9 +16,11 @@ FLAGS = -Wall -Wextra -Werror
 
 NAME = cub3d
 
-SRC =	$(addprefix src/, main.c draw.c operations.c events.c init.c rays.c $(MOVEDIR))
+SRC =	$(addprefix src/, main.c draw.c operations.c events.c init.c $(RAYDIR) $(MOVEDIR))
 
 MOVEDIR = $(addprefix move/, move.c movements.c utils.c vmovements.c rotate.c)
+
+RAYDIR = $(addprefix rays/, rays.c utils.c)
 
 OBJ = $(SRC:.c=.o)
 

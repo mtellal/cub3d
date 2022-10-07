@@ -14,7 +14,7 @@
 #define CUB3D_H
 
 #define HEIGHT 14
-#define LENGTH 35
+#define LENGTH 33
 #define GRID 25
 
 /* #define UP 65362
@@ -51,26 +51,28 @@
 extern char	map[HEIGHT][LENGTH];
 
 // main.c
-void	fillWalls(t_frame *img, char map[14][35]);
 
 // init.c
 void	initTriangle(t_frame *img, int i, int j);
-void	fillWalls(t_frame *img, char map[14][35]);
+void	fillWalls(t_frame *img, char map[14][33]);
 void	init(t_data *img);
 
 //  rays.c
-double	abs_value(double value);
-void	draw_line(t_frame *img,  t_coor point, t_coor origine, t_coor *ray, int color, double *length);
 void	draw_square(t_frame *img, int h, int l, t_coor_map pos, int color);
 void	edgeSquare(t_frame *img, int h, int l, t_coor_map pos, int color);
 void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays);
 void	erasecastRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays);
 
 
+
+
 /////////////////           OPERATIONS      //////////////////
 
 float barycentre (t_coor p1, t_coor p2, t_coor p3);
 int dansLeTriangle (t_coor pt, t_triangle t);
+
+
+
 
 /////////////////           DRAW            ///////////////////
 
@@ -81,7 +83,21 @@ void	draw_wall(t_frame *, t_wall, int, int);
 void	new_frame(t_frame *img);
 void	push_frame(t_frame *img);
 
-void	fillWalls(t_frame *img, char map[14][35]);
+
+
+
+////////////////            RAYS            /////////////////
+
+//  utils.c
+void	draw_line(t_frame *img,  t_coor point, t_coor origine, t_coor *ray_coor, int color, double *lengthline);
+t_coor	coorLine(t_coor point, t_coor origine);
+double	getAnlge(t_coor point, t_coor origine);
+void	displayCoor(t_coor point);
+double	abs_value(double value);
+double	getLengthRay(t_coor point, t_coor origine);
+
+
+
 
 
 ////////////////            MOVE            /////////////////
@@ -111,6 +127,9 @@ void        rrotatePoint(double angle, double *x, double *y, t_coor origine);
 
 // utils.c
 int     checkWall(char map[HEIGHT][LENGTH], int x, int y);
+
+
+
 
 
 ///////////////         EVENTS             ////////////////

@@ -64,7 +64,7 @@ void	initTriangle(t_frame *img, int i, int j)
  * note: les murs sont affiches qu'une seul fois, les events modifient uniquement le triangle 
 */
 
-void	fillWalls(t_frame *img, char map[14][35])
+void	fillWalls(t_frame *img, char map[14][33])
 {
 	int i = 0;
 	int j = 0;
@@ -76,7 +76,7 @@ void	fillWalls(t_frame *img, char map[14][35])
 	while (i < 14)
 	{
 		j = 0;
-		while (j < 35)
+		while (j < 33)
 		{
 			if (map[i][j] == '1')
 				draw_wall(img, w, i * w.size, j * w.size);
