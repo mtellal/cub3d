@@ -106,13 +106,7 @@ double	abs_value(double value)
 }
 
 
-double	getLengthRay(t_coor point, t_coor origine)
+double	getLengthRay(t_coor point, t_coor origine, double angle)
 {
-	/* double lx;
-	double ly;
-
-	lx = abs_value(origine.x - point.x);
-	ly = abs_value(origine.y - point.y);
-	return (sqrt(pow(lx, 2) + pow(ly, 2))); */
-	return (sqrt((pow(origine.x - point.x, 2) + pow(origine.y - point.y, 2))));
+	return (abs_value(origine.x - point.x) / cos(angle));
 }

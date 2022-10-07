@@ -94,7 +94,7 @@ t_coor	coorLine(t_coor point, t_coor origine);
 double	getAnlge(t_coor point, t_coor origine);
 void	displayCoor(t_coor point);
 double	abs_value(double value);
-double	getLengthRay(t_coor point, t_coor origine);
+double	getLengthRay(t_coor point, t_coor origine, double angle);
 
 
 

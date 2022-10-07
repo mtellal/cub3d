@@ -47,30 +47,6 @@ t_coor	firstIntersectionHorizontal(t_coor point, t_coor origine, double angle)
 	return (npoint);
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
-
-double	distance_xa(t_frame *img,  t_coor point, t_coor origine, t_coor *npoint)
-{
-	double angle;
-	(void)img;
-	(void)npoint;
-
-	angle = getAnlge(point, origine);
-	*npoint = firstIntersectionHorizontal(point, origine, angle); 
-	double d = (double)GRID / tan(angle);
-	return (d);
-}
-
-double	distance_ya(t_frame *img,  t_coor point, t_coor origine, t_coor *npoint)
-{
-	double angle;
-	(void)img;
-
-	angle = getAnlge(point, origine);
-	*npoint = firstIntersectionVertical(point, origine, angle);
-	return ((double)GRID * tan(angle));
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 int		checkWallHorizontal(t_coor point)
@@ -81,6 +57,10 @@ int		checkWallHorizontal(t_coor point)
 	if (y >= 0 && y < HEIGHT * GRID)
 	{
 		if (map[(int)(y / GRID)][(int)(x / GRID)] == '1')
+			return (1);
+		if (y - 1 >= 0 && map[(int)((y - 1) / GRID)][(int)(x / GRID)] == '1')
+			return (1);
+		if (y + 1 < HEIGHT * GRID && map[(int)((y + 1) / GRID)][(int)(x / GRID)] == '1')
 			return (1);
 	}
 	return (0);
@@ -94,6 +74,10 @@ int		checkWallVertical(t_coor point)
 	if (x >= 0 && x < LENGTH * GRID)
 	{
 		if (map[(int)(y / GRID)][(int)(x / GRID)] == '1')
+			return (1);
+		if (x - 1 >= 0 && map[(int)(y / GRID)][(int)((x - 1) / GRID)] == '1')
+			return (1);
+		if (x + 1 < LENGTH * GRID && map[(int)(y / GRID)][(int)((x + 1) / GRID)] == '1')
 			return (1);
 	}
 	return (0);
@@ -109,26 +93,25 @@ t_coor 	ray(t_frame *img, t_coor point, t_coor origine, int color)
 {
 	t_coor pointXA;
 	t_coor pointYA;
+	double angle;
 
-	double ya = distance_ya(img, point, origine, &pointYA);
 
-	double xa = distance_xa(img, point, origine, &pointXA);
+	angle = getAnlge(point, origine);
+
+	double xa = (double)GRID / tan(angle);
+	double ya = (double)GRID * tan(angle);
+
+	pointXA = firstIntersectionHorizontal(point, origine, angle);
+	pointYA = firstIntersectionVertical(point, origine, angle);
 
 	double py = origine.y - point.y;
 	double px = origine.x - point.x;
 
-	//put_pixel(img, pointXA.y, pointXA.x, color);
-	//put_pixel(img, pointYA.y, pointYA.x, color);
-
-
-	// find last point in horizontal point (y) with xa diff 
 
 	while (pointXA.x >= 0 && pointXA.x < LENGTH * GRID &&
-			pointXA.y >= 0 && pointXA.y < HEIGHT * GRID && !checkWallHorizontal(pointXA))
+			pointXA.y >= 0 && pointXA.y < HEIGHT * GRID && 
+			!checkWallHorizontal(pointXA))
 	{
-		//put_pixel(img, pointXA.y, pointXA.x, color); 
-			/* ft_putstr_fd("XA ", 1);
-			displayCoor(pointXA); */
 		if (py > 0)
 		{
 			pointXA.x += -xa;
@@ -140,7 +123,6 @@ t_coor 	ray(t_frame *img, t_coor point, t_coor origine, int color)
 			pointXA.y += GRID;
 		} 
 	}
-	//ft_putstr_fd("\n\n", 1);
 
 	if (pointXA.x < 0)
 		pointXA.x = 0;
@@ -154,14 +136,11 @@ t_coor 	ray(t_frame *img, t_coor point, t_coor origine, int color)
 	if (pointXA.y >= HEIGHT * GRID)
 		pointXA.y = HEIGHT * GRID - 1;
 
-	//displayCoor(pointYA);
 
 	while (pointYA.x >= 0 && pointYA.x < LENGTH * GRID &&
-			pointYA.y >= 0 && pointYA.y < HEIGHT * GRID && !checkWallVertical(pointYA))
+			pointYA.y >= 0 && pointYA.y < HEIGHT * GRID && 
+			!checkWallVertical(pointYA))
 	{
-		//put_pixel(img, pointYA.y, pointYA.x, color); 
-		/* ft_putstr_fd("YA ", 1);
-		displayCoor(pointYA); */
 		if (px > 0)
 		{
 			pointYA.y +=  -ya;
@@ -174,7 +153,6 @@ t_coor 	ray(t_frame *img, t_coor point, t_coor origine, int color)
 		}
 	}
  
- 	//displayCoor(pointYA);
 	
 	if (pointYA.x < 0)
 		pointYA.x = 0;
@@ -191,8 +169,8 @@ t_coor 	ray(t_frame *img, t_coor point, t_coor origine, int color)
 	(void)color;
 
 
-	double lxa = getLengthRay(pointXA, origine);
-	double lya = getLengthRay(pointYA, origine);
+	double lxa = getLengthRay(pointXA, origine, angle);
+	double lya = getLengthRay(pointYA, origine, angle);
 	(void)color;
 
 	if (lxa < lya)
