@@ -60,8 +60,7 @@ void	init(t_data *img);
 //  rays.c
 void	draw_square(t_frame *img, int h, int l, t_coor_map pos, int color);
 void	edgeSquare(t_frame *img, int h, int l, t_coor_map pos, int color);
-void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays);
-void	erasecastRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays);
+void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays, int color);
 
 
 

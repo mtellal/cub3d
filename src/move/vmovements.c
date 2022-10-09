@@ -48,9 +48,11 @@ void    rrotateTriangle(t_triangle *t, double angle)
     rrotatePoint(angle, &t->c.x, &t->c.y, t->milieu);
 }
 
+double a = 0.05;
+
 void    moveVLEFT(t_frame *img)
 {    
-    double  angle = deg2rad(0.05);
+    double  angle = deg2rad(a);
 
     rotateTriangle(&img->triangle, angle);
     rotatePoint(angle, &img->ray.b.x, &img->ray.b.y, img->triangle.milieu);
@@ -60,7 +62,7 @@ void    moveVLEFT(t_frame *img)
 
 void    moveVRIGHT(t_frame *img)
 {
-    double		angle = deg2rad(0.05);
+    double		angle = deg2rad(a);
 
     rrotateTriangle(&img->triangle, angle);
     rrotatePoint(angle, &img->ray.b.x, &img->ray.b.y, img->triangle.milieu);

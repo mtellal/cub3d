@@ -78,6 +78,8 @@ t_coor	coorLine(t_coor point, t_coor origine)
 	return (inc);
 }
 
+// sens normal donc de 0 a 360 deg avec rotate()
+
 double	getAnlge(t_coor point, t_coor origine)
 {
 	t_coor ppoint;
@@ -85,7 +87,17 @@ double	getAnlge(t_coor point, t_coor origine)
 	ppoint.x = point.x - origine.x;
 	ppoint.y = point.y - origine.y;
 
-	return (atan(ppoint.y / ppoint.x));
+	double angle = atan(ppoint.y / ppoint.x);
+	if (point.y <= origine.y && point.x >= origine.x)
+		angle *= -1;
+	if (point.y <= origine.y && point.x <= origine.x)
+		angle = deg2rad(180) - angle;
+	if (point.y >= origine.y && point.x <= origine.x)
+		angle = deg2rad(180) - angle;
+	if (point.y >= origine.y && point.x >= origine.x)
+		angle = deg2rad(360) - angle;
+
+    return angle;
 }
 
 void	displayCoor(t_coor point)
@@ -108,5 +120,5 @@ double	abs_value(double value)
 
 double	getLengthRay(t_coor point, t_coor origine, double angle)
 {
-	return (abs_value(origine.x - point.x) / cos(angle));
+	return abs_value(abs_value(origine.x - point.x) / cos(angle));
 }

@@ -24,64 +24,119 @@ t_coor	firstIntersectionVertical(t_coor point, t_coor origine, double angle)
 {
 	t_coor npoint;
 
-	if (origine.x - point.x >= 0)
-		npoint.x = (int)(origine.x / GRID) * GRID - 1;
+	//right
+	if (point.x > origine.x)
+		npoint.x = floor(origine.x / GRID) * GRID + GRID;
 	else
-		npoint.x = (int)(origine.x / GRID) * GRID + GRID;
+		npoint.x = floor(origine.x / GRID) * GRID;
 
-	npoint.y = origine.y - (origine.x - npoint.x) * tan(angle);
+	npoint.y = origine.y - (npoint.x - origine.x) * tan(angle);
 	return (npoint);
 }
 
 t_coor	firstIntersectionHorizontal(t_coor point, t_coor origine, double angle)
 {
+
 	t_coor npoint;
 	(void)angle;
 
-	if (origine.y - point.y >= 0)
-		npoint.y = (int)(origine.y / GRID) * GRID - 1;
-	else
-		npoint.y = (int)(origine.y / GRID) * GRID + GRID;
+	//displayCoor(ppoint);
 
-	npoint.x = origine.x + (npoint.y - origine.y) / tan(angle);
+	//face up 
+	if (point.y < origine.y)
+	{
+		npoint.y = floor(origine.y / GRID) * GRID;
+		//ft_putstr_fd("face up\n", 1);
+	}
+	else
+	{
+		npoint.y = floor(origine.y / GRID) * GRID + GRID;
+		//ft_putstr_fd("face down\n", 1);
+	}
+	npoint.x = origine.x + ((origine.y - npoint.y) / tan(angle));
 	return (npoint);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
 
-int		checkWallHorizontal(t_coor point)
+
+
+t_coor	horizontalCast(t_coor point, t_coor origine, double angle)
 {
-	int y = point.y;
-	int x = point.x;
+	(void)angle;
+	
+	t_coor pointXA = firstIntersectionHorizontal(point, origine, angle);
 
-	if (y >= 0 && y < HEIGHT * GRID)
+	
+	double xstep = (double)GRID / tan(angle);
+	double ystep = GRID;
+
+	//right
+	if (origine.x > point.x && xstep > 0)
+		xstep *= -1;
+	else if (origine.x < point.x && xstep < 0)
+		xstep *= -1;
+
+
+	if (origine.y > point.y)
+		ystep *= -1;
+
+	while (pointXA.x >= 0 && pointXA.x < LENGTH * GRID &&
+			pointXA.y >= 0 && pointXA.y < HEIGHT * GRID)
 	{
-		if (map[(int)(y / GRID)][(int)(x / GRID)] == '1')
-			return (1);
-		if (y - 1 >= 0 && map[(int)((y - 1) / GRID)][(int)(x / GRID)] == '1')
-			return (1);
-		if (y + 1 < HEIGHT * GRID && map[(int)((y + 1) / GRID)][(int)(x / GRID)] == '1')
-			return (1);
+		if (map[(int)(pointXA.y / GRID)][(int)(pointXA.x / GRID)] == '1' ||
+			(ystep < 0 && map[(int)((pointXA.y - 1) / GRID)][(int)(pointXA.x / GRID)] == '1'))
+		{
+			break ;
+		}
+			pointXA.y += ystep;
+			pointXA.x += xstep;
 	}
+
+	return (pointXA);
+}
+
+
+
+
+t_coor	verticalCast(t_coor point, t_coor origine, double angle)
+{
+	t_coor pointYA = firstIntersectionVertical(point, origine, angle);
+
+	double ystep = (double)GRID * tan(angle);
+	double xstep = GRID;
+
+	if (point.x < origine.x)
+		xstep *= -1;
+
+	if (point.y < origine.y && ystep > 0)
+		ystep *= -1;
+	if (point.y > origine.y && ystep < 0)
+		ystep *= -1;
+
+	/* if (point.x < origine.x)
+		pointYA.x--; */
+
+	while (pointYA.x >= 0 && pointYA.x < LENGTH * GRID &&
+			pointYA.y >= 0 && pointYA.y < HEIGHT * GRID)
+	{
+		if (map[(int)(pointYA.y / GRID)][(int)(pointYA.x / GRID)] == '1' || 
+			(xstep < 0 && map[(int)(pointYA.y / GRID)][(int)((pointYA.x - 1) / GRID)] == '1'))
+			break ;
+		pointYA.y += ystep;
+		pointYA.x += xstep;
+	}
+
+	return (pointYA);
+}
+
+int		inMap(t_coor point)
+{
+	if (point.x >= 0 && point.x < LENGTH * GRID &&
+		point.y >= 0 && point.y < HEIGHT * GRID)
+		return (1);
 	return (0);
 }
 
-int		checkWallVertical(t_coor point)
-{
-	int y = point.y;
-	int x = point.x;
-
-	if (x >= 0 && x < LENGTH * GRID)
-	{
-		if (map[(int)(y / GRID)][(int)(x / GRID)] == '1')
-			return (1);
-		if (x - 1 >= 0 && map[(int)(y / GRID)][(int)((x - 1) / GRID)] == '1')
-			return (1);
-		if (x + 1 < LENGTH * GRID && map[(int)(y / GRID)][(int)((x + 1) / GRID)] == '1')
-			return (1);
-	}
-	return (0);
-}
 
 /*	selon un point (ex ray.b (qui est une rotation de img.a)) et une origine (ex milieu trinagle)
  *	prolonge la droite point origine, jusqu'a atteindre un mur
@@ -89,101 +144,38 @@ int		checkWallVertical(t_coor point)
  *	renvoie les coor juste avant le mur
 */
 
-t_coor 	ray(t_frame *img, t_coor point, t_coor origine, int color)
+double 	ray(t_frame *img, t_coor point, t_coor origine, int color, double angle)
 {
-	t_coor pointXA;
-	t_coor pointYA;
-	double angle;
+	(void)img;
 
-
-	angle = getAnlge(point, origine);
-
-	double xa = (double)GRID / tan(angle);
-	double ya = (double)GRID * tan(angle);
-
-	pointXA = firstIntersectionHorizontal(point, origine, angle);
-	pointYA = firstIntersectionVertical(point, origine, angle);
-
-	double py = origine.y - point.y;
-	double px = origine.x - point.x;
-
-
-	while (pointXA.x >= 0 && pointXA.x < LENGTH * GRID &&
-			pointXA.y >= 0 && pointXA.y < HEIGHT * GRID && 
-			!checkWallHorizontal(pointXA))
-	{
-		if (py > 0)
-		{
-			pointXA.x += -xa;
-			pointXA.y += -GRID;
-		}
-		else
-		{
-			pointXA.x += xa;
-			pointXA.y += GRID;
-		} 
-	}
-
-	if (pointXA.x < 0)
-		pointXA.x = 0;
-
-	if (pointXA.x >= LENGTH * GRID)
-		pointXA.x = LENGTH * GRID - 1;
-
-	if (pointXA.y < 0)
-		pointXA.y = 0;
-
-	if (pointXA.y >= HEIGHT * GRID)
-		pointXA.y = HEIGHT * GRID - 1;
-
-
-	while (pointYA.x >= 0 && pointYA.x < LENGTH * GRID &&
-			pointYA.y >= 0 && pointYA.y < HEIGHT * GRID && 
-			!checkWallVertical(pointYA))
-	{
-		if (px > 0)
-		{
-			pointYA.y +=  -ya;
-			pointYA.x += -GRID;
-		}
-		else
-		{
-			pointYA.y += ya;
-			pointYA.x += GRID;
-		}
-	}
- 
-	
-	if (pointYA.x < 0)
-		pointYA.x = 0;
-
-	if (pointYA.x >= LENGTH * GRID)
-		pointYA.x = LENGTH * GRID - 1;
-
-	if (pointYA.y < 0)
-		pointYA.y = 0;
-
-	if (pointYA.y >= HEIGHT * GRID)
-		pointYA.y = HEIGHT * GRID - 1;
+	t_coor pointXA = horizontalCast(point, origine, angle);
+	t_coor pointYA = verticalCast(point, origine, angle);
 			
 	(void)color;
 
 
 	double lxa = getLengthRay(pointXA, origine, angle);
 	double lya = getLengthRay(pointYA, origine, angle);
+
+
 	(void)color;
 
-	if (lxa < lya)
+
+	if (round(lxa) < round(lya))
+	{
 		put_pixel(img, pointXA.y, pointXA.x, color);
-	else if (lxa > lya)
+		return (lxa);
+	}
+	else 
+	{
 		put_pixel(img, pointYA.y, pointYA.x, color);
-
-	return (point);
+		return (lya);
+	}
+	return (-1);
 }
 
 
-
-void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays)
+void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays, int color)
 {
     t_coor      bn;
 
@@ -192,47 +184,29 @@ void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays)
 	double current_angle = 60;
 
 	double nbpixel = LENGTH * GRID;
-    double      angleinc = (current_angle / nbpixel); 
+    double      angleinc = deg2rad(current_angle / nbpixel); 
+
+	double angle = getAnlge(img->ray.c, origine);
 
     int         i = 0;
 	(void)nbrays;
 	(void)origine;
 
-	bn.x = img->ray.b.x;
-	bn.y = img->ray.b.y;
+	bn.x = img->ray.c.x;
+	bn.y = img->ray.c.y;
 
-	while (i < nbrays)
+
+	while (i < 100)
 	{
-		rrotatePoint(deg2rad(angleinc), &bn.x, &bn.y, img->triangle.milieu);
-		ray(img, bn, origine, 0x00FFFFFF);
+		double length = ray(img, bn, origine, color, angle);
+		rotatePoint(angleinc, &bn.x, &bn.y, img->triangle.milieu);
+		angle += angleinc;
+		//put_pixel(img, bn.y, bn.x, color);
+		(void)length;
+
 		i++;
 	}
 }
 
 
-void	erasecastRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays)
-{
-    t_coor      bn;
-
-	(void) img2;
-
-	double current_angle = 60;
-
-	double nbpixel = LENGTH * GRID;
-    double      angleinc = (current_angle / nbpixel); 
-
-    int         i = 0;
-	(void)nbrays;
-	(void)origine;
-
-	bn.x = img->ray.b.x;
-	bn.y = img->ray.b.y;
-
-	while (i < nbrays)
-	{
-		rrotatePoint(deg2rad(angleinc), &bn.x, &bn.y, img->triangle.milieu);
-		ray(img, bn, origine, 0);
-		i++;
-	}
-}
 
