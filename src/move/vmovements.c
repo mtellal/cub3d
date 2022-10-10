@@ -48,7 +48,7 @@ void    rrotateTriangle(t_triangle *t, double angle)
     rrotatePoint(angle, &t->c.x, &t->c.y, t->milieu);
 }
 
-double a = 0.05;
+double a = 0.3;
 
 void    moveVLEFT(t_frame *img)
 {    

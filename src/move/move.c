@@ -22,10 +22,10 @@ void    move(t_data *data)
 {
 	t_frame *img = &data->img;
 
-    if (!img->move)
-    		return ;
-	castRays(&data->img, &data->img2, img->triangle.milieu, LENGTH * GRID, 0);
-   	draw_triangle(img, img->triangle, 0);
+        if (!img->move)
+    	        return ;
+        castRays(&data->img, &data->img2, img->triangle.milieu, LENGTH * GRID, 0, 0);
+        draw_triangle(img, img->triangle, 0);
     if (img->move & U)
             moveUP(img);
     if (img->move & D)
@@ -44,9 +44,9 @@ void    move(t_data *data)
 	put_pixel(img, img->ray.c.y, img->ray.c.x, 0x00FFFFFF);
 	put_pixel(img, img->ray.a.y, img->ray.a.x, 0x00F0FFFF); */
 	//put_pixel(img, img->ray.ipos.x, img->ray.ipos.y - 50, 0x00FFFFFF);
-	castRays(&data->img, &data->img2, img->triangle.milieu, LENGTH * GRID, 0x00FFFFFF);
+	castRays(&data->img, &data->img2, img->triangle.milieu, LENGTH * GRID, 0x00FFFFFF, 0x00AF0000);
 	draw_triangle(img, img->triangle, img->triangle.color);
         push_frame(img);
-       /*  push_frame(&data->img2); */
+        push_frame(&data->img2);
 } 
 

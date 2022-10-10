@@ -24,7 +24,7 @@ t_coor	firstIntersectionVertical(t_coor point, t_coor origine, double angle)
 {
 	t_coor npoint;
 
-	//right
+	// facing right / left
 	if (point.x > origine.x)
 		npoint.x = floor(origine.x / GRID) * GRID + GRID;
 	else
@@ -40,43 +40,33 @@ t_coor	firstIntersectionHorizontal(t_coor point, t_coor origine, double angle)
 	t_coor npoint;
 	(void)angle;
 
-	//displayCoor(ppoint);
-
-	//face up 
+	//face up / down
 	if (point.y < origine.y)
-	{
 		npoint.y = floor(origine.y / GRID) * GRID;
-		//ft_putstr_fd("face up\n", 1);
-	}
 	else
-	{
 		npoint.y = floor(origine.y / GRID) * GRID + GRID;
-		//ft_putstr_fd("face down\n", 1);
-	}
 	npoint.x = origine.x + ((origine.y - npoint.y) / tan(angle));
 	return (npoint);
 }
 
-
+/////////////////////////////////////////////////////////////////////////////////////////
 
 
 t_coor	horizontalCast(t_coor point, t_coor origine, double angle)
 {
-	(void)angle;
-	
 	t_coor pointXA = firstIntersectionHorizontal(point, origine, angle);
 
-	
 	double xstep = (double)GRID / tan(angle);
 	double ystep = GRID;
 
-	//right
+	// facing right
 	if (origine.x > point.x && xstep > 0)
 		xstep *= -1;
+	// facing left
 	else if (origine.x < point.x && xstep < 0)
 		xstep *= -1;
 
-
+	// facing down
 	if (origine.y > point.y)
 		ystep *= -1;
 
@@ -95,9 +85,6 @@ t_coor	horizontalCast(t_coor point, t_coor origine, double angle)
 	return (pointXA);
 }
 
-
-
-
 t_coor	verticalCast(t_coor point, t_coor origine, double angle)
 {
 	t_coor pointYA = firstIntersectionVertical(point, origine, angle);
@@ -105,16 +92,16 @@ t_coor	verticalCast(t_coor point, t_coor origine, double angle)
 	double ystep = (double)GRID * tan(angle);
 	double xstep = GRID;
 
+	//facing left
 	if (point.x < origine.x)
 		xstep *= -1;
 
+	// facing up
 	if (point.y < origine.y && ystep > 0)
 		ystep *= -1;
+	// facing down
 	if (point.y > origine.y && ystep < 0)
 		ystep *= -1;
-
-	/* if (point.x < origine.x)
-		pointYA.x--; */
 
 	while (pointYA.x >= 0 && pointYA.x < LENGTH * GRID &&
 			pointYA.y >= 0 && pointYA.y < HEIGHT * GRID)
@@ -129,15 +116,6 @@ t_coor	verticalCast(t_coor point, t_coor origine, double angle)
 	return (pointYA);
 }
 
-int		inMap(t_coor point)
-{
-	if (point.x >= 0 && point.x < LENGTH * GRID &&
-		point.y >= 0 && point.y < HEIGHT * GRID)
-		return (1);
-	return (0);
-}
-
-
 /*	selon un point (ex ray.b (qui est une rotation de img.a)) et une origine (ex milieu trinagle)
  *	prolonge la droite point origine, jusqu'a atteindre un mur
  *	verifie la detection de mur avec xa et ya (detection horizontal et vertical)
@@ -147,19 +125,13 @@ int		inMap(t_coor point)
 double 	ray(t_frame *img, t_coor point, t_coor origine, int color, double angle)
 {
 	(void)img;
+	(void)color;
 
 	t_coor pointXA = horizontalCast(point, origine, angle);
 	t_coor pointYA = verticalCast(point, origine, angle);
-			
-	(void)color;
-
 
 	double lxa = getLengthRay(pointXA, origine, angle);
 	double lya = getLengthRay(pointYA, origine, angle);
-
-
-	(void)color;
-
 
 	if (round(lxa) < round(lya))
 	{
@@ -174,35 +146,92 @@ double 	ray(t_frame *img, t_coor point, t_coor origine, int color, double angle)
 	return (-1);
 }
 
+//	display une bande de pixel correspondant a un rayon
+//	bande qui comment ce la posx et fait h de haut et l de large
 
-void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays, int color)
+void	displayRay(t_frame *img, int posx, int posy, int h, int l, int color)
 {
-    t_coor      bn;
+	int	i = 0;
+	int j = 0;
+
+	while (i < h)
+	{
+		j = 0;
+		while (j < l)
+		{
+			put_pixel(img, posx + i, posy + j, color);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	displayRays(t_frame *img, double length, double nbrays, int color, int i)
+{
+	// hauteur longeur d'img2
+	const double himg = HEIGHT * GRID;
+	const double limg = LENGTH * GRID;
+
+	// distance entre la camera et l'ecran de projection (check doc)
+	double distce = (himg / 2) / tan(deg2rad(30));
+
+	// largeur des bandes a display dans img2
+	int l = limg / nbrays;
+
+	// affichage droite a gauche 
+	int posy = limg - 1;
+
+	// hauteur d'un mur selon la projection de l'ecran check (doc)
+	int h = ((double)GRID / length) * distce;
+
+	//position x (nb ligne) dans img2
+	int posx = (himg / 2) - (h / 2);
+
+	// possible que le mur soit hors ecran (ex: lorsqu'on est colle au mur) checker si d'autres cas ou segfault
+	if (posx < 0)
+		posx = 0;
+	if (h > himg)
+		h = himg - 1;
+
+	//display les brande des pixel h x l, a la pos x/y
+	displayRay(img, posx, posy - l * i, h, l, color);
+
+}
+
+void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays, int color, int color2)
+{
+    t_coor      rayn;
+	int			i;
 
 	(void) img2;
+	(void)nbrays;
+	(void)origine;
+	(void)color2;
+
+	i = 0;
 
 	double current_angle = 60;
 
-	double nbpixel = LENGTH * GRID;
-    double      angleinc = deg2rad(current_angle / nbpixel); 
+    double      angleinc = deg2rad(current_angle / (double)(LENGTH * GRID)); 
 
+	// angle place a haut droit du triangle (60deg depuis (x,y)(1,0)) comment dans un repere classique
 	double angle = getAnlge(img->ray.c, origine);
 
-    int         i = 0;
-	(void)nbrays;
-	(void)origine;
+	// pos de depart des rays 
+	rayn.x = img->ray.c.x;
+	rayn.y = img->ray.c.y;
 
-	bn.x = img->ray.c.x;
-	bn.y = img->ray.c.y;
-
-
-	while (i < 100)
+	while (i < nbrays)
 	{
-		double length = ray(img, bn, origine, color, angle);
-		rotatePoint(angleinc, &bn.x, &bn.y, img->triangle.milieu);
+
+		double length = ray(img, rayn, origine, color, angle);
+
+		rotatePoint(angleinc, &rayn.x, &rayn.y, img->triangle.milieu);
 		angle += angleinc;
-		//put_pixel(img, bn.y, bn.x, color);
-		(void)length;
+
+		displayRays(img2, length, nbrays, color2, i);
+
+		//corriger le fish eye
 
 		i++;
 	}
