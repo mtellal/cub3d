@@ -229,9 +229,16 @@ void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays, int co
 		rotatePoint(angleinc, &rayn.x, &rayn.y, img->triangle.milieu);
 		angle += angleinc;
 
-		displayRays(img2, length, nbrays, color2, i);
+		//fishe eye
+		double res = getAnlge(img->triangle.a, origine) - getAnlge(rayn, origine);
 
-		//corriger le fish eye
+		if (res < 0)
+			res += deg2rad(360);
+			
+		length *= cos(res);
+		//
+
+		displayRays(img2, length, nbrays, color2, i);
 
 		i++;
 	}
