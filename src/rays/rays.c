@@ -234,7 +234,7 @@ void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays, int co
 
 		if (res < 0)
 			res += deg2rad(360);
-			
+
 		length *= cos(res);
 		//
 

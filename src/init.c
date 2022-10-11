@@ -19,28 +19,44 @@
 
 void	initTriangle(t_frame *img, int i, int j)
 {
+	/* double x = j * GRID;
+	double y = i * GRID; */
+
 	img->triangle.ipos.h = i * GRID;
 	img->triangle.ipos.l = j * GRID;
 
+///////////////////////////////////////////////////////////////////
+
+	img->triangle.no.x = j * GRID + GRID * 0.2;
+	img->triangle.no.y = i * GRID + GRID * 0.2;
+
+	img->triangle.ne.x = j * GRID + GRID * 0.8;
+	img->triangle.ne.y = i * GRID + GRID * 0.2;
+
+	img->triangle.so.x = j * GRID + GRID * 0.2;
+	img->triangle.so.y = i * GRID + GRID * 0.8;
+
+	img->triangle.se.x = j * GRID + GRID * 0.8;
+	img->triangle.se.y = i * GRID + GRID * 0.8;
+
+////////////////////////////////////////////////////////////////////
+
 	img->triangle.a.x = j * GRID + GRID / 2;
-	img->triangle.a.y = i * GRID + GRID / 4;
+	img->triangle.a.y = i * GRID + GRID / 3;
 
-	img->triangle.b.x = j * GRID + GRID / 4;
-	img->triangle.b.y = i * GRID + GRID * 0.75;
+	img->triangle.b.x = j * GRID + GRID / 3;
+	img->triangle.b.y = i * GRID + GRID * 2 / 3;
 
-	img->triangle.c.x = j * GRID + GRID * 0.75;
-	img->triangle.c.y = i * GRID + GRID * 0.75;
+	img->triangle.c.x = j * GRID + GRID * 2 / 3;
+	img->triangle.c.y = i * GRID + GRID * 2 / 3;
 
 	img->triangle.milieu.x = j * GRID + GRID / 2;
-	img->triangle.milieu.y = i * GRID + GRID * 0.6;
+	img->triangle.milieu.y = i * GRID + GRID / 2;
 
 	img->triangle.color = 0x00F50600;
-//////////////////////////////////////////////////////////////////////
-	/* img->ray.b.x = img->triangle.ipos.l + GRID / 2;
-	img->ray.b.y = img->triangle.ipos.h - GRID;
 
-	img->ray.c.x = img->triangle.ipos.l + GRID / 2;
-	img->ray.c.y = img->triangle.ipos.h - GRID; */
+//////////////////////////////////////////////////////////////////////
+
 
 	img->ray.b.x = img->triangle.a.x;
 	img->ray.b.y = img->triangle.a.y;

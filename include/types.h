@@ -23,7 +23,7 @@ typedef struct s_coor_map
 {
 	double h;
 	double l;
-}				t_coor_map;
+}				t_coor_map;		
 
 typedef struct s_triangle
 {
@@ -34,6 +34,11 @@ typedef struct s_triangle
 	struct s_coor c;
 
 	struct s_coor milieu;
+
+	struct s_coor no;
+	struct s_coor ne;
+	struct s_coor so;
+	struct s_coor se;
 
 	int color;
 }				t_triangle;

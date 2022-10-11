@@ -105,10 +105,10 @@ double	getLengthRay(t_coor point, t_coor origine, double angle);
 void    move(t_data *img);
 
 // movements.c
-void    moveUP(t_frame *img);
-void    moveDOWN(t_frame *img);
-void    moveRIGHT(t_frame *img);
-void    moveLEFT(t_frame *img);
+void    moveUP(t_frame *img, t_coor dda_inc);
+void    moveDOWN(t_frame *img, t_coor dda_inc);
+void    moveRIGHT(t_frame *img, t_coor dda_inc);
+void    moveLEFT(t_frame *img, t_coor dda_inc);
 
 //  vmovements.c
 double  deg2rad(double degrees);
