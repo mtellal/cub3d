@@ -27,10 +27,10 @@ void	initTriangle(t_frame *img, int i, int j)
 
 ///////////////////////////////////////////////////////////////////
 
-	img->triangle.no.x = j * GRID + GRID * 0.2;
+	img->triangle.no.x = j * GRID + GRID * 0.4;
 	img->triangle.no.y = i * GRID + GRID * 0.2;
 
-	img->triangle.ne.x = j * GRID + GRID * 0.8;
+	img->triangle.ne.x = j * GRID + GRID * 0.6;
 	img->triangle.ne.y = i * GRID + GRID * 0.2;
 
 	img->triangle.so.x = j * GRID + GRID * 0.2;
@@ -111,26 +111,34 @@ void	fillWalls(t_frame *img, char map[14][33])
 void	initImg(t_frame *img)
 {
 	img->mlx = mlx_init();
-	img->window = mlx_new_window(img->mlx, LENGTH * GRID, HEIGHT * GRID, "cub3d");
-	img->img = mlx_new_image(img->mlx, LENGTH * GRID, HEIGHT * GRID);
+	img->window = mlx_new_window(img->mlx, LENGTH, HEIGHT, "cub3d");
+	img->img = mlx_new_image(img->mlx, LENGTH, HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
 	img->move = 0;
 }
 
-void	initImg3D(t_frame *img)
+void	initImg3D(void *mlx, t_frame *img)
 {
-	img->mlx = mlx_init();
-	img->window = mlx_new_window(img->mlx, LENGTH * GRID, HEIGHT * GRID, "cub3d");
-	img->img = mlx_new_image(img->mlx, LENGTH * GRID, HEIGHT * GRID);
+	img->mlx = mlx;
+	img->window = mlx_new_window(img->mlx, LENGTH2, HEIGHT2, "cub3d");
+	img->img = mlx_new_image(img->mlx, LENGTH2, HEIGHT2);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
 	img->move = 0;
+}
+
+void	initWall(void *mlx, t_img *wall)
+{
+	wall->img = mlx_xpm_file_to_image(mlx, "./wall.xpm", &wall->width, &wall->height);
+	wall->addr = mlx_get_data_addr(wall->img, &wall->bpp, &wall->length, &wall->endian);
 }
 
 void	init(t_data *data)
 {
 	initImg(&data->img);
-	initImg3D(&data->img2);
-	data->img2.mlx = data->img.mlx;
+
+	initImg3D(data->img.mlx, &data->img2);
+
+	initWall(data->img.mlx, &data->wall);
 
 	fillWalls(&data->img, map);
 	

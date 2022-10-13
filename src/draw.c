@@ -19,7 +19,7 @@ void    put_pixel(t_frame *img, int x, int y, int color)
 
 void	new_frame(t_frame *img)
 {
-	img->img = mlx_new_image(img->mlx, LENGTH * GRID , HEIGHT * GRID);
+	img->img = mlx_new_image(img->mlx, LENGTH , HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
 
 }

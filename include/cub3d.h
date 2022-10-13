@@ -13,9 +13,18 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#define HEIGHT 14
-#define LENGTH 33
-#define GRID 25
+#define GRID 50
+
+#define MHEIGHT 14
+#define MLENGTH 33
+
+// img2D
+#define HEIGHT MHEIGHT * GRID
+#define LENGTH MLENGTH * GRID
+
+// img3D
+#define HEIGHT2 MHEIGHT * GRID
+#define LENGTH2 MLENGTH * GRID
 
 /* #define UP 65362
 #define DOWN 65364 */
@@ -48,19 +57,19 @@
 #include "types.h"
 
 
-extern char	map[HEIGHT][LENGTH];
+extern char	map[MHEIGHT][MLENGTH];
 
 // main.c
 
 // init.c
 void	initTriangle(t_frame *img, int i, int j);
-void	fillWalls(t_frame *img, char map[14][33]);
+void	fillWalls(t_frame *img, char map[MHEIGHT][MLENGTH]);
 void	init(t_data *img);
 
 //  rays.c
 void	draw_square(t_frame *img, int h, int l, t_coor_map pos, int color);
 void	edgeSquare(t_frame *img, int h, int l, t_coor_map pos, int color);
-void	castRays(t_frame *img, t_frame *img2, t_coor origine, double nbrays, int color, int color2);
+void	castRays(t_data *data, t_frame *img, t_frame *img2, t_coor origine, double nbrays, int color, int color2);
 
 
 
@@ -97,8 +106,6 @@ double	getLengthRay(t_coor point, t_coor origine, double angle);
 
 
 
-
-
 ////////////////            MOVE            /////////////////
 
 // move.c
@@ -125,7 +132,7 @@ void        rrotatePoint(double angle, double *x, double *y, t_coor origine);
 
 
 // utils.c
-int     checkWall(char map[HEIGHT][LENGTH], int x, int y);
+int     checkWall(char map[MHEIGHT][MLENGTH], int x, int y);
 
 
 

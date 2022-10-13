@@ -25,6 +25,19 @@ typedef struct s_coor_map
 	double l;
 }				t_coor_map;		
 
+typedef struct s_img
+{
+	void *img;
+	char *addr;
+	
+	int length;
+	int bpp;
+	int endian;
+
+	int height;
+	int width;
+}				t_img;
+
 typedef struct s_triangle
 {
 	struct s_coor_map ipos;
@@ -72,6 +85,7 @@ typedef struct s_data
 {
 	t_frame img;
 	t_frame img2;
+	t_img wall;
 }				t_data;
 
 #endif

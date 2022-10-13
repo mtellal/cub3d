@@ -13,7 +13,7 @@
 #include "cub3d.h"
 
 double  pixel = 0.1;
-double  multiplicator = 0.1;
+double  multiplicator = GRID * 0.03;
 
 int     HIMG = HEIGHT * GRID;
 int     LIMG = LENGTH * GRID;
@@ -54,7 +54,7 @@ void    addPixelY(t_triangle *t, double pixel)
 
 int     checkPointWall(t_coor point, t_coor dda_inc)
 {
-    if (map[(int)((point.y + dda_inc.y * GRID * 0.2) / GRID)][(int)((point.x + dda_inc.x * GRID * 0.2) / GRID)] == '1')
+    if (map[(int)((point.y + dda_inc.y + 1) / GRID)][(int)((point.x + dda_inc.x + 1) / GRID)] == '1')
         return (1);
     return (0);
 }

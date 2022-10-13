@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int     checkWall(char m[HEIGHT][LENGTH], int x, int y)
+int     checkWall(char m[MHEIGHT][MLENGTH], int x, int y)
 {
     if (m[x][y] == '1')
         return (1);
