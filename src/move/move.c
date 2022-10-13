@@ -51,7 +51,7 @@ void    move(t_data *data)
         if (img->move & VL)
                 moveVLEFT(img);
 
-	castRays(data, &data->img, &data->img2, img->triangle.milieu, LENGTH, 0x00FFFFFF, 0x00AF0000);
+	castRays(data, &data->img, &data->img2, img->triangle.milieu, LENGTH, 0x00FFFFFF, 1);
 	draw_triangle(img, img->triangle, img->triangle.color);
 
         put_pixel(&data->img, img->triangle.no.y, img->triangle.no.x, 0x00FFFFFF);

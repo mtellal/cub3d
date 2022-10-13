@@ -174,10 +174,13 @@ void	displayRay(t_frame *img, int posx, int posy, int h, int l, int color, t_img
 		{
 			wallpixel = *(int *)(wall->addr + posxwall * wall->length + 
 						(int)(i * ratio_imgwall_strip_h) * wall->length + 
-						posy_strip_imgwall * (wall->bpp / 8));
+						posy_strip_imgwall * (wall->bpp / 8) + 
+						j * (wall->width / 8));
 
-			if (color)
+			if (color && posy_strip_imgwall != 0)
 				put_pixel(img, posx + i, posy + j, wallpixel);
+			else if (color && posy_strip_imgwall == 0)
+				put_pixel(img, posx + i, posy + j, 0x00505050);
 			else
 				put_pixel(img, posx + i, posy + j, color);
 			j++;
