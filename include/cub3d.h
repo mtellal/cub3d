@@ -13,7 +13,7 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#define GRID 50
+#define GRID 25
 
 #define MHEIGHT 14
 #define MLENGTH 33
@@ -23,8 +23,11 @@
 #define LENGTH MLENGTH * GRID
 
 // img3D
-#define HEIGHT2 MHEIGHT * GRID
-#define LENGTH2 MLENGTH * GRID
+#define HEIGHT2 MHEIGHT * 50
+#define LENGTH2 MLENGTH * 50
+
+#define WALLCOLOR 0x00143D3D
+#define PLAYERCOLOR 0x0000FFFB
 
 /* #define UP 65362
 #define DOWN 65364 */

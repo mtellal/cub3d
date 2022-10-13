@@ -86,6 +86,8 @@ typedef struct s_data
 	t_frame img;
 	t_frame img2;
 	t_img wall;
+	t_img cieling;
+	t_img ground;
 }				t_data;
 
 #endif

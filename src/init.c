@@ -53,7 +53,7 @@ void	initTriangle(t_frame *img, int i, int j)
 	img->triangle.milieu.x = j * GRID + GRID / 2;
 	img->triangle.milieu.y = i * GRID + GRID / 2;
 
-	img->triangle.color = 0x00F50600;
+	img->triangle.color = PLAYERCOLOR;
 
 //////////////////////////////////////////////////////////////////////
 
@@ -87,7 +87,7 @@ void	fillWalls(t_frame *img, char map[14][33])
 	t_wall	w;
 
 	w.size = GRID;
-	w.color = 0x00B0FF00;
+	w.color = WALLCOLOR;
 
 	while (i < 14)
 	{
@@ -99,7 +99,7 @@ void	fillWalls(t_frame *img, char map[14][33])
 			else if (map[i][j] == 'N')
 			{
 				initTriangle(img, i, j);
-				put_pixel(img, img->triangle.milieu.y, img->triangle.milieu.x, 0x00FF5689);
+				put_pixel(img, img->triangle.milieu.y, img->triangle.milieu.x, PLAYERCOLOR);
 				draw_triangle(img, img->triangle, img->triangle.color);
  			}
 			j++;
@@ -111,7 +111,7 @@ void	fillWalls(t_frame *img, char map[14][33])
 void	initImg(t_frame *img)
 {
 	img->mlx = mlx_init();
-	img->window = mlx_new_window(img->mlx, LENGTH, HEIGHT, "cub3d");
+	//img->window = mlx_new_window(img->mlx, LENGTH, HEIGHT, "cub3d");
 	img->img = mlx_new_image(img->mlx, LENGTH, HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
 	img->move = 0;
@@ -142,5 +142,5 @@ void	init(t_data *data)
 
 	fillWalls(&data->img, map);
 	
-	push_frame(&data->img);
+	//push_frame(&data->img);
 }

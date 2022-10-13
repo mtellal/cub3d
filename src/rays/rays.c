@@ -161,11 +161,20 @@ void	displayRay(t_frame *img, int posx, int posy, int h, int l, int color, t_img
 	(void)ratio_imgwall_strip_h;
 	(void)posxwall;
 
+
 	// - posxwall est la hauteur ou on check la couleur du pixel (quasi tout le temps 0 sauf quand le mur > ecran de proj)
 	// - ratio_imgwall_strip_h est le ratio (wall->width / h), a multiplier par le i pour fit la texture dans h
 	// - posy_strip_imgwall est la colonne dans la texture 
 
 	int wallpixel;
+
+	// plafond
+	int pi = 0;
+	while (pi < posx)
+	{
+		put_pixel(img, pi, posy, WALLCOLOR);
+		pi++;
+	}
 
 	while (i < h)
 	{
@@ -175,7 +184,7 @@ void	displayRay(t_frame *img, int posx, int posy, int h, int l, int color, t_img
 			wallpixel = *(int *)(wall->addr + posxwall * wall->length + 
 						(int)(i * ratio_imgwall_strip_h) * wall->length + 
 						posy_strip_imgwall * (wall->bpp / 8) + 
-						j * (wall->width / 8));
+						j * (wall->bpp / 8));
 
 			if (color && posy_strip_imgwall != 0)
 				put_pixel(img, posx + i, posy + j, wallpixel);
@@ -187,6 +196,14 @@ void	displayRay(t_frame *img, int posx, int posy, int h, int l, int color, t_img
 		}
 		i++;
 	}
+
+	/* int si = posx + h;
+	while (si < HEIGHT2)
+	{
+		put_pixel(img, si, posy, 0);
+		si++;
+	} */
+
 	/* ft_putnbr_fd(incxwall * h, 1);
 	ft_putstr_fd(" ", 1); */
 }
@@ -215,15 +232,15 @@ void	displayRays(t_frame *img, double length, double nbrays, int color, int i, t
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-	// ratio a multiplie (par la hauteur) pour fit wall->height dans la bande de hauteur h
-	double ratio_imgwall_projectplane_h = (double)wall->height / h;
+		// ratio a multiplie (par la hauteur) pour fit wall->height dans la bande de hauteur h
+	//double scale_x = (double)wall->width / h;
+	double scale_y = (double)wall->height / h;
 
 	// position de x/y dans l'image de la texture
 	int posxwall = 0;
 	// poslwall et le modulo (% GRID) ou le rayon a ete touche, il est multiplier par le ratio
 	// de la largeur de la texture (ex une largeur texture != GRID)
 	int posywall = poslwall * wall->width / GRID;
-
 
 	// possible que le mur (h) soit hors ecran (ex: lorsqu'on est colle au mur) checker si d'autres cas ou segfault
 	if (posx < 0)
@@ -233,23 +250,13 @@ void	displayRays(t_frame *img, double length, double nbrays, int color, int i, t
 	{
 		// si h et sup a l'ecran de projection alors il faut changer de position 
 		// dans l'image de texture et commencer a posxwall et non plus 0
-		posxwall = ((int)h - himg) / 2 * ratio_imgwall_projectplane_h;
+		posxwall = ((int)h - himg) / 2 * scale_y;
 		h = himg - 1;
 	}
 
-///////////////////////////////////////////////////////////////////////////////
-
-	(void)ratio_imgwall_projectplane_h;
-
-	/* ft_putnbr_fd(posxwall, 1);
-	ft_putstr_fd(" ", 1);
-	ft_putnbr_fd(h, 1);
-	ft_putstr_fd("\n", 1); */
-	/* ft_putnbr_fd(ratio_imgwall_projectplane_h, 1);
-	ft_putstr_fd("\n", 1); */
 
 	//display les brande des pixel h x l, a la pos x/y
-	displayRay(img, posx, posy - l * i, h, l, color, wall, posxwall, ratio_imgwall_projectplane_h, posywall);
+	displayRay(img, posx, posy - l * i, h, l, color, wall, posxwall, scale_y, posywall);
 
 }
 

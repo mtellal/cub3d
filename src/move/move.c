@@ -12,6 +12,54 @@
 
 #include "cub3d.h"
 
+
+void	miniMap(t_frame *minimap, t_frame *img)
+{
+        (void)img;
+        int pos_playerx = minimap->triangle.milieu.x / GRID;
+	int pos_playery = minimap->triangle.milieu.y / GRID;
+	
+	int debut_minimapx = pos_playerx - 5;
+	int debut_minimapy = pos_playery - 5;
+
+         if (pos_playerx + 5 >= MLENGTH)
+                debut_minimapx -= pos_playerx + 5 - MLENGTH;
+        if (pos_playery + 5 >= MHEIGHT)
+                debut_minimapy -= pos_playery + 5 - MHEIGHT;
+
+	if (debut_minimapx < 0)
+		debut_minimapx = 0;
+        if (debut_minimapy < 0)
+		debut_minimapy = 0;
+
+        
+	int i = 0;
+	int j = 0;
+	while (i < 10 * GRID)
+	{
+		j = 0;
+	        while (j < 10 * GRID)
+		{
+                        int pixelMinimap = 0;
+                        if (debut_minimapy * GRID + i < HEIGHT && debut_minimapx * GRID + j < LENGTH)
+                        {
+			        pixelMinimap = *(int*)(minimap->addr + 
+                                                debut_minimapy * GRID * minimap->length + 
+                                                i * minimap->length +
+                                                debut_minimapx * GRID * (minimap->bpp / 8) +
+                                                j * (minimap->bpp / 8));
+                        }
+
+                        if (i == 0 || j == 0 || i + 1 >= GRID * 10 || j + 1 >= GRID * 10)
+                                put_pixel(img, (MHEIGHT - 6) * GRID * 2 + i, (MLENGTH - 6) * GRID * 2 + j, 0x00FFFFFF);
+			else
+                                put_pixel(img, (MHEIGHT - 6) * GRID * 2 + i, (MLENGTH - 6) * GRID * 2 + j, pixelMinimap);
+			j++;
+		}
+		i++;
+	}
+}
+
 /*	verifie si le masque est non nul, alors une touche est presse
  *	efface le triangle
  *	call les functions moveX correspondant aux touches pressees, peut etre en meme temps
@@ -29,10 +77,10 @@ void    move(t_data *data)
         t_coor dda_incup = coorLine(img->triangle.a, img->triangle.milieu);
         t_coor dda_incrigth = coorLine(img->triangle.c, img->triangle.b);
 
-        put_pixel(&data->img, img->triangle.no.y, img->triangle.no.x, 0);
+       /*  put_pixel(&data->img, img->triangle.no.y, img->triangle.no.x, 0);
         put_pixel(&data->img, img->triangle.ne.y, img->triangle.ne.x, 0);
         put_pixel(&data->img, img->triangle.so.y, img->triangle.so.x, 0);
-        put_pixel(&data->img, img->triangle.se.y, img->triangle.se.x, 0);
+        put_pixel(&data->img, img->triangle.se.y, img->triangle.se.x, 0); */
 
 
         castRays(data, &data->img, &data->img2, img->triangle.milieu, LENGTH, 0, 0);
@@ -54,12 +102,14 @@ void    move(t_data *data)
 	castRays(data, &data->img, &data->img2, img->triangle.milieu, LENGTH, 0x00FFFFFF, 1);
 	draw_triangle(img, img->triangle, img->triangle.color);
 
-        put_pixel(&data->img, img->triangle.no.y, img->triangle.no.x, 0x00FFFFFF);
+    /*     put_pixel(&data->img, img->triangle.no.y, img->triangle.no.x, 0x00FFFFFF);
         put_pixel(&data->img, img->triangle.ne.y, img->triangle.ne.x, 0x00FFFFFF);
         put_pixel(&data->img, img->triangle.so.y, img->triangle.so.x, 0x00FFFFFF);
-        put_pixel(&data->img, img->triangle.se.y, img->triangle.se.x, 0x00FFFFFF);
+        put_pixel(&data->img, img->triangle.se.y, img->triangle.se.x, 0x00FFFFFF); */
 
-        push_frame(img);
+        miniMap(&data->img, &data->img2);
+
+        //push_frame(img);
         push_frame(&data->img2);
 } 
 

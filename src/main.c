@@ -32,9 +32,9 @@ char map[MHEIGHT][MLENGTH] =
 
 void	game(t_data *data)
 {
-	mlx_hook(data->img.window, 3, 1L<<1, keyReleased, &data->img);
+	mlx_hook(data->img2.window, 3, 1L<<1, keyReleased, &data->img);
 
-	mlx_hook(data->img.window, 2, 1L<<0,  keyPressed, &data->img);
+	mlx_hook(data->img2.window, 2, 1L<<0,  keyPressed, &data->img);
  
 	mlx_loop_hook(data->img.mlx, handle_input, data);
 }
