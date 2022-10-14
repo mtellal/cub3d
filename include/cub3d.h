@@ -107,7 +107,10 @@ void	displayCoor(t_coor point);
 double	abs_value(double value);
 double	getLengthRay(t_coor point, t_coor origine, double angle);
 
-
+// displayRays.c
+void	displayRay(t_frame *img, int posx, int posy, int h, int l, int color, t_img *wall, int posxwall, 
+		double ratio_imgwall_strip_h, int posy_strip_imgwall);
+void	displayRays(t_frame *img, double length, double nbrays, int color, int i, t_img *wall, int poslwall);
 
 ////////////////            MOVE            /////////////////
 

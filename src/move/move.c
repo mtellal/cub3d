@@ -16,16 +16,16 @@
 void	miniMap(t_frame *minimap, t_frame *img)
 {
         (void)img;
-        int pos_playerx = minimap->triangle.milieu.x / GRID;
-	int pos_playery = minimap->triangle.milieu.y / GRID;
+        int pos_playerx = minimap->triangle.milieu.x;
+	int pos_playery = minimap->triangle.milieu.y;
 	
-	int debut_minimapx = pos_playerx - 5;
-	int debut_minimapy = pos_playery - 5;
+	int debut_minimapx = pos_playerx - 5 * GRID;
+	int debut_minimapy = pos_playery - 5 * GRID;
 
-         if (pos_playerx + 5 >= MLENGTH)
-                debut_minimapx -= pos_playerx + 5 - MLENGTH;
-        if (pos_playery + 5 >= MHEIGHT)
-                debut_minimapy -= pos_playery + 5 - MHEIGHT;
+         if (pos_playerx + 5 * GRID >= LENGTH)
+                debut_minimapx -= pos_playerx + 5 * GRID - LENGTH;
+        if (pos_playery + 5 * GRID >= HEIGHT)
+                debut_minimapy -= pos_playery + 5 * GRID - HEIGHT;
 
 	if (debut_minimapx < 0)
 		debut_minimapx = 0;
@@ -41,12 +41,12 @@ void	miniMap(t_frame *minimap, t_frame *img)
 	        while (j < 10 * GRID)
 		{
                         int pixelMinimap = 0;
-                        if (debut_minimapy * GRID + i < HEIGHT && debut_minimapx * GRID + j < LENGTH)
+                        if (debut_minimapy + i < HEIGHT && debut_minimapx + j < LENGTH)
                         {
 			        pixelMinimap = *(int*)(minimap->addr + 
-                                                debut_minimapy * GRID * minimap->length + 
+                                                debut_minimapy * minimap->length + 
                                                 i * minimap->length +
-                                                debut_minimapx * GRID * (minimap->bpp / 8) +
+                                                debut_minimapx * (minimap->bpp / 8) +
                                                 j * (minimap->bpp / 8));
                         }
 

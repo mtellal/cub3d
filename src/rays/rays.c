@@ -122,7 +122,7 @@ t_coor	verticalCast(t_coor point, t_coor origine, double angle)
  *	renvoie les coor juste avant le mur
 */
 
-double 	ray(t_frame *img, t_coor point, t_coor origine, int color, double angle, int *poslwall)
+double 	ray(t_frame *img, t_coor point, t_coor origine, int color, double angle, int *poslwall, t_coor *raycoor)
 {
 	(void)img;
 	(void)color;
@@ -137,132 +137,33 @@ double 	ray(t_frame *img, t_coor point, t_coor origine, int color, double angle,
 	{
 		put_pixel(img, pointXA.y, pointXA.x, color);
 		*poslwall = (int)pointXA.x % GRID;
+		raycoor->x = pointXA.x;
+		raycoor->y = pointXA.y;
 		return (lxa);
 	}
 	else 
 	{
 		put_pixel(img, pointYA.y, pointYA.x, color);
 		*poslwall = (int)pointYA.y % GRID;
+		raycoor->x = pointYA.x;
+		raycoor->y = pointYA.y;
 		return (lya);
 	}
 	return (-1);
 }
 
-//	display une bande de pixel correspondant a un rayon
-//	bande qui comment ce la posx et fait h de haut et l de large
-
-void	displayRay(t_frame *img, int posx, int posy, int h, int l, int color, t_img *wall, int posxwall, 
-		double ratio_imgwall_strip_h, int posy_strip_imgwall)
+double	correctFishEye(double length, t_coor trianglea, t_coor origine, t_coor first_ray)
 {
-	int	i = 0;
-	int j = 0;
+	double res = getAnlge(trianglea, origine) - getAnlge(first_ray, origine);
 
-	(void)posy_strip_imgwall;
-	(void)ratio_imgwall_strip_h;
-	(void)posxwall;
+	if (res < 0)
+		res += deg2rad(360);
 
-
-	// - posxwall est la hauteur ou on check la couleur du pixel (quasi tout le temps 0 sauf quand le mur > ecran de proj)
-	// - ratio_imgwall_strip_h est le ratio (wall->width / h), a multiplier par le i pour fit la texture dans h
-	// - posy_strip_imgwall est la colonne dans la texture 
-
-	int wallpixel;
-
-	// plafond
-	int pi = 0;
-	while (pi < posx)
-	{
-		put_pixel(img, pi, posy, WALLCOLOR);
-		pi++;
-	}
-
-	while (i < h)
-	{
-		j = 0;
-		while (j < l)
-		{
-			wallpixel = *(int *)(wall->addr + posxwall * wall->length + 
-						(int)(i * ratio_imgwall_strip_h) * wall->length + 
-						posy_strip_imgwall * (wall->bpp / 8) + 
-						j * (wall->bpp / 8));
-
-			if (color && posy_strip_imgwall != 0)
-				put_pixel(img, posx + i, posy + j, wallpixel);
-			else if (color && posy_strip_imgwall == 0)
-				put_pixel(img, posx + i, posy + j, 0x00505050);
-			else
-				put_pixel(img, posx + i, posy + j, color);
-			j++;
-		}
-		i++;
-	}
-
-	/* int si = posx + h;
-	while (si < HEIGHT2)
-	{
-		put_pixel(img, si, posy, 0);
-		si++;
-	} */
-
-	/* ft_putnbr_fd(incxwall * h, 1);
-	ft_putstr_fd(" ", 1); */
-}
-
-void	displayRays(t_frame *img, double length, double nbrays, int color, int i, t_img *wall, int poslwall)
-{
-	// hauteur longeur d'img2
-	const double himg = HEIGHT2;
-	const double limg = LENGTH2;
-
-	// distance entre la camera et l'ecran de projection (check doc)
-	double distce = (himg / 2) / tan(deg2rad(30));
-
-	// largeur des bandes a display dans img2
-	double l = limg / nbrays;
-
-	// affichage droite a gauche 
-	int posy = limg - 1;
-
-	// hauteur d'un mur selon la projection de l'ecran check (doc)
-	double h = ((double)GRID / length) * distce;
-
-	//position x (nb ligne) dans img2
-	int posx = (himg / 2) - (h / 2);
-
-
-///////////////////////////////////////////////////////////////////////////////////
-
-		// ratio a multiplie (par la hauteur) pour fit wall->height dans la bande de hauteur h
-	//double scale_x = (double)wall->width / h;
-	double scale_y = (double)wall->height / h;
-
-	// position de x/y dans l'image de la texture
-	int posxwall = 0;
-	// poslwall et le modulo (% GRID) ou le rayon a ete touche, il est multiplier par le ratio
-	// de la largeur de la texture (ex une largeur texture != GRID)
-	int posywall = poslwall * wall->width / GRID;
-
-	// possible que le mur (h) soit hors ecran (ex: lorsqu'on est colle au mur) checker si d'autres cas ou segfault
-	if (posx < 0)
-		posx = 0;
-
-	if (h > himg)
-	{
-		// si h et sup a l'ecran de projection alors il faut changer de position 
-		// dans l'image de texture et commencer a posxwall et non plus 0
-		posxwall = ((int)h - himg) / 2 * scale_y;
-		h = himg - 1;
-	}
-
-
-	//display les brande des pixel h x l, a la pos x/y
-	displayRay(img, posx, posy - l * i, h, l, color, wall, posxwall, scale_y, posywall);
-
+	return (length * cos(res));
 }
 
 void	castRays(t_data *data, t_frame *img, t_frame *img2, t_coor origine, double nbrays, int color, int color2)
 {
-    t_coor      rayn;
 	int			i;
 
 	(void) img2;
@@ -280,30 +181,51 @@ void	castRays(t_data *data, t_frame *img, t_frame *img2, t_coor origine, double 
 	// angle place a haut droit du triangle (60deg depuis (x,y)(1,0)) comment dans un repere classique
 	double angle = getAnlge(img->ray.c, origine);
 
-	// pos de depart des rays 
-	rayn.x = img->ray.c.x;
-	rayn.y = img->ray.c.y;
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// la bande ou le rayon a ete touche sur le mur rayon % GRID(check ray())
 	int poslwall;
 
+	double plength = 0;
+	double length = 0;
+
+	(void)plength;
+
+	//i = nbrays - 2;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// ray tout a droite (img->ray.c)
+	t_coor first_ray;
+
+	length = ray(img, img->ray.c, origine, color, angle, &poslwall, &first_ray);
+
+	length = correctFishEye(length, img->triangle.a, origine, first_ray);
+	displayRays(img2, length, nbrays, color2, i, &data->wall, poslwall);
+
+
 	while (i < nbrays)
 	{
-		rotatePoint(angleinc, &rayn.x, &rayn.y, img->triangle.milieu);
+		rotatePoint(angleinc, &first_ray.x, &first_ray.y, img->triangle.milieu);
 		angle += angleinc;
-	
-		double length = ray(img, rayn, origine, color, angle, &poslwall);
+		
+		if (length)
+			plength = length;
 
-		//fishe eye
-		double res = getAnlge(img->triangle.a, origine) - getAnlge(rayn, origine);
+		length = ray(img, first_ray, origine, color, angle, &poslwall, &first_ray);
 
-		if (res < 0)
-			res += deg2rad(360);
+		/* if (plength && abs_value(plength - length) > 10)
+		{
+			ft_putnbr_fd(length, 1);
+			ft_putstr_fd(" ", 1);
+			ft_putnbr_fd(plength, 1);
+			ft_putstr_fd(" ", 1);
+			ft_putnbr_fd(i, 1);
+			//ft_putnbr_fd(i, 1);
+			ft_putstr_fd("\n", 1);
+		} */
 
-		length *= cos(res);
+		length = correctFishEye(length, img->triangle.a, origine, first_ray);
 
 		/* ft_putnbr_fd(poslwall, 1);
 		ft_putstr_fd("\n", 1); */
@@ -312,6 +234,7 @@ void	castRays(t_data *data, t_frame *img, t_frame *img2, t_coor origine, double 
 
 		i++;
 	}
+	//ft_putstr_fd("\n", 1);
 }
 
 
