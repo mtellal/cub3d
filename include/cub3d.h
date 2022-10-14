@@ -13,42 +13,6 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#define GRID 25
-
-#define MHEIGHT 14
-#define MLENGTH 33
-
-// img2D
-#define HEIGHT MHEIGHT * GRID
-#define LENGTH MLENGTH * GRID
-
-// img3D
-#define HEIGHT2 MHEIGHT * 50
-#define LENGTH2 MLENGTH * 50
-
-#define WALLCOLOR 0x00143D3D
-#define PLAYERCOLOR 0x0000FFFB
-
-/* #define UP 65362
-#define DOWN 65364 */
-#define VRIGHT 65363
-#define VLEFT 65361
-
-#define UP 119
-#define DOWN 115
-#define RIGHT 100
-#define LEFT 97
-
-//  mask movements
-#define U 1
-#define D 2
-#define R 4
-#define L 8
-#define VR 16
-#define VL 32
-
-#define ANGLE 60
-
 #include <mlx.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -57,6 +21,7 @@
 #include "libft.h"
 #include <math.h>
 
+#include "macros.h"
 #include "types.h"
 
 
@@ -74,15 +39,13 @@ void	draw_square(t_frame *img, int h, int l, t_coor_map pos, int color);
 void	edgeSquare(t_frame *img, int h, int l, t_coor_map pos, int color);
 void	castRays(t_data *data, t_frame *img, t_frame *img2, t_coor origine, double nbrays, int color, int color2);
 
-
-
-
-/////////////////           OPERATIONS      //////////////////
-
-float barycentre (t_coor p1, t_coor p2, t_coor p3);
-int dansLeTriangle (t_coor pt, t_triangle t);
-
-
+// utils.c
+t_coor	coorLine(t_coor point, t_coor origine);
+double	getAnlge(t_coor point, t_coor origine);
+void	displayCoor(t_coor point);
+double	abs_value(double value);
+double	getLengthRay(t_coor point, t_coor origine, double angle);
+int     checkWall(char map[MHEIGHT][MLENGTH], int x, int y);
 
 
 /////////////////           DRAW            ///////////////////
@@ -90,22 +53,12 @@ int dansLeTriangle (t_coor pt, t_triangle t);
 void    put_pixel(t_frame *img, int x, int y, int color);
 void	draw_triangle(t_frame *img, t_triangle triangle, int color);
 void	draw_wall(t_frame *, t_wall, int, int);
-
-void	new_frame(t_frame *img);
-void	push_frame(t_frame *img);
-
+float barycentre (t_coor p1, t_coor p2, t_coor p3);
+int dansLeTriangle (t_coor pt, t_triangle t);
 
 
 
 ////////////////            RAYS            /////////////////
-
-//  utils.c
-void	draw_line(t_frame *img,  t_coor point, t_coor origine, t_coor *ray_coor, int color, double *lengthline);
-t_coor	coorLine(t_coor point, t_coor origine);
-double	getAnlge(t_coor point, t_coor origine);
-void	displayCoor(t_coor point);
-double	abs_value(double value);
-double	getLengthRay(t_coor point, t_coor origine, double angle);
 
 // displayRays.c
 void	displayRay(t_frame *img, int posx, int posy, int h, int l, int color, t_img *wall, int posxwall, 
@@ -115,6 +68,7 @@ void	displayRays(t_frame *img, double length, double nbrays, int color, int i, t
 ////////////////            MOVE            /////////////////
 
 // move.c
+void	miniMap(t_frame *minimap, t_frame *img);
 void    move(t_data *img);
 
 // movements.c
@@ -135,10 +89,6 @@ double      rotateX(double angle, double x, double y, int r);
 double      rotateY(double angle, double x, double y, int r);
 void        rotatePoint(double angle, double *x, double *y, t_coor origine);
 void        rrotatePoint(double angle, double *x, double *y, t_coor origine);
-
-
-// utils.c
-int     checkWall(char map[MHEIGHT][MLENGTH], int x, int y);
 
 
 

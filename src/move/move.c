@@ -68,14 +68,14 @@ void	miniMap(t_frame *minimap, t_frame *img)
 
 void    move(t_data *data)
 {
-	t_frame *img = &data->img;
+	t_frame *img2D = &data->img2D;
         
-        if (!img->move)
+        if (!img2D->move)
     	        return ;
         
         // coor a incrementer pour continuer la droite vers le haut/bas - droite/gauche
-        t_coor dda_incup = coorLine(img->triangle.a, img->triangle.milieu);
-        t_coor dda_incrigth = coorLine(img->triangle.c, img->triangle.b);
+        t_coor dda_incup = coorLine(img2D->triangle.a, img2D->triangle.milieu);
+        t_coor dda_incrigth = coorLine(img2D->triangle.c, img2D->triangle.b);
 
        /*  put_pixel(&data->img, img->triangle.no.y, img->triangle.no.x, 0);
         put_pixel(&data->img, img->triangle.ne.y, img->triangle.ne.x, 0);
@@ -83,33 +83,32 @@ void    move(t_data *data)
         put_pixel(&data->img, img->triangle.se.y, img->triangle.se.x, 0); */
 
 
-        castRays(data, &data->img, &data->img2, img->triangle.milieu, LENGTH, 0, 0);
-        draw_triangle(img, img->triangle, 0);
+        castRays(data, &data->img2D, &data->img3D, img2D->triangle.milieu, LENGTH, 0, 0);
+        draw_triangle(img2D, img2D->triangle, 0);
 
-        if (img->move & U)
-                moveUP(img, dda_incup);
-        if (img->move & D)
-                moveDOWN(img, dda_incup);
-        if (img->move & R) 
-                moveRIGHT(img, dda_incrigth);
-        if (img->move & L)
-                moveLEFT(img, dda_incrigth);
-        if (img->move & VR)
-                moveVRIGHT(img);
-        if (img->move & VL)
-                moveVLEFT(img);
+        if (img2D->move & U)
+                moveUP(img2D, dda_incup);
+        if (img2D->move & D)
+                moveDOWN(img2D, dda_incup);
+        if (img2D->move & R) 
+                moveRIGHT(img2D, dda_incrigth);
+        if (img2D->move & L)
+                moveLEFT(img2D, dda_incrigth);
+        if (img2D->move & VR)
+                moveVRIGHT(img2D);
+        if (img2D->move & VL)
+                moveVLEFT(img2D);
 
-	castRays(data, &data->img, &data->img2, img->triangle.milieu, LENGTH, 0x00FFFFFF, 1);
-	draw_triangle(img, img->triangle, img->triangle.color);
+	castRays(data, &data->img2D, &data->img3D, img2D->triangle.milieu, LENGTH, 0x00FFFFFF, 1);
+	draw_triangle(img2D, img2D->triangle, img2D->triangle.color);
 
     /*     put_pixel(&data->img, img->triangle.no.y, img->triangle.no.x, 0x00FFFFFF);
         put_pixel(&data->img, img->triangle.ne.y, img->triangle.ne.x, 0x00FFFFFF);
         put_pixel(&data->img, img->triangle.so.y, img->triangle.so.x, 0x00FFFFFF);
         put_pixel(&data->img, img->triangle.se.y, img->triangle.se.x, 0x00FFFFFF); */
 
-        miniMap(&data->img, &data->img2);
+        miniMap(&data->img2D, &data->img3D);
 
-        //push_frame(img);
-        push_frame(&data->img2);
+	mlx_put_image_to_window(data->mlx, data->img3D.window, data->img3D.img, 0, 0);
 } 
 

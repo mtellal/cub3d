@@ -80,7 +80,7 @@ void	initTriangle(t_frame *img, int i, int j)
  * note: les murs sont affiches qu'une seul fois, les events modifient uniquement le triangle 
 */
 
-void	fillWalls(t_frame *img, char map[14][33])
+void	fillWalls(t_frame *img2D, char map[MHEIGHT][MLENGTH])
 {
 	int i = 0;
 	int j = 0;
@@ -95,12 +95,12 @@ void	fillWalls(t_frame *img, char map[14][33])
 		while (j < 33)
 		{
 			if (map[i][j] == '1')
-				draw_wall(img, w, i * w.size, j * w.size);
+				draw_wall(img2D, w, i * w.size, j * w.size);
 			else if (map[i][j] == 'N')
 			{
-				initTriangle(img, i, j);
-				put_pixel(img, img->triangle.milieu.y, img->triangle.milieu.x, PLAYERCOLOR);
-				draw_triangle(img, img->triangle, img->triangle.color);
+				initTriangle(img2D, i, j);
+				put_pixel(img2D, img2D->triangle.milieu.y, img2D->triangle.milieu.x, PLAYERCOLOR);
+				draw_triangle(img2D, img2D->triangle, img2D->triangle.color);
  			}
 			j++;
 		}
@@ -108,39 +108,40 @@ void	fillWalls(t_frame *img, char map[14][33])
 	}
 }
 
-void	initImg(t_frame *img)
+void	initImg2D(t_data *data, t_frame *img2D)
 {
-	img->mlx = mlx_init();
+	//img2D->mlx = data->mlx;
 	//img->window = mlx_new_window(img->mlx, LENGTH, HEIGHT, "cub3d");
-	img->img = mlx_new_image(img->mlx, LENGTH, HEIGHT);
-	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
-	img->move = 0;
+	img2D->img = mlx_new_image(data->mlx, LENGTH, HEIGHT);
+	img2D->addr = mlx_get_data_addr(img2D->img, &img2D->bpp, &img2D->length, &img2D->endian);
+	img2D->move = 0;
 }
 
-void	initImg3D(void *mlx, t_frame *img)
+void	initImg3D(t_data *data, t_frame *img2D, t_frame *img3D)
 {
-	img->mlx = mlx;
-	img->window = mlx_new_window(img->mlx, LENGTH2, HEIGHT2, "cub3d");
-	img->img = mlx_new_image(img->mlx, LENGTH2, HEIGHT2);
-	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->length, &img->endian);
-	img->move = 0;
+	//img3D->mlx = data->mlx;
+	img3D->window = mlx_new_window(data->mlx, LENGTH2, HEIGHT2, "cub3d");
+	img3D->img = mlx_new_image(data->mlx, LENGTH2, HEIGHT2);
+	img3D->addr = mlx_get_data_addr(img3D->img, &img3D->bpp, &img3D->length, &img3D->endian);
+
+	/////////
+    castRays(data, img2D, img3D, img2D->triangle.milieu, LENGTH, 0x00FFFFFF, 1);
+	draw_triangle(img2D, img2D->triangle, img2D->triangle.color);
+	miniMap(&data->img2D, &data->img3D);
+	mlx_put_image_to_window(data->mlx, data->img3D.window, data->img3D.img, 0, 0);
 }
 
 void	initWall(void *mlx, t_img *wall)
 {
-	wall->img = mlx_xpm_file_to_image(mlx, "./wall.xpm", &wall->width, &wall->height);
+	wall->img = mlx_xpm_file_to_image(mlx, PATHWALL, &wall->width, &wall->height);
 	wall->addr = mlx_get_data_addr(wall->img, &wall->bpp, &wall->length, &wall->endian);
 }
 
 void	init(t_data *data)
 {
-	initImg(&data->img);
-
-	initImg3D(data->img.mlx, &data->img2);
-
-	initWall(data->img.mlx, &data->wall);
-
-	fillWalls(&data->img, map);
-	
-	//push_frame(&data->img);
+	data->mlx = mlx_init();
+	initImg2D(data, &data->img2D);
+	fillWalls(&data->img2D, map);
+	initWall(data->mlx, &data->wall);
+	initImg3D(data, &data->img2D, &data->img3D);
 }

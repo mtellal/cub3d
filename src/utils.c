@@ -5,49 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/06 18:28:19 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/06 18:28:26 by mtellal          ###   ########.fr       */
+/*   Created: 2022/10/14 13:34:06 by mtellal           #+#    #+#             */
+/*   Updated: 2022/10/14 13:34:14 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
-/*	display a line from origine to point and beyond
- *	set ray.x/y the final coor of line extension
- *	set length the number of pixel
- */
-
-void	draw_line(t_frame *img,  t_coor point, t_coor origine, t_coor *ray_coor, int color, double *lengthline)
-{
-	t_coor inc;
-
-	inc = coorLine(point, origine);
-
-	double x = origine.x;
-	double y = origine.y;
-
-	double	l = 0;
-
-	while (map[(int)(y / GRID)][(int)(x / GRID)] != '1' && 
-		y >= 0 && y < GRID * HEIGHT && 
-		x >= 0 && x < GRID * LENGTH)
-	{
-		put_pixel(img, y, x, color);
-		y += inc.y;
-		x += inc.x;
-		l++;
-	}	 
-	if (ray_coor)
-	{
-		ray_coor->x = x;
-		ray_coor->y = y;
-		
-	}
-	if (lengthline)
-		*lengthline = l;
-
-}
 
 /*	dda algotirthm applique de origine (milieu du triangle) a point (ray->b/c qui sont la rotation de a +/-45 deg, ou un autre point)
  *  return les coor a incrementer (x, y) pour projeter/continuer la droite
@@ -121,4 +84,11 @@ double	abs_value(double value)
 double	getLengthRay(t_coor point, t_coor origine, double angle)
 {
 	return abs_value(abs_value(origine.x - point.x) / cos(angle));
+}
+
+int     checkWall(char m[MHEIGHT][MLENGTH], int x, int y)
+{
+    if (m[x][y] == '1')
+        return (1);
+    return (0);
 }

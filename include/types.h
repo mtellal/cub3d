@@ -65,7 +65,6 @@ typedef struct s_wall
 
 typedef struct s_frame
 {
-	void				*mlx;
 	void				*window;
 	void				*img;
 	char				*addr;
@@ -83,11 +82,15 @@ typedef struct s_frame
 
 typedef struct s_data
 {
-	t_frame img;
-	t_frame img2;
+	void	*mlx;
+
+	t_frame img2D;
+	t_frame img3D;
+
 	t_img wall;
 	t_img cieling;
 	t_img ground;
+
 }				t_data;
 
 #endif

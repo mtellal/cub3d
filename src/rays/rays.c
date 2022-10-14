@@ -152,6 +152,10 @@ double 	ray(t_frame *img, t_coor point, t_coor origine, int color, double angle,
 	return (-1);
 }
 
+
+//	pour corriger le fish eye d'un rayon, il faut multiplier sa longueur par le cos d'un angle
+//	angle du milieu du fov (+/-90deg ou direction du personnage) et le point ou le rayon a touche le mur 
+
 double	correctFishEye(double length, t_coor trianglea, t_coor origine, t_coor first_ray)
 {
 	double res = getAnlge(trianglea, origine) - getAnlge(first_ray, origine);

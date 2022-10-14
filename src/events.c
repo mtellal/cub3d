@@ -25,21 +25,20 @@ int	handle_input(void *data)
 /*	ajoute une puissance de 2 au masque, correspondant a un mouvement 
 */
 
-int keyPressed(int keycode, t_frame *img)
+int keyPressed(int keycode, t_frame *img2D)
 {
-	(void)img;
 	if (keycode == UP)
-		img->move |= U;
+		img2D->move |= U;
 	if (keycode == DOWN)
-		img->move |= D;
+		img2D->move |= D;
 	if (keycode == RIGHT)
-		img->move |= R;
+		img2D->move |= R;
 	if (keycode == LEFT)
-		img->move |= L;
+		img2D->move |= L;
 	if (keycode == VRIGHT)
-		img->move |= VR;
+		img2D->move |= VR;
 	if (keycode == VLEFT)
-		img->move |= VL;
+		img2D->move |= VL;
 
 	return (0);
 }
@@ -47,19 +46,19 @@ int keyPressed(int keycode, t_frame *img)
 /*	supprime du masque un mouvement, lorsque la touche est relachee 
 */
 
-int keyReleased(int keycode, t_frame *img)
+int keyReleased(int keycode, t_frame *img2D)
 {
 	if (keycode == UP)
-		img->move &= ~U;
+		img2D->move &= ~U;
 	if (keycode == DOWN)
-		img->move &= ~D;
+		img2D->move &= ~D;
 	if (keycode == RIGHT)
-		img->move &= ~R;
+		img2D->move &= ~R;
 	if (keycode == LEFT)
-		img->move &= ~L;
+		img2D->move &= ~L;
 	if (keycode == VRIGHT)
-		img->move &= ~VR;
+		img2D->move &= ~VR;
 	if (keycode == VLEFT)
-		img->move &= ~VL;
+		img2D->move &= ~VL;
 	return (0);
 }
