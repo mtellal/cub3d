@@ -122,68 +122,79 @@ t_coor	verticalCast(t_coor point, t_coor origine, double angle)
  *	renvoie les coor juste avant le mur
 */
 
-double 	ray(t_frame *img, t_coor point, t_coor origine, int color, double angle, int *poslwall, t_coor *raycoor)
+t_coor  	ray(t_coor point, t_coor origine, double angle, int *strip_texture)
 {
-	(void)img;
-	(void)color;
-
 	t_coor pointXA = horizontalCast(point, origine, angle);
 	t_coor pointYA = verticalCast(point, origine, angle);
 
-	double lxa = getLengthRay(pointXA, origine, angle);
-	double lya = getLengthRay(pointYA, origine, angle);
+	double lxa;
+	double lya;
+
+	lxa = getLengthRay(pointXA, origine, angle);
+	lya = getLengthRay(pointYA, origine, angle);
+
+	/* displayCoor(pointXA);
+	displayCoor(pointYA);
+	displayCoor(origine); */
+	/* ft_putnbr_fd(lxa, 1);
+	ft_putstr_fd(" ", 1);
+	ft_putnbr_fd(lya, 1);
+	ft_putstr_fd("\n", 1); */
 
 	if (round(lxa) < round(lya))
 	{
-		put_pixel(img, pointXA.y, pointXA.x, color);
-		*poslwall = (int)pointXA.x % GRID;
-		raycoor->x = pointXA.x;
-		raycoor->y = pointXA.y;
-		return (lxa);
+		*strip_texture = (int)pointXA.x % GRID;
+		return (pointXA);
 	}
 	else 
 	{
-		put_pixel(img, pointYA.y, pointYA.x, color);
-		*poslwall = (int)pointYA.y % GRID;
-		raycoor->x = pointYA.x;
-		raycoor->y = pointYA.y;
-		return (lya);
+		*strip_texture = (int)pointYA.y % GRID;
+		return (pointYA);
 	}
-	return (-1);
+	return (point);
 }
 
 
 //	pour corriger le fish eye d'un rayon, il faut multiplier sa longueur par le cos d'un angle
 //	angle du milieu du fov (+/-90deg ou direction du personnage) et le point ou le rayon a touche le mur 
 
-double	correctFishEye(double length, t_coor trianglea, t_coor origine, t_coor first_ray)
+double	correctFishEye(double length, double cumulangle)
 {
-	double res = getAnlge(trianglea, origine) - getAnlge(first_ray, origine);
 
-	if (res < 0)
-		res += deg2rad(360);
-
-	return (length * cos(res));
+	return (length * cos(cumulangle));
 }
+
 
 void	castRays(t_data *data, t_frame *img, t_frame *img2, t_coor origine, double nbrays, int color, int color2)
 {
 	int			i;
+	double		current_angle;
+	double		angle;
+	double		angleinc;
+	double		cumulangle;
 
 	(void) img2;
 	(void)nbrays;
 	(void)origine;
 	(void)color2;
 	(void)data;
+	(void)current_angle;
+	(void)angle;
+	(void)angleinc;
+	(void)cumulangle;
+	(void)i;
+	(void)color;
 
 	i = 0;
 
-	double current_angle = 60;
+	current_angle = 60;
 
-    double      angleinc = deg2rad(current_angle / (double)(LENGTH)); 
+    angleinc = deg2rad(current_angle / (double)(LENGTH)); 
 
 	// angle place a haut droit du triangle (60deg depuis (x,y)(1,0)) comment dans un repere classique
-	double angle = getAnlge(img->ray.c, origine);
+	angle = getAnlge(img->triangle.a, origine);
+
+	cumulangle = 0;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -194,51 +205,79 @@ void	castRays(t_data *data, t_frame *img, t_frame *img2, t_coor origine, double 
 	double length = 0;
 
 	(void)plength;
+	(void)poslwall;
+	(void)length;
 
-	//i = nbrays - 2;
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	// ray tout a droite (img->ray.c)
+	// CASTING FIRST RAY 
+	// ray au milieu, prolongation de img->triangle.a
 	t_coor first_ray;
 
-	length = ray(img, img->ray.c, origine, color, angle, &poslwall, &first_ray);
+	first_ray = ray(img->triangle.a, origine, angle, &poslwall);
 
-	length = correctFishEye(length, img->triangle.a, origine, first_ray);
-	displayRays(img2, length, nbrays, color2, i, &data->wall, poslwall);
+	length = getLengthRay(first_ray, origine, angle);
+
+	put_pixel(img, first_ray.y, first_ray.x, color);
+
+	length = correctFishEye(length, cumulangle);
+
+	displayRays(img2, length, nbrays, color2, 0, &data->texture, poslwall);
 
 
-	while (i < nbrays)
+////// balayage milieu -> droite
+	t_coor rray;
+
+	rray.x = first_ray.x;
+	rray.y = first_ray.y;
+
+	i = 0;
+
+	while (i < nbrays / 2 - 1)
 	{
-		rotatePoint(angleinc, &first_ray.x, &first_ray.y, img->triangle.milieu);
-		angle += angleinc;
-		
-		if (length)
-			plength = length;
+		rrotatePoint(angleinc, &rray.x, &rray.y, img->triangle.milieu);
+		angle -= angleinc;
+		cumulangle += angleinc;
 
-		length = ray(img, first_ray, origine, color, angle, &poslwall, &first_ray);
+		rray = ray(rray, origine, angle, &poslwall);
+		put_pixel(img, rray.y, rray.x, color);
+		length = getLengthRay(rray, origine, angle);
 
-		/* if (plength && abs_value(plength - length) > 10)
-		{
-			ft_putnbr_fd(length, 1);
-			ft_putstr_fd(" ", 1);
-			ft_putnbr_fd(plength, 1);
-			ft_putstr_fd(" ", 1);
-			ft_putnbr_fd(i, 1);
-			//ft_putnbr_fd(i, 1);
-			ft_putstr_fd("\n", 1);
-		} */
-
-		length = correctFishEye(length, img->triangle.a, origine, first_ray);
-
-		/* ft_putnbr_fd(poslwall, 1);
-		ft_putstr_fd("\n", 1); */
-
-		displayRays(img2, length, nbrays, color2, i, &data->wall, poslwall);
-
+		length = correctFishEye(length, cumulangle);
+		displayRays(img2, length, nbrays, color2, i, &data->texture, poslwall);
 		i++;
 	}
-	//ft_putstr_fd("\n", 1);
+
+	angle = getAnlge(img->triangle.a, origine);
+	cumulangle = 0;
+
+	i = 0;
+
+	t_coor lray;
+
+	lray.x = first_ray.x;
+	lray.y = first_ray.y;
+
+	rotatePoint(angleinc, &lray.x, &lray.y, img->triangle.milieu);
+
+	angle += angleinc;
+
+	while (i < nbrays / 2)
+	{
+		rotatePoint(angleinc, &lray.x, &lray.y, img->triangle.milieu);
+		angle += angleinc;
+		cumulangle += angleinc;
+
+		lray = ray(lray, origine, angle, &poslwall);
+		put_pixel(img, lray.y, lray.x, color);
+		length = getLengthRay(lray, origine, angle);
+
+		length = correctFishEye(length, cumulangle);
+		displayRays(img2, length, nbrays, color2, -i, &data->texture, poslwall);
+		i++;
+	}
+
+
 }
 
 

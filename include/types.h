@@ -80,6 +80,13 @@ typedef struct s_frame
 
 }		t_frame;
 
+typedef struct s_texture
+{
+	t_img wall;
+	t_img cieling;
+	t_img floor;
+}				t_texture;
+
 typedef struct s_data
 {
 	void	*mlx;
@@ -87,9 +94,7 @@ typedef struct s_data
 	t_frame img2D;
 	t_frame img3D;
 
-	t_img wall;
-	t_img cieling;
-	t_img ground;
+	t_texture texture;
 
 }				t_data;
 

@@ -14,6 +14,8 @@
 #define MACRO_HPP
 
 #define PATHWALL "assets/wall.xpm"
+#define PATHCIELING "assets/cieling.xpm"
+#define PATHFLOOR "assets/floor.xpm"
 
 #define GRID 25
 
@@ -32,6 +34,7 @@
 // colors
 #define WALLCOLOR 0x00143D3D
 #define PLAYERCOLOR 0x0000FFFB
+#define FLOORCOLOR 0x000B0518
 
 // keycode 
 #define VRIGHT 65363

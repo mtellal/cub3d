@@ -61,9 +61,9 @@ int dansLeTriangle (t_coor pt, t_triangle t);
 ////////////////            RAYS            /////////////////
 
 // displayRays.c
-void	displayRay(t_frame *img, int posx, int posy, int h, int l, int color, t_img *wall, int posxwall, 
+void	displayRay(t_frame *img, int posx, int posy, int h, int l, int color, t_texture *texture, int posxwall, 
 		double ratio_imgwall_strip_h, int posy_strip_imgwall);
-void	displayRays(t_frame *img, double length, double nbrays, int color, int i, t_img *wall, int poslwall);
+void	displayRays(t_frame *img, double length, double nbrays, int color, int i, t_texture *texture, int poslwall);
 
 ////////////////            MOVE            /////////////////
 
