@@ -63,6 +63,14 @@ typedef struct s_wall
 
 }               t_wall;
 
+typedef struct s_ray
+{
+	double length;
+	t_coor coor;
+	int posstripwall;
+
+}				t_ray;
+
 typedef struct s_frame
 {
 	void				*window;
@@ -95,6 +103,8 @@ typedef struct s_data
 	t_frame img3D;
 
 	t_texture texture;
+
+	t_ray **rays;
 
 }				t_data;
 

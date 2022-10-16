@@ -125,10 +125,12 @@ void	initImg3D(t_data *data, t_frame *img2D, t_frame *img3D)
 	img3D->addr = mlx_get_data_addr(img3D->img, &img3D->bpp, &img3D->length, &img3D->endian);
 
 	/////////
-    castRays(data, img2D, img3D, img2D->triangle.milieu, LENGTH, 0x00FFFFFF, 1);
-	draw_triangle(img2D, img2D->triangle, img2D->triangle.color);
-	miniMap(&data->img2D, &data->img3D);
-	mlx_put_image_to_window(data->mlx, data->img3D.window, data->img3D.img, 0, 0);
+    draw_triangle(img2D, img2D->triangle, img2D->triangle.color);
+	t_ray **rays = castRays(img2D);
+	displayCastRays(img3D, rays, &data->texture);
+	miniMap(img2D, img3D);
+	free_rays(rays, NBRAYS);
+	mlx_put_image_to_window(data->mlx, img3D->window, img3D->img, 0, 0);
 }
 
 void	initTexture(void *mlx, t_texture *texture)
@@ -150,6 +152,7 @@ void	initTexture(void *mlx, t_texture *texture)
 
 void	init(t_data *data)
 {
+	data->rays = NULL;
 	data->mlx = mlx_init();
 	initImg2D(data, &data->img2D);
 	fillWalls(&data->img2D, map);

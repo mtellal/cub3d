@@ -31,6 +31,8 @@
 #define HEIGHT2 MHEIGHT * 50
 #define LENGTH2 MLENGTH * 50
 
+#define NBRAYS LENGTH
+
 // colors
 #define WALLCOLOR 0x00143D3D
 #define PLAYERCOLOR 0x0000FFFB

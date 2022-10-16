@@ -20,7 +20,8 @@ SRC =	$(addprefix src/, main.c draw.c events.c init.c utils.c $(RAYDIR) $(MOVEDI
 
 MOVEDIR = $(addprefix move/, move.c movements.c vmovements.c rotate.c)
 
-RAYDIR = $(addprefix rays/, rays.c displayRays.c)
+RAYDIR = $(addprefix rays/, rays.c horizontal_cast.c vertical_cast.c utils.c \
+			display/displayRays.c )
 
 OBJ = $(SRC:.c=.o)
 

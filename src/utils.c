@@ -96,3 +96,14 @@ int     checkWall(char m[MHEIGHT][MLENGTH], int x, int y)
         return (1);
     return (0);
 }
+
+void    free_rays(t_ray **rays, int l)
+{
+        int i = 0;
+        while (i < l)
+        {
+                free(rays[i]);
+                i++;
+        }
+        free(rays);
+}

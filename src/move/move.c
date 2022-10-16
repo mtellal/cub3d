@@ -60,6 +60,23 @@ void	miniMap(t_frame *minimap, t_frame *img)
 	}
 }
 
+void    displayRays2D(t_frame *img, t_ray **rays, int color)
+{
+        t_coor  _ray;
+        int     i;
+
+        i = 0;
+        while (i < NBRAYS)
+        {
+                if (rays[i])
+                {
+                        _ray = rays[i]->coor;
+                       put_pixel(img, _ray.y, _ray.x, color);
+                }
+                i++;
+        }
+}
+
 /*	verifie si le masque est non nul, alors une touche est presse
  *	efface le triangle
  *	call les functions moveX correspondant aux touches pressees, peut etre en meme temps
@@ -69,10 +86,17 @@ void	miniMap(t_frame *minimap, t_frame *img)
 void    move(t_data *data)
 {
 	t_frame *img2D = &data->img2D;
-        
+
         if (!img2D->move)
     	        return ;
         
+        if (data->rays)
+        {
+                displayRays2D(&data->img2D, data->rays, 0);
+                free_rays(data->rays, NBRAYS);
+                data->rays = NULL;
+        }
+
         // coor a incrementer pour continuer la droite vers le haut/bas - droite/gauche
         t_coor dda_incup = coorLine(img2D->triangle.a, img2D->triangle.milieu);
         t_coor dda_incrigth = coorLine(img2D->triangle.c, img2D->triangle.b);
@@ -83,7 +107,7 @@ void    move(t_data *data)
         put_pixel(&data->img, img->triangle.se.y, img->triangle.se.x, 0); */
 
 
-        castRays(data, &data->img2D, &data->img3D, img2D->triangle.milieu, LENGTH, 0, 0);
+       // castRays(data, &data->img2D, &data->img3D, img2D->triangle.milieu, LENGTH, 0, 0);
         draw_triangle(img2D, img2D->triangle, 0);
 
         if (img2D->move & U)
@@ -99,8 +123,16 @@ void    move(t_data *data)
         if (img2D->move & VL)
                 moveVLEFT(img2D);
 
-	castRays(data, &data->img2D, &data->img3D, img2D->triangle.milieu, LENGTH, 0x00FFFFFF, 1);
+        data->rays = castRays(&data->img2D);
+
+        if (data->rays)
+        {
+                //displayRays2D(&data->img2D, data->rays, 0x00FFFFFF);
+                displayCastRays(&data->img3D, data->rays, &data->texture);
+        }
+	//castRays(data, &data->img2D, &data->img3D, img2D->triangle.milieu, LENGTH, 0x00FFFFFF, 1);
 	draw_triangle(img2D, img2D->triangle, img2D->triangle.color);
+
 
     /*     put_pixel(&data->img, img->triangle.no.y, img->triangle.no.x, 0x00FFFFFF);
         put_pixel(&data->img, img->triangle.ne.y, img->triangle.ne.x, 0x00FFFFFF);
@@ -110,5 +142,7 @@ void    move(t_data *data)
         miniMap(&data->img2D, &data->img3D);
 
 	mlx_put_image_to_window(data->mlx, data->img3D.window, data->img3D.img, 0, 0);
+
+       // free_rays(rays, nbrays);
 } 
 

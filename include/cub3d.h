@@ -34,10 +34,6 @@ void	initTriangle(t_frame *img, int i, int j);
 void	fillWalls(t_frame *img, char map[MHEIGHT][MLENGTH]);
 void	init(t_data *img);
 
-//  rays.c
-void	draw_square(t_frame *img, int h, int l, t_coor_map pos, int color);
-void	edgeSquare(t_frame *img, int h, int l, t_coor_map pos, int color);
-void	castRays(t_data *data, t_frame *img, t_frame *img2, t_coor origine, double nbrays, int color, int color2);
 
 // utils.c
 t_coor	coorLine(t_coor point, t_coor origine);
@@ -46,6 +42,7 @@ void	displayCoor(t_coor point);
 double	abs_value(double value);
 double	getLengthRay(t_coor point, t_coor origine, double angle);
 int     checkWall(char map[MHEIGHT][MLENGTH], int x, int y);
+void    free_rays(t_ray **rays, int l);
 
 
 /////////////////           DRAW            ///////////////////
@@ -60,10 +57,27 @@ int dansLeTriangle (t_coor pt, t_triangle t);
 
 ////////////////            RAYS            /////////////////
 
+// rays.c
+t_ray	**castRays(t_frame *img);
+
+// horizontal_cast.c
+t_coor	firstIntersectionHorizontal(t_coor point, t_coor origine, double angle);
+t_coor	horizontalCast(t_coor point, t_coor origine, double angle);
+
+
+// vertical_cast.c
+t_coor	firstIntersectionVertical(t_coor point, t_coor origine, double angle);
+t_coor	verticalCast(t_coor point, t_coor origine, double angle);
+
+/////////////// DISPLAY
+
 // displayRays.c
-void	displayRay(t_frame *img, int posx, int posy, int h, int l, int color, t_texture *texture, int posxwall, 
-		double ratio_imgwall_strip_h, int posy_strip_imgwall);
-void	displayRays(t_frame *img, double length, double nbrays, int color, int i, t_texture *texture, int poslwall);
+void	displayCastRays(t_frame *img, t_ray **rays, t_texture *texture);
+
+// utils.c
+double	correctFishEye(double length, double cumulangle);
+t_ray	**initTabRays(void);
+
 
 ////////////////            MOVE            /////////////////
 
