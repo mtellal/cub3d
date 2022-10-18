@@ -13,6 +13,14 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+enum s_directions
+{
+	NORD,
+	SUD,
+	OUEST,
+	EST
+};
+
 typedef struct s_coor
 {
 	double x;
@@ -68,6 +76,7 @@ typedef struct s_ray
 	double length;
 	t_coor coor;
 	int posstripwall;
+	int walldirection;
 
 }				t_ray;
 
@@ -91,6 +100,12 @@ typedef struct s_frame
 typedef struct s_texture
 {
 	t_img wall;
+
+	t_img walln;
+	t_img walls;
+	t_img wallo;
+	t_img walle;
+
 	t_img cieling;
 	t_img floor;
 }				t_texture;

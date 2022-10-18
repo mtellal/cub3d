@@ -80,7 +80,6 @@ double	abs_value(double value)
 	return (value);
 }
 
-
 double	getLengthRay(t_coor point, t_coor origine, double angle)
 {
 	if (origine.x - point.x == 0)

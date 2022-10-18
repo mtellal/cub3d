@@ -135,19 +135,24 @@ void	initImg3D(t_data *data, t_frame *img2D, t_frame *img3D)
 
 void	initTexture(void *mlx, t_texture *texture)
 {
-
-	texture->wall.img = mlx_xpm_file_to_image(mlx, PATHWALL, &texture->wall.width, &texture->wall.height);
-	texture->wall.addr = mlx_get_data_addr(texture->wall.img, &texture->wall.bpp, &texture->wall.length, &texture->wall.endian);
-	
+	texture->walln.img = mlx_xpm_file_to_image(mlx, PATHWALLN, &texture->walln.width, &texture->walln.height);
+	texture->walln.addr = mlx_get_data_addr(texture->walln.img, &texture->walln.bpp, 
+	&texture->walln.length,&texture->walln.endian);
+	texture->walls.img = mlx_xpm_file_to_image(mlx, PATHWALLS, &texture->walls.width, &texture->walls.height);
+	texture->walls.addr = mlx_get_data_addr(texture->walls.img, &texture->walls.bpp, 
+	&texture->walls.length, &texture->walls.endian);
+	texture->wallo.img = mlx_xpm_file_to_image(mlx, PATHWALLO, &texture->wallo.width, &texture->wallo.height);
+	texture->wallo.addr = mlx_get_data_addr(texture->wallo.img, &texture->wallo.bpp, 
+	&texture->wallo.length, &texture->wallo.endian);
+	texture->walle.img = mlx_xpm_file_to_image(mlx, PATHWALLE, &texture->walle.width, &texture->walle.height);
+	texture->walle.addr = mlx_get_data_addr(texture->walle.img, &texture->walle.bpp, 
+	&texture->walle.length, &texture->walle.endian);
 	texture->cieling.img = mlx_xpm_file_to_image(mlx, PATHCIELING, &texture->cieling.width, &texture->cieling.height);
 	texture->cieling.addr = mlx_get_data_addr(texture->cieling.img, &texture->cieling.bpp, 
 	&texture->cieling.length, &texture->cieling.endian);
-
 	texture->floor.img = mlx_xpm_file_to_image(mlx, PATHFLOOR, &texture->floor.width, &texture->floor.height);
 	texture->floor.addr = mlx_get_data_addr(texture->floor.img, &texture->floor.bpp, 
 	&texture->floor.length, &texture->floor.endian);
-
-
 }
 
 void	init(t_data *data)

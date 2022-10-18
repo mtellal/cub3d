@@ -13,7 +13,11 @@
 #ifndef MACRO_HPP
 #define MACRO_HPP
 
-#define PATHWALL "assets/wall.xpm"
+#define PATHWALLN "assets/cieling.xpm"
+#define PATHWALLS "assets/shrek.xpm"
+#define PATHWALLO "assets/cat.xpm"
+#define PATHWALLE "assets/floor.xpm"
+
 #define PATHCIELING "assets/cieling.xpm"
 #define PATHFLOOR "assets/floor.xpm"
 

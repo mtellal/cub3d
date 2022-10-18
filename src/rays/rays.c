@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-t_coor  	castARay(t_coor point, t_coor origine, double angle, int *strip_texture)
+t_coor  	castARay(t_coor point, t_coor origine, double angle, int *strip_texture, int *walldirection)
 {
 	t_coor		pointXA;
 	t_coor		pointYA;
@@ -23,13 +23,22 @@ t_coor  	castARay(t_coor point, t_coor origine, double angle, int *strip_texture
 	pointYA = verticalCast(point, origine, angle);
 	lxa = getLengthRay(pointXA, origine, angle);
 	lya = getLengthRay(pointYA, origine, angle);
+
 	if (round(lxa) < round(lya))
 	{
+		if (pointXA.y < origine.y)
+			*walldirection = NORD;
+		else
+			*walldirection = SUD;
 		*strip_texture = (int)pointXA.x % GRID;
 		return (pointXA);
 	}
 	else 
 	{
+		if (pointYA.x < origine.x)
+			*walldirection = OUEST;
+		else
+			*walldirection = EST;
 		*strip_texture = (int)pointYA.y % GRID;
 		return (pointYA);
 	}
@@ -45,7 +54,7 @@ t_ray	*castFirstRay(t_ray **rays, t_frame *img, double angle)
 	point = img->triangle.a;
 	origine = img->triangle.milieu;
 	first_ray = rays[NBRAYS / 2];
-	first_ray->coor = castARay(point, origine, angle, &first_ray->posstripwall);
+	first_ray->coor = castARay(point, origine, angle, &first_ray->posstripwall, &first_ray->walldirection);
 	first_ray->length = getLengthRay(first_ray->coor, origine, angle);
 	first_ray->length = correctFishEye(first_ray->length, 0);
 	return (first_ray);
@@ -67,7 +76,7 @@ void	castRigthRays(t_ray **rays, t_ray *first_ray, t_frame *img, double angleinc
 		rrotatePoint(angleinc, &_ray.x, &_ray.y, img->triangle.milieu);
 		angle -= angleinc;
 		cumulangle += angleinc;
-		_ray = castARay(_ray, img->triangle.milieu, angle, &rray->posstripwall);
+		_ray = castARay(_ray, img->triangle.milieu, angle, &rray->posstripwall, &rray->walldirection);
 		rray->length = getLengthRay(_ray, img->triangle.milieu, angle);
 		rray->length = correctFishEye(rray->length, cumulangle);
 		i++;
@@ -95,7 +104,7 @@ void	castLeftRays(t_ray **rays, t_ray *first_ray, t_frame *img, double angleinc,
 		rotatePoint(angleinc, &_ray.x, &_ray.y, img->triangle.milieu);
 		angle += angleinc;
 		cumulangle += angleinc;
-		_ray = castARay(_ray, img->triangle.milieu, angle, &lray->posstripwall);
+		_ray = castARay(_ray, img->triangle.milieu, angle, &lray->posstripwall, &lray->walldirection);
 		lray->length = getLengthRay(_ray, img->triangle.milieu, angle);
 		lray->length = correctFishEye(lray->length, cumulangle);
 		i++;

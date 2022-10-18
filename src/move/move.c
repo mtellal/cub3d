@@ -127,7 +127,7 @@ void    move(t_data *data)
 
         if (data->rays)
         {
-                //displayRays2D(&data->img2D, data->rays, 0x00FFFFFF);
+                displayRays2D(&data->img2D, data->rays, 0x00FFFFFF);
                 displayCastRays(&data->img3D, data->rays, &data->texture);
         }
 	//castRays(data, &data->img2D, &data->img3D, img2D->triangle.milieu, LENGTH, 0x00FFFFFF, 1);
