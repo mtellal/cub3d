@@ -72,7 +72,7 @@ t_coor	verticalCast(t_coor point, t_coor origine, double angle);
 /////////////// DISPLAY
 
 // displayRays.c
-void	displayCastRays(t_frame *img, t_ray **rays, t_texture *texture);
+void	displayRays(t_frame *img, t_ray **rays, t_texture *texture);
 
 // utils.c
 double	correctFishEye(double length, double cumulangle);

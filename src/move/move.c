@@ -101,13 +101,6 @@ void    move(t_data *data)
         t_coor dda_incup = coorLine(img2D->triangle.a, img2D->triangle.milieu);
         t_coor dda_incrigth = coorLine(img2D->triangle.c, img2D->triangle.b);
 
-       /*  put_pixel(&data->img, img->triangle.no.y, img->triangle.no.x, 0);
-        put_pixel(&data->img, img->triangle.ne.y, img->triangle.ne.x, 0);
-        put_pixel(&data->img, img->triangle.so.y, img->triangle.so.x, 0);
-        put_pixel(&data->img, img->triangle.se.y, img->triangle.se.x, 0); */
-
-
-       // castRays(data, &data->img2D, &data->img3D, img2D->triangle.milieu, LENGTH, 0, 0);
         draw_triangle(img2D, img2D->triangle, 0);
 
         if (img2D->move & U)
@@ -128,21 +121,14 @@ void    move(t_data *data)
         if (data->rays)
         {
                 displayRays2D(&data->img2D, data->rays, 0x00FFFFFF);
-                displayCastRays(&data->img3D, data->rays, &data->texture);
+                displayRays(&data->img3D, data->rays, &data->texture);
         }
+
 	//castRays(data, &data->img2D, &data->img3D, img2D->triangle.milieu, LENGTH, 0x00FFFFFF, 1);
 	draw_triangle(img2D, img2D->triangle, img2D->triangle.color);
-
-
-    /*     put_pixel(&data->img, img->triangle.no.y, img->triangle.no.x, 0x00FFFFFF);
-        put_pixel(&data->img, img->triangle.ne.y, img->triangle.ne.x, 0x00FFFFFF);
-        put_pixel(&data->img, img->triangle.so.y, img->triangle.so.x, 0x00FFFFFF);
-        put_pixel(&data->img, img->triangle.se.y, img->triangle.se.x, 0x00FFFFFF); */
 
         miniMap(&data->img2D, &data->img3D);
 
 	mlx_put_image_to_window(data->mlx, data->img3D.window, data->img3D.img, 0, 0);
-
-       // free_rays(rays, nbrays);
 } 
 

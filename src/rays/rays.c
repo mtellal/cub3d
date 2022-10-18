@@ -126,12 +126,9 @@ t_ray	**castRays(t_frame *img)
     angleinc = deg2rad(60 / (double)(LENGTH)); 
 	angle = getAnlge(img->triangle.a, origine);
 
-	// first ray triangle.milieu -> triangle.a
 	t_ray *first_ray = castFirstRay(rays, img, angle);
 
-	// balayage milieu -> droite
 	castRigthRays(rays, first_ray, img, angleinc, angle);
-	// balayge milieu -> gauche
 	castLeftRays(rays, first_ray, img, angleinc, angle);
 
 	return (rays);

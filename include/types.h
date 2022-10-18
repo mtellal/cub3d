@@ -44,6 +44,8 @@ typedef struct s_img
 
 	int height;
 	int width;
+	
+	int	*color;
 }				t_img;
 
 typedef struct s_triangle
@@ -99,15 +101,14 @@ typedef struct s_frame
 
 typedef struct s_texture
 {
-	t_img wall;
+	t_img	walln;
+	t_img	walls;
+	t_img	wallo;
+	t_img	walle;
 
-	t_img walln;
-	t_img walls;
-	t_img wallo;
-	t_img walle;
+	t_img	cieling;
+	t_img	floor;
 
-	t_img cieling;
-	t_img floor;
 }				t_texture;
 
 typedef struct s_data
