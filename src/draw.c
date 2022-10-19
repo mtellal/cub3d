@@ -36,17 +36,8 @@ void	draw_triangle(t_frame *img, t_triangle triangle, int color)
 		}
 		i++;
 	}
-
-	/* put_pixel(img, triangle.a.y, triangle.a.x ,0x0000FF00);
-	put_pixel(img, triangle.b.y, triangle.b.x ,0x00FF00FF);
-	put_pixel(img, triangle.c.y, triangle.c.x ,0x00F0F000);
-	put_pixel(img, triangle.milieu.y, triangle.milieu.x, 0x00FFFFFF); */
-
 }
 
-/*	display un mur au sein d'une cellule
- *	le mur affiche est plus petit que la cellule d'ou le 0.1/0.9
-*/
 void	draw_wall(t_frame *img, int x, int y)
 {
 	int	i = x;
@@ -65,10 +56,6 @@ void	draw_wall(t_frame *img, int x, int y)
 		i++;
 	}
 }
-
-/*	formule mathematique pour trouver si un point est inclus dans un triangle
- *	forumle utilisee pour re/display le triangle avec ou sans rotation
- */
 
 float barycentre (t_coor p1, t_coor p2, t_coor p3)
 {

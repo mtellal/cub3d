@@ -33,9 +33,16 @@
 # include "types.h"
 
 
-//Free
-void	exit_message(t_data *data, char *str);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////             P A R S I N G                   ///////////////////////////////////////
+
+// init.c
+void	init_struct_and_parsing(t_data *data, char *str);
+
+// free_utils.c
 void	free_map(t_data *data);
+void	free_texture(t_data *data);
+void	exit_message(t_data *data, char *str);
 
 //Parsing
 void	chck_map_elem(t_data *data);
@@ -89,7 +96,7 @@ int     checkWall(char map[MHEIGHT][MLENGTH], int x, int y);
 void    free_rays(t_ray **rays, int l);
 
 //  exit.c
-int	exit_cross(t_data *data);
+int     exit_cross(t_data *data);
 void	exit_game(t_data *data);
 void	exit_game_clean(t_data *data);
 

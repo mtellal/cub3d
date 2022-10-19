@@ -28,36 +28,26 @@ double  rad2deg(double radians)
 void    rotateTriangle(t_triangle *t, double angle)
 {
     rotatePoint(angle, &t->a.x, &t->a.y, t->milieu);
-
     rotatePoint(angle, &t->b.x, &t->b.y, t->milieu);
-
     rotatePoint(angle, &t->c.x, &t->c.y, t->milieu);
 
-    // colisions
+    // collisions
     rotatePoint(angle, &t->no.x, &t->no.y, t->milieu);
-
     rotatePoint(angle, &t->ne.x, &t->ne.y, t->milieu);
-
     rotatePoint(angle, &t->so.x, &t->so.y, t->milieu);
-
     rotatePoint(angle, &t->se.x, &t->se.y, t->milieu);
 }
 
 void    rrotateTriangle(t_triangle *t, double angle)
 {
     rrotatePoint(angle, &t->a.x, &t->a.y, t->milieu);
-
     rrotatePoint(angle, &t->b.x, &t->b.y, t->milieu);
-
     rrotatePoint(angle, &t->c.x, &t->c.y, t->milieu);
 
-    // colisions
+    // collisions
     rrotatePoint(angle, &t->no.x, &t->no.y, t->milieu);
-
     rrotatePoint(angle, &t->ne.x, &t->ne.y, t->milieu);
-
     rrotatePoint(angle, &t->so.x, &t->so.y, t->milieu);
-
     rrotatePoint(angle, &t->se.x, &t->se.y, t->milieu);
 
 
