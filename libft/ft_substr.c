@@ -3,32 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <mtellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 15:59:14 by mtellal           #+#    #+#             */
-/*   Updated: 2021/11/23 18:41:51 by mtellal          ###   ########.fr       */
+/*   Created: 2019/11/07 23:13:23 by antbarbi          #+#    #+#             */
+/*   Updated: 2021/10/08 19:00:25 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*tab;
+	char	*str;
+	size_t	i;
 
-	if (!s)
+	i = 0;
+	str = malloc(sizeof(char) * (len + 1));
+	if (!(str) || !s)
 		return (NULL);
-	if (ft_strlen(s) <= start)
+	if (start < ft_strlen(s))
 	{
-		tab = (char *)malloc(sizeof(char));
-		if (!tab)
-			return (NULL);
-		*tab = '\0';
-		return (tab);
+		while (s[start] && i < len)
+		{
+			str[i] = s[start];
+			i++;
+			start++;
+		}
 	}
-	tab = (char *)malloc(sizeof(char) * len + 1);
-	if (!tab)
-		return (NULL);
-	ft_strlcpy(tab, (s + start), len + 1);
-	return (tab);
+	str[i] = '\0';
+	return (str);
 }

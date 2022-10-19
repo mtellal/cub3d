@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <mtellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/09 14:08:54 by mtellal           #+#    #+#             */
-/*   Updated: 2021/11/23 18:15:39 by mtellal          ###   ########.fr       */
+/*   Created: 2019/11/06 19:56:37 by antbarbi          #+#    #+#             */
+/*   Updated: 2019/11/07 20:15:20 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	const unsigned char	*tab;
+	const unsigned char	*d;
+	unsigned char		ch;
 
-	tab = s;
+	d = s;
+	ch = (unsigned char)c;
 	while (n--)
 	{
-		if (*tab == (unsigned char)c)
-		{
-			return ((void *)tab);
-		}
-		tab++;
+		if (*d == ch)
+			return ((void *)d);
+		d++;
 	}
 	return (NULL);
 }

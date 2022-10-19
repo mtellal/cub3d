@@ -80,23 +80,19 @@ void	initTriangle(t_frame *img, int i, int j)
  * note: les murs sont affiches qu'une seul fois, les events modifient uniquement le triangle 
 */
 
-void	fillWalls(t_frame *img2D, char map[MHEIGHT][MLENGTH])
+void	fillWalls(t_data *data, t_frame *img2D)
 {
 	int i = 0;
 	int j = 0;
-	t_wall	w;
 
-	w.size = GRID;
-	w.color = WALLCOLOR;
-
-	while (i < 14)
+	while (i < img2D->height / GRID)
 	{
 		j = 0;
-		while (j < 33)
+		while (j < img2D->width / GRID)
 		{
-			if (map[i][j] == '1')
-				draw_wall(img2D, w, i * w.size, j * w.size);
-			else if (map[i][j] == 'N')
+			if (data->map[i][j] == '1')
+				draw_wall(img2D, i * GRID, j * GRID);
+			else if (data->map[i][j] == 'N')
 			{
 				initTriangle(img2D, i, j);
 				put_pixel(img2D, img2D->triangle.milieu.y, img2D->triangle.milieu.x, PLAYERCOLOR);
@@ -112,7 +108,7 @@ void	initImg2D(t_data *data, t_frame *img2D)
 {
 	//img2D->mlx = data->mlx;
 	//img->window = mlx_new_window(img->mlx, LENGTH, HEIGHT, "cub3d");
-	img2D->img = mlx_new_image(data->mlx, LENGTH, HEIGHT);
+	img2D->img = mlx_new_image(data->mlx, img2D->width, img2D->height);
 	img2D->addr = mlx_get_data_addr(img2D->img, &img2D->bpp, &img2D->length, &img2D->endian);
 	img2D->move = 0;
 }
@@ -120,49 +116,56 @@ void	initImg2D(t_data *data, t_frame *img2D)
 void	initImg3D(t_data *data, t_frame *img2D, t_frame *img3D)
 {
 	//img3D->mlx = data->mlx;
-	img3D->window = mlx_new_window(data->mlx, LENGTH2, HEIGHT2, "cub3d");
-	img3D->img = mlx_new_image(data->mlx, LENGTH2, HEIGHT2);
+	img3D->window = mlx_new_window(data->mlx, img3D->width, img3D->height, "cub3d");
+	img3D->img = mlx_new_image(data->mlx, img3D->width, img3D->height);
 	img3D->addr = mlx_get_data_addr(img3D->img, &img3D->bpp, &img3D->length, &img3D->endian);
 
 	/////////
     draw_triangle(img2D, img2D->triangle, img2D->triangle.color);
-	t_ray **rays = castRays(img2D);
-	displayRays(img3D, rays, &data->texture);
-	miniMap(img2D, img3D);
-	free_rays(rays, NBRAYS);
+	t_ray **rays = castRays(data);
+	displayRays(img3D, img2D->width, rays, &data->texture);
+	//miniMap(data, img2D, img3D);
+	free_rays(rays, img2D->width);
 	mlx_put_image_to_window(data->mlx, img3D->window, img3D->img, 0, 0);
 }
 
-void	initTexture(void *mlx, t_texture *texture)
+int	encode_rgb(int red, int green, int blue)
 {
-	texture->walln.img = mlx_xpm_file_to_image(mlx, PATHWALLN, &texture->walln.width, &texture->walln.height);
+	return (red << 16 | green << 8 | blue);
+}
+
+void	initTexture(t_data *data, void *mlx, t_texture *texture)
+{
+	texture->walln.img = mlx_xpm_file_to_image(mlx, data->n_texture, &texture->walln.width, &texture->walln.height);
 	texture->walln.addr = mlx_get_data_addr(texture->walln.img, &texture->walln.bpp, 
 	&texture->walln.length,&texture->walln.endian);
-	texture->walls.img = mlx_xpm_file_to_image(mlx, PATHWALLS, &texture->walls.width, &texture->walls.height);
+
+	texture->walls.img = mlx_xpm_file_to_image(mlx, data->s_texture, &texture->walls.width, &texture->walls.height);
 	texture->walls.addr = mlx_get_data_addr(texture->walls.img, &texture->walls.bpp, 
 	&texture->walls.length, &texture->walls.endian);
-	texture->wallo.img = mlx_xpm_file_to_image(mlx, PATHWALLO, &texture->wallo.width, &texture->wallo.height);
+
+	texture->wallo.img = mlx_xpm_file_to_image(mlx, data->w_texture, &texture->wallo.width, &texture->wallo.height);
 	texture->wallo.addr = mlx_get_data_addr(texture->wallo.img, &texture->wallo.bpp, 
 	&texture->wallo.length, &texture->wallo.endian);
-	texture->walle.img = mlx_xpm_file_to_image(mlx, PATHWALLE, &texture->walle.width, &texture->walle.height);
+
+	texture->walle.img = mlx_xpm_file_to_image(mlx, data->e_texture, &texture->walle.width, &texture->walle.height);
 	texture->walle.addr = mlx_get_data_addr(texture->walle.img, &texture->walle.bpp, 
 	&texture->walle.length, &texture->walle.endian);
-	texture->cieling.img = mlx_xpm_file_to_image(mlx, PATHCIELING, &texture->cieling.width, &texture->cieling.height);
-	texture->cieling.addr = mlx_get_data_addr(texture->cieling.img, &texture->cieling.bpp, 
-	&texture->cieling.length, &texture->cieling.endian);
-	texture->floor.img = mlx_xpm_file_to_image(mlx, PATHFLOOR, &texture->floor.width, &texture->floor.height);
-	texture->floor.addr = mlx_get_data_addr(texture->floor.img, &texture->floor.bpp, 
-	&texture->floor.length, &texture->floor.endian);
-	texture->cieling.color = NULL;
-	texture->floor.color = NULL;
+
+	texture->cieling = 0;
+	texture->floor = 0;
 }
 
 void	init(t_data *data)
 {
 	data->rays = NULL;
+	data->img2D.height = data->height * GRID;
+	data->img2D.width = data->len * GRID;
+	data->img3D.height = data->height * GRID2;
+	data->img3D.width = data->len * GRID2;
 	data->mlx = mlx_init();
 	initImg2D(data, &data->img2D);
-	fillWalls(&data->img2D, map);
-	initTexture(data->mlx, &data->texture);
+	fillWalls(data, &data->img2D);
+	initTexture(data, data->mlx, &data->texture);
 	initImg3D(data, &data->img2D, &data->img3D);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <mtellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/16 19:02:19 by mtellal           #+#    #+#             */
-/*   Updated: 2021/01/04 11:26:19 by mtellal          ###   ########.fr       */
+/*   Created: 2019/11/13 19:44:54 by antbarbi          #+#    #+#             */
+/*   Updated: 2021/10/08 18:35:31 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,25 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int	l;
-	char			c;
+	int	div;
 
+	div = 1;
+	if (n == -2147483648)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putchar_fd('2', fd);
+		n = 147483648;
+	}
 	if (n < 0)
 	{
-		l = -n;
-		write(fd, "-", 1);
+		n = -n;
+		ft_putchar_fd('-', fd);
 	}
-	else
-		l = n;
-	if (l >= 10)
-		ft_putnbr_fd((l / 10), fd);
-	l %= 10;
-	c = l + '0';
-	write(fd, &c, 1);
+	while (n / div >= 10)
+		div *= 10;
+	while (div > 0)
+	{
+		ft_putchar_fd((n / div) % 10 + 48, fd);
+		div /= 10;
+	}
 }

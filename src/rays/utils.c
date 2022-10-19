@@ -18,16 +18,16 @@ double	correctFishEye(double length, double cumulangle)
 	return (length * cos(cumulangle));
 }
 
-t_ray	**initTabRays(void)
+t_ray	**initTabRays(double nbrays)
 {
 	t_ray	**rays;
 	int		i;
 
 	i = 0;
-	rays = malloc(sizeof(t_ray *) * NBRAYS);
+	rays = malloc(sizeof(t_ray *) * nbrays);
 	if (!rays)
 		ft_putstr_fd("ERROR RAYS[LENGTH]\n", 1);
-	while (i < NBRAYS)
+	while (i < nbrays)
 	{
 		rays[i] = (t_ray*)malloc(sizeof(t_ray));
 		if (!rays[i])

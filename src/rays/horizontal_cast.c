@@ -27,7 +27,7 @@ t_coor	firstIntersectionHorizontal(t_coor point, t_coor origine, double angle)
 	return (npoint);
 }
 
-t_coor	horizontalCast(t_coor point, t_coor origine, double angle)
+t_coor	horizontalCast(t_data *data, t_coor point, t_coor origine, double angle)
 {
 	t_coor pointXA = firstIntersectionHorizontal(point, origine, angle);
 
@@ -45,11 +45,11 @@ t_coor	horizontalCast(t_coor point, t_coor origine, double angle)
 	if (origine.y > point.y)
 		ystep *= -1;
 
-	while (pointXA.x >= 0 && pointXA.x < LENGTH &&
-			pointXA.y >= 0 && pointXA.y < HEIGHT)
+	while (pointXA.x >= 0 && pointXA.x < data->img2D.width &&
+			pointXA.y >= 0 && pointXA.y < data->img2D.height)
 	{
-		if (map[(int)(pointXA.y / GRID)][(int)(pointXA.x / GRID)] == '1' ||
-			(ystep < 0 && map[(int)((pointXA.y - 1) / GRID)][(int)(pointXA.x / GRID)] == '1'))
+		if (data->map[(int)(pointXA.y / GRID)][(int)(pointXA.x / GRID)] == '1' ||
+			(ystep < 0 && data->map[(int)((pointXA.y - 1) / GRID)][(int)(pointXA.x / GRID)] == '1'))
 		{
 			break ;
 		}

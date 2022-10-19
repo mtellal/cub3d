@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bzalugas <bzalugas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/26 18:57:46 by bzalugas          #+#    #+#             */
-/*   Updated: 2022/04/27 19:04:04 by mtellal          ###   ########.fr       */
+/*   Created: 2019/12/10 17:41:38 by antbarbi          #+#    #+#             */
+/*   Updated: 2021/10/30 04:15:36 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
+# include <fcntl.h>
+# include <string.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
-# endif
-
-size_t	ft_strlen(const char *s);
-int		ft_find_char(char c, char *str, size_t start);
-char	*ft_strjoin_free(char *s1, char *s2, int free_s1, int free_s2);
-char	*ft_substr_free(char *s, unsigned int start, size_t len, int free_s);
-char	*get_next_line(int fd);
+int		get_next_line(int fd, char **line);
+size_t	ft_strlen(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strndup(char *s);
+char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strnchr(char *s, int c, int n);
 
 #endif

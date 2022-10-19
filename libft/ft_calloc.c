@@ -3,30 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <mtellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 15:10:44 by mtellal           #+#    #+#             */
-/*   Updated: 2021/11/24 10:40:21 by mtellal          ###   ########.fr       */
+/*   Created: 2019/11/07 22:22:58 by antbarbi          #+#    #+#             */
+/*   Updated: 2021/10/08 18:52:40 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+void	*ft_memalloc2(size_t size)
+{
+	void	*tmp;
+
+	tmp = malloc(size);
+	if (!(tmp))
+		return (NULL);
+	ft_bzero(tmp, size);
+	return (tmp);
+}
+
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*tab;
-	void	*p;
-	size_t	l;
+	void	*ptr;
 
-	l = (nmemb * size);
-	tab = (char *) malloc(l);
-	if (tab == NULL)
+	ptr = (void *)ft_memalloc2(size * nmemb);
+	if (!(ptr))
 		return (NULL);
-	p = (void *)tab;
-	while (l > 0)
-	{
-		*tab++ = 0;
-		l--;
-	}
-	return (p);
+	return (ptr);
 }

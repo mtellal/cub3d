@@ -25,20 +25,22 @@ int	handle_input(void *data)
 /*	ajoute une puissance de 2 au masque, correspondant a un mouvement 
 */
 
-int keyPressed(int keycode, t_frame *img2D)
+int keyPressed(int keycode, t_data *data)
 {
 	if (keycode == UP)
-		img2D->move |= U;
+		data->img2D.move |= U;
 	if (keycode == DOWN)
-		img2D->move |= D;
+		data->img2D.move |= D;
 	if (keycode == RIGHT)
-		img2D->move |= R;
+		data->img2D.move |= R;
 	if (keycode == LEFT)
-		img2D->move |= L;
+		data->img2D.move |= L;
 	if (keycode == VRIGHT)
-		img2D->move |= VR;
+		data->img2D.move |= VR;
 	if (keycode == VLEFT)
-		img2D->move |= VL;
+		data->img2D.move |= VL;
+	if (keycode == XK_Escape)
+		exit_game(data);
 
 	return (0);
 }

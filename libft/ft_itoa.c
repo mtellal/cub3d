@@ -3,58 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <mtellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/16 16:08:09 by mtellal           #+#    #+#             */
-/*   Updated: 2021/11/23 18:13:57 by mtellal          ###   ########.fr       */
+/*   Created: 2019/11/28 16:34:05 by antbarbi          #+#    #+#             */
+/*   Updated: 2021/10/08 18:53:30 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_ndigit(long n)
+void	ft_fill_string(unsigned int n, int index, char *str)
 {
-	int	i;
+	if (n >= 10)
+		ft_fill_string(n / 10, index - 1, str);
+	str[index] = n % 10 + '0';
+}
 
-	i = 0;
+static int	neg(int n)
+{
 	if (n < 0)
-	{
-		n *= -1;
-		i++;
-	}
-	while (n >= 10)
-	{
-		n /= 10;
-		i++;
-	}
-	if (n >= 0)
-		i++;
-	return (i);
+		n = -n;
+	return (n);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*tab;
-	int		zero;
-	long	o;
+	char			*str;
+	unsigned int	nbr;
+	int				size;
 
-	o = (long)n;
-	zero = ft_ndigit(o);
-	tab = (char *)malloc(sizeof(char) * zero + 1);
-	if (tab == NULL)
+	size = 1;
+	if (n < 0)
+	{
+		nbr = -n;
+		size++;
+	}
+	else
+		nbr = n;
+	while (nbr >= 10)
+	{
+		nbr /= 10;
+		size++;
+	}
+	str = malloc(sizeof(char) * size + 1);
+	if (!(str))
 		return (NULL);
-	if (o < 0)
-	{
-		tab[0] = '-';
-		o *= -1;
-	}
-	tab[zero--] = '\0';
-	if (n == 0)
-		tab[zero] = '0';
-	while (o > 0)
-	{
-		tab[zero--] = (unsigned char)((o % 10) + '0');
-		o /= 10;
-	}
-	return (tab);
+	str[size] = '\0';
+	ft_fill_string(neg(n), size - 1, str);
+	if (n < 0)
+		str[0] = '-';
+	return (str);
 }

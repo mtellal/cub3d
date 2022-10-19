@@ -3,37 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <mtellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/04 13:06:36 by mtellal           #+#    #+#             */
-/*   Updated: 2022/02/07 15:33:11 by mtellal          ###   ########.fr       */
+/*   Created: 2019/11/06 18:42:18 by antbarbi          #+#    #+#             */
+/*   Updated: 2019/11/06 19:42:57 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, void *src, size_t n)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char	*s;
-	char	*d;
+	char		*d;
+	const char	*s;
+	char		*revd;
+	const char	*revs;
 
-	if (!dest && !src)
-		return (NULL);
-	s = (char *)src;
 	d = (char *)dest;
-	n -= 1;
-	if (s < d)
-	{
-		while ((int)n >= 0)
-		{
-			d[n] = s[n];
-			n--;
-		}
-	}
-	else
-	{
-		while ((int)n-- >= 0)
+	s = (const char *)src;
+	revd = d + (n - 1);
+	revs = s + (n - 1);
+	if (d < s)
+		while (n--)
 			*d++ = *s++;
-	}
+	else
+		while (n--)
+			*revd-- = *revs--;
 	return (dest);
 }

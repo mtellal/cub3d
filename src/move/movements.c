@@ -15,9 +15,6 @@
 double  pixel = 0.1;
 double  multiplicator = GRID * 0.03;
 
-int     HIMG = HEIGHT * GRID;
-int     LIMG = LENGTH * GRID;
-
 void    addPixelX(t_triangle *t, double pixel)
 {
     t->no.x += pixel;
@@ -52,34 +49,26 @@ void    addPixelY(t_triangle *t, double pixel)
 
 ///////// MOVEMENTS /////////////
 
-int     checkPointWall(t_coor point, t_coor dda_inc)
+int     checkPointWall(t_data *data, t_coor point, t_coor dda_inc)
 {
-    if (map[(int)((point.y + dda_inc.y + 1) / GRID)][(int)((point.x + dda_inc.x + 1) / GRID)] == '1')
+    if (data->map[(int)((point.y + dda_inc.y + 1) / GRID)][(int)((point.x + dda_inc.x + 1) / GRID)] == '1')
         return (1);
     return (0);
 }
 
-/* int     checkPoint(t_coor point)
-{
-    if (point.x >= 0 && point.x < LIMG &&
-        point.y >= 0 && point.y < HIMG)
-        return (1);
-    return (0);
-} */
-
-int checkCoorSquare(t_coor c1, t_coor c2, t_coor dda_inc)
+int checkCoorSquare(t_data *data, t_coor c1, t_coor c2, t_coor dda_inc)
 {
     //  verifie si points du triangle sont bien dans la map + pas dans une mur 
     // img->triangle
-    if (!checkPointWall(c1, dda_inc) &&
-        !checkPointWall(c2, dda_inc))
+    if (!checkPointWall(data, c1, dda_inc) &&
+        !checkPointWall(data, c2, dda_inc))
         return (1);
     return (0);
 }
 
-void    moveUP(t_frame *img, t_coor dda_inc)
+void    moveUP(t_data *data, t_frame *img, t_coor dda_inc)
 {
-    if (checkCoorSquare(img->triangle.no, img->triangle.ne, dda_inc))
+    if (checkCoorSquare(data, img->triangle.no, img->triangle.ne, dda_inc))
     {
         dda_inc.x *= multiplicator;
         dda_inc.y *= multiplicator;
@@ -91,12 +80,12 @@ void    moveUP(t_frame *img, t_coor dda_inc)
     }
 }
 
-void    moveDOWN(t_frame *img, t_coor dda_inc)
+void    moveDOWN(t_data *data, t_frame *img, t_coor dda_inc)
 {
     dda_inc.x *= -1;
     dda_inc.y *= -1;
 
-    if (checkCoorSquare(img->triangle.so, img->triangle.se, dda_inc))
+    if (checkCoorSquare(data, img->triangle.so, img->triangle.se, dda_inc))
     {
         dda_inc.x *= multiplicator;
         dda_inc.y *= multiplicator;
@@ -108,9 +97,9 @@ void    moveDOWN(t_frame *img, t_coor dda_inc)
     }
 }
 
-void    moveRIGHT(t_frame *img, t_coor dda_inc)
+void    moveRIGHT(t_data *data, t_frame *img, t_coor dda_inc)
 {
-    if (checkCoorSquare(img->triangle.ne, img->triangle.se, dda_inc))
+    if (checkCoorSquare(data, img->triangle.ne, img->triangle.se, dda_inc))
     {
         dda_inc.x *= multiplicator;
         dda_inc.y *= multiplicator;
@@ -122,12 +111,12 @@ void    moveRIGHT(t_frame *img, t_coor dda_inc)
     }
 }
 
-void    moveLEFT(t_frame *img, t_coor dda_inc)
+void    moveLEFT(t_data *data, t_frame *img, t_coor dda_inc)
 {
     dda_inc.x *= -1;
     dda_inc.y *= -1;
 
-    if (checkCoorSquare(img->triangle.no, img->triangle.so, dda_inc))
+    if (checkCoorSquare(data, img->triangle.no, img->triangle.so, dda_inc))
     {
         dda_inc.x *= multiplicator;
         dda_inc.y *= multiplicator;

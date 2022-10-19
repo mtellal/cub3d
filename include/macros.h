@@ -22,25 +22,17 @@
 #define PATHFLOOR "assets/floor.xpm"
 
 #define GRID 25
+#define GRID2 50
 
 // H/L map 
 #define MHEIGHT 14
 #define MLENGTH 33
-
-// img2D
-#define HEIGHT MHEIGHT * GRID
-#define LENGTH MLENGTH * GRID
-
-// img3D
-#define HEIGHT2 MHEIGHT * 50
-#define LENGTH2 MLENGTH * 50
 
 #define NBRAYS LENGTH
 
 // colors
 #define WALLCOLOR 0x00143D3D
 #define PLAYERCOLOR 0x0000FFFB
-#define FLOORCOLOR 0x000B0518
 
 // keycode 
 #define VRIGHT 65363

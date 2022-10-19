@@ -47,19 +47,19 @@ void	draw_triangle(t_frame *img, t_triangle triangle, int color)
 /*	display un mur au sein d'une cellule
  *	le mur affiche est plus petit que la cellule d'ou le 0.1/0.9
 */
-void	draw_wall(t_frame *img, t_wall w, int x, int y)
+void	draw_wall(t_frame *img, int x, int y)
 {
-	size_t	i = x;
-	size_t	j = y;
+	int	i = x;
+	int	j = y;
 
-	while (i < w.size + x)
+	while (i < GRID + x)
 	{
 		j = y;
-		while (j < w.size + y)
+		while (j < GRID + y)
 		{
-			if (i > w.size * 0.1 + x && i < w.size * 0.9 + x &&
-				j > w.size * 0.1 + y && j < w.size * 0.9 + y)
-			put_pixel(img, i, j, w.color);
+			if (i > GRID * 0.1 + x && i < GRID * 0.9 + x &&
+				j > GRID * 0.1 + y && j < GRID * 0.9 + y)
+			put_pixel(img, i, j, WALLCOLOR);
 			j++;
 		}
 		i++;

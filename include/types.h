@@ -13,6 +13,7 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+
 enum s_directions
 {
 	NORD,
@@ -66,13 +67,6 @@ typedef struct s_triangle
 	int color;
 }				t_triangle;
 
-typedef struct s_wall
-{
-    size_t  size;
-    int     color;
-
-}               t_wall;
-
 typedef struct s_ray
 {
 	double length;
@@ -97,6 +91,9 @@ typedef struct s_frame
 
 	int					move;
 
+	int					height;
+	int					width;
+
 }		t_frame;
 
 typedef struct s_texture
@@ -106,8 +103,10 @@ typedef struct s_texture
 	t_img	wallo;
 	t_img	walle;
 
-	t_img	cieling;
-	t_img	floor;
+	int		cieling;
+	int		floor;
+	//t_img	cieling;
+	//t_img	floor;
 
 }				t_texture;
 
@@ -117,10 +116,19 @@ typedef struct s_data
 
 	t_frame img2D;
 	t_frame img3D;
-
 	t_texture texture;
-
 	t_ray **rays;
+
+
+	char	**map;
+	int		len;
+	int		height;
+	char	*n_texture;
+	char	*s_texture;
+	char	*w_texture;
+	char	*e_texture;
+	char	*f_texture;
+	char	*c_texture;
 
 }				t_data;
 

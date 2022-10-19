@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <mtellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/30 16:48:54 by mtellal           #+#    #+#             */
-/*   Updated: 2022/01/07 10:56:09 by mtellal          ###   ########.fr       */
+/*   Created: 2019/11/18 17:33:37 by antbarbi          #+#    #+#             */
+/*   Updated: 2021/10/08 18:55:50 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,29 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*list;
-	t_list	*first;
+	t_list	*new;
+	t_list	*beg;
+	t_list	*tmp;
 
-	list = (t_list *)malloc(sizeof(t_list *) * 1);
-	first = list;
-	while (lst)
+	if (lst)
 	{
-		if (!list)
+		tmp = lst;
+		beg = ft_lstnew(f(tmp->content));
+		if (!(beg))
+			return (NULL);
+		tmp = tmp->next;
+		while (tmp->next)
 		{
-			while (first)
+			new = ft_lstnew(f(tmp->content));
+			if (!(new))
 			{
-				ft_lstdelone(first, del);
-				first = first->next;
+				ft_lstclear(&beg, del);
+				return (NULL);
 			}
+			ft_lstadd_back(&beg, new);
+			tmp = tmp->next;
 		}
-		ft_lstadd_back(&list, ft_lstnew((*f)(lst->content)));
-		list = list->next;
-		lst = lst->next;
+		return (beg);
 	}
-	return (first);
+	return (NULL);
 }

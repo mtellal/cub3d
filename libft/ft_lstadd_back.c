@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <mtellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/29 20:48:03 by mtellal           #+#    #+#             */
-/*   Updated: 2022/02/05 18:48:19 by mtellal          ###   ########.fr       */
+/*   Created: 2019/11/18 18:07:22 by antbarbi          #+#    #+#             */
+/*   Updated: 2019/11/18 18:12:52 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,16 @@
 
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	t_list	*last;
+	t_list	*tmp;
 
 	if (alst)
 	{
-		if (*alst)
-		{
-			last = ft_lstlast(*alst);
-			last->next = new;
-		}
-		else
+		if (*alst == NULL)
 			*alst = new;
-	}
-	else
-	{
-		alst = (t_list **) malloc(sizeof(t_list *));
-		*alst = new;
+		else
+		{
+			tmp = ft_lstlast(*(alst));
+			tmp->next = new;
+		}
 	}
 }

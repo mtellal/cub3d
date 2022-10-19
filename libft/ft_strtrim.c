@@ -3,49 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <mtellal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 19:34:01 by mtellal           #+#    #+#             */
-/*   Updated: 2021/11/23 18:35:09 by mtellal          ###   ########.fr       */
+/*   Created: 2019/11/28 16:37:33 by antbarbi          #+#    #+#             */
+/*   Updated: 2021/10/08 18:38:45 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_belong(const char c, const char *set)
+int	ft_remove(char c, const char *set)
 {
-	while (*set)
+	size_t		i;
+	size_t		len;
+
+	len = ft_strlen(set);
+	i = 0;
+	while (i < len)
 	{
-		if (c == *set)
+		if (c == set[i])
 			return (1);
-		set++;
+		i++;
 	}
 	return (0);
 }
 
-char	*ft_strtrim(char const *s, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	char			*tab;
-	int				i;
-	char const		*r;
+	char			*str;
+	size_t			i;
+	size_t			len;
 
 	i = 0;
-	r = s;
-	if (s == NULL)
+	if (!s1)
 		return (NULL);
-	while (ft_belong(s[i], set) && s[i])
+	len = ft_strlen(s1);
+	while (set && ft_remove(s1[i], set))
 		i++;
-	s = r + ft_strlen(r) - 1;
-	while (ft_belong(*s, set) && *s--)
-		i++;
-	if (i == (int)(2 * ft_strlen(r)))
-		i = ft_strlen(r) - 1;
-	tab = (char *)malloc(sizeof(char) * (ft_strlen(r) - i) + 1);
-	if (!tab)
-		return (NULL);
-	i = ft_strlen(r) - i;
-	tab[i--] = '\0';
-	while (i >= 0)
-		tab[i--] = *s--;
-	return (tab);
+	while (set && len > 1 && ft_remove(s1[len - 1], set))
+		len--;
+	if (i > len)
+		str = ft_calloc(1, 1);
+	else
+		str = ft_substr(s1, i, len - i);
+	return (str);
 }
