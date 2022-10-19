@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 		return (-1);
 	}
 	init_struct_and_parsing(&data, argv[1]);
-	
+
 	init(&data);
 	game(&data);
 

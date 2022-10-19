@@ -89,7 +89,7 @@ void	calculStripWall(t_frame *img3D, t_img *texture, t_coor posWallImg3d, t_coor
 		if (wallImg3D.h >= (double)(img3D->height))
 		{
 			posWall.y = (wallImg3D.h - (double)img3D->height) / 2 * scale_y;
-			wallImg3D.h = (double)img3D->height - 1;
+			wallImg3D.h = img3D->height;
 		}
 
 		displayStripWall(img3D, texture, posWallImg3d, wallImg3D.h, wallImg3D.l, posWall, scale_y);
@@ -98,6 +98,8 @@ void	calculStripWall(t_frame *img3D, t_img *texture, t_coor posWallImg3d, t_coor
 void	displayStrip(t_frame *img3D, t_texture *texture, t_ray *_ray, t_coor posWallImg3D, t_coor_map wallImg3D)
 {
 	displayCieling(img3D, texture->cieling, posWallImg3D.y, posWallImg3D.x, wallImg3D.l);
+
+	(void)_ray;
 
 	if (_ray->walldirection == NORD)
 		calculStripWall(img3D, &texture->walln, posWallImg3D, wallImg3D, _ray->posstripwall);
@@ -108,8 +110,7 @@ void	displayStrip(t_frame *img3D, t_texture *texture, t_ray *_ray, t_coor posWal
 	else if (_ray->walldirection == EST)
 		calculStripWall(img3D, &texture->walle, posWallImg3D, wallImg3D, _ray->posstripwall);
 
-	// segfault a corriger 
-	displayFloor(img3D, texture->floor, (int)((int)wallImg3D.h + (int)posWallImg3D.y), posWallImg3D.x, wallImg3D.l);
+	displayFloor(img3D, texture->floor, wallImg3D.h + posWallImg3D.y, posWallImg3D.x, wallImg3D.l);
 }
 
 void	displayRays(t_frame *img3D, double nbrays, t_ray **rays, t_texture *texture)
@@ -119,6 +120,8 @@ void	displayRays(t_frame *img3D, double nbrays, t_ray **rays, t_texture *texture
 	t_ray		*_ray;
 	t_coor		posWallImg3D;
 	t_coor_map	wallImg3D;
+
+	(void)texture;
 
 	i = 0;
 	distpp = ((double)img3D->height / 2) / tan(deg2rad(30));

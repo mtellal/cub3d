@@ -80,9 +80,9 @@ void	castRigthRays(t_data *data, t_ray **rays, t_ray *first_ray, double angleinc
 
 	i = 0;
 	cumulangle = 0;
-	rray = rays[data->img2D.width / 2 + 1];
+	rray = rays[(int)(data->img2D.width / 2) + 1];
 	_ray = first_ray->coor;
-	while (i < (int)(data->img2D.width / 2) - 1)
+	while (i < (int)(data->img2D.width / 2))
 	{
 		rrotatePoint(angleinc, &_ray.x, &_ray.y, data->img2D.triangle.milieu);
 		angle -= angleinc;
@@ -93,7 +93,8 @@ void	castRigthRays(t_data *data, t_ray **rays, t_ray *first_ray, double angleinc
 		i++;
 		rray->coor.x = _ray.x;
 		rray->coor.y = _ray.y;
-		rray = rays[(int)(data->img2D.width / 2) + 1 + i];
+		if (data->img2D.width / 2 + 1 + i < data->img2D.width)
+			rray = rays[(int)(data->img2D.width / 2) + 1 + i];
 	}
 }
 
