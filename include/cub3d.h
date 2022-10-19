@@ -66,11 +66,18 @@ void	print_map(char	**map);
 // main.c
 
 
+//////////////      INIT    //////////////
+
 // init.c
 void	initTriangle(t_frame *img, int i, int j);
 void	fillWalls(t_data *data, t_frame *img);
 void	init(t_data *img);
 
+// initTriangle.c
+void	initTriangle(t_frame *img, int i, int j);
+
+// initImg2D
+void	initImg2D(t_data *data, t_frame *img2D);
 
 // utils.c
 t_coor	coorLine(t_coor point, t_coor origine);
@@ -101,6 +108,7 @@ int dansLeTriangle (t_coor pt, t_triangle t);
 
 // rays.c
 t_ray	**castRays(t_data *data);
+void    cast_and_display(t_data *data);
 
 // horizontal_cast.c
 t_coor	firstIntersectionHorizontal(t_coor point, t_coor origine, double angle);

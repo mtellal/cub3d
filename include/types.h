@@ -87,8 +87,6 @@ typedef struct s_frame
 	int					endian;
 
 	struct s_triangle	triangle;
-	struct s_triangle	ray;
-
 	int					move;
 
 	int					height;
@@ -105,8 +103,6 @@ typedef struct s_texture
 
 	int		cieling;
 	int		floor;
-	//t_img	cieling;
-	//t_img	floor;
 
 }				t_texture;
 

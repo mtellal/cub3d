@@ -74,9 +74,7 @@ void    moveUP(t_data *data, t_frame *img, t_coor dda_inc)
         dda_inc.y *= multiplicator;
 
         addPixelY(&img->triangle, dda_inc.y);
-        addPixelX(&img->triangle, dda_inc.x);
-        addPixelY(&img->ray, dda_inc.y);
-        addPixelX(&img->ray, dda_inc.x);      
+        addPixelX(&img->triangle, dda_inc.x);   
     }
 }
 
@@ -91,9 +89,7 @@ void    moveDOWN(t_data *data, t_frame *img, t_coor dda_inc)
         dda_inc.y *= multiplicator;
 
         addPixelY(&img->triangle, dda_inc.y);
-        addPixelX(&img->triangle, dda_inc.x);
-        addPixelY(&img->ray, dda_inc.y);
-        addPixelX(&img->ray, dda_inc.x);      
+        addPixelX(&img->triangle, dda_inc.x);   
     }
 }
 
@@ -105,9 +101,7 @@ void    moveRIGHT(t_data *data, t_frame *img, t_coor dda_inc)
         dda_inc.y *= multiplicator;
 
         addPixelY(&img->triangle, dda_inc.y);
-        addPixelX(&img->triangle, dda_inc.x);
-        addPixelY(&img->ray, dda_inc.y);
-        addPixelX(&img->ray, dda_inc.x);      
+        addPixelX(&img->triangle, dda_inc.x);   
     }
 }
 
@@ -122,8 +116,6 @@ void    moveLEFT(t_data *data, t_frame *img, t_coor dda_inc)
         dda_inc.y *= multiplicator;
 
         addPixelY(&img->triangle, dda_inc.y);
-        addPixelX(&img->triangle, dda_inc.x);
-        addPixelY(&img->ray, dda_inc.y);
-        addPixelX(&img->ray, dda_inc.x);      
+        addPixelX(&img->triangle, dda_inc.x);    
     }
 }

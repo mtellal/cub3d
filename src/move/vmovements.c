@@ -25,11 +25,6 @@ double  rad2deg(double radians)
     return (radians * (180 / M_PI));
 }   
 
-// column = 35
-// fov = deg2rad(60);
-
-//  rayangle += fov / column
-
 void    rotateTriangle(t_triangle *t, double angle)
 {
     rotatePoint(angle, &t->a.x, &t->a.y, t->milieu);
@@ -38,8 +33,7 @@ void    rotateTriangle(t_triangle *t, double angle)
 
     rotatePoint(angle, &t->c.x, &t->c.y, t->milieu);
 
-////////////////////////////////////////////////////////////////////
-
+    // colisions
     rotatePoint(angle, &t->no.x, &t->no.y, t->milieu);
 
     rotatePoint(angle, &t->ne.x, &t->ne.y, t->milieu);
@@ -57,8 +51,7 @@ void    rrotateTriangle(t_triangle *t, double angle)
 
     rrotatePoint(angle, &t->c.x, &t->c.y, t->milieu);
 
-///////////////////////////////////////////////////////////////////////
-
+    // colisions
     rrotatePoint(angle, &t->no.x, &t->no.y, t->milieu);
 
     rrotatePoint(angle, &t->ne.x, &t->ne.y, t->milieu);
@@ -77,8 +70,6 @@ void    moveVLEFT(t_frame *img)
     double  angle = deg2rad(a);
 
     rotateTriangle(&img->triangle, angle);
-    rotatePoint(angle, &img->ray.b.x, &img->ray.b.y, img->triangle.milieu);
-	rotatePoint(angle, &img->ray.c.x, &img->ray.c.y, img->triangle.milieu);
 
 }
 
@@ -87,6 +78,4 @@ void    moveVRIGHT(t_frame *img)
     double		angle = deg2rad(a);
 
     rrotateTriangle(&img->triangle, angle);
-    rrotatePoint(angle, &img->ray.b.x, &img->ray.b.y, img->triangle.milieu);
-	rrotatePoint(angle, &img->ray.c.x, &img->ray.c.y, img->triangle.milieu);
 }
