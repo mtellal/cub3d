@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:06:19 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/16 15:06:27 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/10/20 12:47:53 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_ray	**initTabRays(double nbrays)
 		ft_putstr_fd("ERROR RAYS[LENGTH]\n", 1);
 	while (i < nbrays)
 	{
-		rays[i] = (t_ray*)malloc(sizeof(t_ray));
+		rays[i] = (t_ray*)malloc(sizeof(t_ray) + 1);
 		if (!rays[i])
 		{
 			ft_putstr_fd("ERROR ALLOCATION RAYS[II]\n", 1);
@@ -37,5 +37,6 @@ t_ray	**initTabRays(double nbrays)
 		}
 		i++;
 	}
+	rays[i] = NULL;
 	return (rays);
 }

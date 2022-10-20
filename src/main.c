@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 16:31:58 by mtellal           #+#    #+#             */
-/*   Updated: 2022/09/17 22:18:47 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/10/20 12:54:51 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int main(int argc, char **argv)
 	game(&data);
 
 	mlx_loop(data.mlx);
-
+	exit_game_clean(&data);
+	free_rays(data.rays, data.img2D.width);
 	free_texture(&data);
 	free_map(&data);
 }
