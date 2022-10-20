@@ -76,15 +76,15 @@ void	print_map(char	**map);
 //////////////      INIT    //////////////
 
 // init.c
-void	initTriangle(t_frame *img, int i, int j);
-void	fillWalls(t_data *data, t_frame *img);
 void	init(t_data *img);
 
 // initTriangle.c
-void	initTriangle(t_frame *img, int i, int j);
+void	initTriangle(t_frame *img, int i, int j, char c);
 
 // initImg2D
 void	initImg2D(t_data *data, t_frame *img2D);
+void	fillImg2D(t_data *data, t_frame *img);
+
 
 // utils.c
 t_coor	coorLine(t_coor point, t_coor origine);
@@ -151,6 +151,8 @@ void    moveLEFT(t_data *data, t_frame *img, t_coor dda_inc);
 //  vmovements.c
 double  deg2rad(double degrees);
 double  rad2deg(double radians);
+void    rotateTriangle(t_triangle *t, double angle);
+void    rrotateTriangle(t_triangle *t, double angle);
 void    moveVRIGHT(t_frame *img);
 void    moveVLEFT(t_frame *img);
 

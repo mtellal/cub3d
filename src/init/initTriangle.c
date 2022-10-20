@@ -42,7 +42,7 @@ void	initTrianglePoints(t_frame *img, int i, int j)
 	img->triangle.milieu.y = i * GRID + GRID / 2;
 }
 
-void	initTriangle(t_frame *img, int i, int j)
+void	initTriangle(t_frame *img, int i, int j, char c)
 {
 
 	img->triangle.ipos.h = i * GRID;
@@ -50,6 +50,13 @@ void	initTriangle(t_frame *img, int i, int j)
 
 	initTriangleCollisions(img, i, j);
 	initTrianglePoints(img, i, j);
+
+	if (c == 'S')
+		rotateTriangle(&img->triangle, deg2rad(180));
+	else if (c == 'E')
+		rrotateTriangle(&img->triangle, deg2rad(90));
+	else if (c == 'W')
+		rotateTriangle(&img->triangle, deg2rad(90));
 
 	img->triangle.color = PLAYERCOLOR;
 
