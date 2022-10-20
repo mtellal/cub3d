@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mtellal <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/17 16:32:26 by mtellal           #+#    #+#              #
-#    Updated: 2022/09/17 22:21:36 by mtellal          ###   ########.fr        #
+#    Updated: 2022/10/20 13:16:49 by antbarbi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = clang 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 NAME = cub3d
 
 

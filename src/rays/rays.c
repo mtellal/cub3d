@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:30:40 by mtellal           #+#    #+#             */
-/*   Updated: 2022/09/27 18:30:54 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/10/20 13:31:12 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,8 @@ void	castLeftRays(t_data *data, t_ray **rays, t_ray *first_ray, double angleinc,
 		i++;
 		lray->coor.x = _ray.x;
 		lray->coor.y = _ray.y;
-		lray = rays[data->img2D.width / 2 - 1 - i];
+		if (data->img2D.width / 2 - 1 - i >= 0)
+			lray = rays[data->img2D.width / 2 - 1 - i];
 	}
 }
 
