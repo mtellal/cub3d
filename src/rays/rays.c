@@ -24,7 +24,7 @@ t_coor  	castARay(t_data *data, t_coor point, t_coor origine, double angle, int 
 	lxa = getLengthRay(pointXA, origine, angle);
 	lya = getLengthRay(pointYA, origine, angle);
 
-	if (round(lxa) < round(lya))
+	if (lxa < lya)
 	{
 		if (pointXA.y < origine.y)
 			*walldirection = NORD;
@@ -33,7 +33,7 @@ t_coor  	castARay(t_data *data, t_coor point, t_coor origine, double angle, int 
 		*strip_texture = (int)pointXA.x % GRID;
 		return (pointXA);
 	}
-	else 
+	else
 	{
 		if (pointYA.x < origine.x)
 			*walldirection = OUEST;

@@ -84,7 +84,7 @@ void    cast_and_display(t_data *data)
                 ft_putstr_fd("ERROR !RAYS", 1);
         displayRays2D(&data->img2D, data->rays, 0x00FFFFFF);
         displayRays(&data->img3D, data->img2D.width, data->rays, &data->texture);
-        //miniMap(data, &data->img2D, &data->img3D);
+        miniMap(data, &data->img2D, &data->img3D);
 	mlx_put_image_to_window(data->mlx, data->img3D.window, data->img3D.img, 0, 0);
 }
 
