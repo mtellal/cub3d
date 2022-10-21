@@ -53,7 +53,7 @@ void    rrotateTriangle(t_triangle *t, double angle)
 
 }
 
-double a = GRID * 0.01;
+double a = GRID * 0.007;
 
 void    moveVLEFT(t_frame *img)
 {    

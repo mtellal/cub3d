@@ -84,12 +84,12 @@ void	castRigthRays(t_data *data, t_ray **rays, t_ray *first_ray, double angleinc
 	_ray = first_ray->coor;
 	while (i < (int)(data->img2D.width / 2))
 	{
-		rrotatePoint(angleinc, &_ray.x, &_ray.y, data->img2D.triangle.milieu);
+		rrotatePoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
 		angle -= angleinc;
 		cumulangle += angleinc;
-		_ray = castARay(data, _ray, data->img2D.triangle.milieu, angle, &rray->posstripwall, &rray->walldirection);
-		rray->length = getLengthRay(_ray, data->img2D.triangle.milieu, angle);
-		rray->length = correctFishEye(rray->length, cumulangle);
+		_ray = castARay(data, _ray, data->img2D.triangle.milieu, deg2rad(angle), &rray->posstripwall, &rray->walldirection);
+		rray->length = getLengthRay(_ray, data->img2D.triangle.milieu, deg2rad(angle));
+		rray->length = correctFishEye(rray->length, deg2rad(cumulangle));
 		i++;
 		rray->coor.x = _ray.x;
 		rray->coor.y = _ray.y;
@@ -109,16 +109,16 @@ void	castLeftRays(t_data *data, t_ray **rays, t_ray *first_ray, double angleinc,
 	cumulangle = 0;
 	lray = rays[data->img2D.width / 2 - 1];
 	_ray = first_ray->coor;
-	rotatePoint(angleinc, &_ray.x, &_ray.y, data->img2D.triangle.milieu);
+	rotatePoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
 	angle += angleinc;
 	while (i < data->img2D.width / 2)
 	{
-		rotatePoint(angleinc, &_ray.x, &_ray.y, data->img2D.triangle.milieu);
+		rotatePoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
 		angle += angleinc;
 		cumulangle += angleinc;
-		_ray = castARay(data, _ray, data->img2D.triangle.milieu, angle, &lray->posstripwall, &lray->walldirection);
-		lray->length = getLengthRay(_ray, data->img2D.triangle.milieu, angle);
-		lray->length = correctFishEye(lray->length, cumulangle);
+		_ray = castARay(data, _ray, data->img2D.triangle.milieu, deg2rad(angle), &lray->posstripwall, &lray->walldirection);
+		lray->length = getLengthRay(_ray, data->img2D.triangle.milieu, deg2rad(angle));
+		lray->length = correctFishEye(lray->length, deg2rad(cumulangle));
 		i++;
 		lray->coor.x = _ray.x;
 		lray->coor.y = _ray.y;
@@ -136,10 +136,10 @@ t_ray	**castRays(t_data *data)
 
 	origine = data->img2D.triangle.milieu;
 	rays = initTabRays(data->img2D.width);
-    angleinc = deg2rad(60 / (double)(data->img2D.width)); 
-	angle = getAnlge(data->img2D.triangle.a, origine);
+    angleinc = 60 / (double)(data->img2D.width); 
+	angle = rad2deg(getAnlge(data->img2D.triangle.a, origine));
 
-	t_ray *first_ray = castFirstRay(data, rays, angle);
+	t_ray *first_ray = castFirstRay(data, rays, deg2rad(angle));
 
 	(void)first_ray;
 	castRigthRays(data, rays, first_ray, angleinc, angle);

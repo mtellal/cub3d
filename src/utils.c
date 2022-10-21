@@ -82,9 +82,12 @@ double	abs_value(double value)
 
 double	getLengthRay(t_coor point, t_coor origine, double angle)
 {
-	if (origine.x - point.x == 0)
+	int	deg_angle;
+
+	deg_angle = (int)rad2deg(angle);
+	if ((int)origine.x == (int)point.x || deg_angle == 90 || deg_angle == 270)
 		return (abs_value(origine.y - point.y));
-	if (origine.y - point.y == 0)
+	if ((int)origine.y == (int)point.y || deg_angle == 180 || deg_angle == 360)
 		return (abs_value(origine.x - point.x));
 	return abs_value(abs_value(origine.x - point.x) / cos(angle));
 }
