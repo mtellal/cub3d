@@ -15,8 +15,9 @@ FLAGS = -Wall -Wextra -Werror -g
 NAME = cub3d
 
 
-SRC=$(addprefix src/, main.c draw.c events.c utils.c exit.c $(INITDIR) $(GNLDIR) $(PARSINGDIR) $(RAYDIR) $(MOVEDIR))
-INITDIR=$(addprefix init/, init.c initTriangle.c initImg2D.c) 
+SRC=$(addprefix src/, main.c draw.c events.c utils.c exit.c $(INITDIR) $(DISPLAYDIR) $(GNLDIR) $(PARSINGDIR) $(RAYDIR) $(MOVEDIR))
+INITDIR=$(addprefix init/, init.c initTriangle.c initImg2D.c)
+DISPLAYDIR=$(addprefix display/, minimap.c)
 GNLDIR= $(addprefix get_next_line/, get_next_line.c get_next_line_utils.c)
 PARSINGDIR=$(addprefix parsing/, parse_content.c parse_file.c parse_map.c parse_map_utils.c \
 			chck_edge.c trim_map.c chck_player.c chck_textures.c init.c free_utils.c)

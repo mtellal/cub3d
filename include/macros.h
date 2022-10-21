@@ -53,4 +53,6 @@
 
 #define ANGLE 60
 
+#define BLANC 0x00FFFFFF
+
 #endif

@@ -140,7 +140,7 @@ t_ray	**initTabRays(double);
 ////////////////            MOVE            /////////////////
 
 // move.c
-void	miniMap(t_data *data, t_frame *minimap, t_frame *img);
+void	minimap(t_data *data, t_frame *minimap, t_frame *img);
 void    move(t_data *img);
 
 // movements.c
