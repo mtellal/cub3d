@@ -6,12 +6,12 @@
 #    By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/17 16:32:26 by mtellal           #+#    #+#              #
-#    Updated: 2022/10/20 13:16:49 by antbarbi         ###   ########.fr        #
+#    Updated: 2022/10/21 11:33:30 by mtellal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = clang 
-FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g 
 NAME = cub3d
 
 

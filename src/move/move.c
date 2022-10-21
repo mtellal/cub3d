@@ -15,44 +15,50 @@
 
 void	miniMap(t_data *data, t_frame *minimap, t_frame *img3D)
 {
+        (void)data;
+        int l_minimap_img3D = img3D->width * 0.3;
+        int h_minimap_img3D = img3D->height * 0.3;
+
+        if (l_minimap_img3D > h_minimap_img3D)
+                l_minimap_img3D = h_minimap_img3D;
+        else 
+                h_minimap_img3D = l_minimap_img3D;
+
+        int posx_minimap_img3D = img3D->width - (l_minimap_img3D + 1);
+        int posy_minimap_img3D = img3D->height - (h_minimap_img3D + 1);
+
         int pos_playerx = minimap->triangle.milieu.x;
 	int pos_playery = minimap->triangle.milieu.y;
-	
-	int debut_minimapx = pos_playerx - 5 * GRID;
-	int debut_minimapy = pos_playery - 5 * GRID;
 
-         if (pos_playerx + 5 * GRID >= minimap->width)
-                debut_minimapx -= pos_playerx + 5 * GRID - minimap->width;
-        if (pos_playery + 5 * GRID >= minimap->height)
-                debut_minimapy -= pos_playery + 5 * GRID - minimap->height;
+        int posx_minimap_img2D = pos_playerx - l_minimap_img3D / 2;
+        int posy_minimap_img2D = pos_playery - h_minimap_img3D / 2;
 
-	if (debut_minimapx < 0)
-		debut_minimapx = 0;
-        if (debut_minimapy < 0)
-		debut_minimapy = 0;
-
+	if (posx_minimap_img2D < 0)
+		posx_minimap_img2D = 0;
+        if (posy_minimap_img2D < 0)
+		posy_minimap_img2D = 0;
         
 	int i = 0;
 	int j = 0;
-	while (i < 10 * GRID)
+	while (i < h_minimap_img3D)
 	{
 		j = 0;
-	        while (j < 10 * GRID)
+	        while (j < l_minimap_img3D)
 		{
                         int pixelMinimap = 0;
-                        if (debut_minimapy + i < minimap->height && debut_minimapx + j < minimap->width)
+                        if (posy_minimap_img2D + i < minimap->height && posx_minimap_img2D + j < minimap->width)
                         {
 			        pixelMinimap = *(int*)(minimap->addr + 
-                                                debut_minimapy * minimap->length + 
+                                                posy_minimap_img2D * minimap->length + 
                                                 i * minimap->length +
-                                                debut_minimapx * (minimap->bpp / 8) +
+                                                posx_minimap_img2D * (minimap->bpp / 8) +
                                                 j * (minimap->bpp / 8));
                         }
 
-                        if (i == 0 || j == 0 || i + 1 >= GRID * 10 || j + 1 >= GRID * 10)
-                                put_pixel(img3D, (data->height - data->height * 0.1 * 6) * GRID * 2 + i, (data->len - 6) * GRID * 2 + j, 0x00FFFFFF);
+                        if (i == 0 || j == 0 || i + 1 >= h_minimap_img3D || j + 1 >= l_minimap_img3D)
+                                put_pixel(img3D, posy_minimap_img3D + i, posx_minimap_img3D + j, 0x00FFFFFF);
 			else
-                                put_pixel(img3D, (data->height - data->height * 0.1 * 6) * GRID * 2 + i, (data->len - 6) * GRID * 2 + j, pixelMinimap);
+                                put_pixel(img3D, posy_minimap_img3D + i, posx_minimap_img3D + j, pixelMinimap);
 			j++;
 		}
 		i++;
