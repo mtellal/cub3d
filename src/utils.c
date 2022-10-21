@@ -109,3 +109,14 @@ void    free_rays(t_ray **rays, int l)
         }
         free(rays);
 }
+
+void	free_tabs(char **s)
+{
+	int		i;
+
+	i = 0;
+	while (s && s[i])
+		free(s[i++]);
+	if (s)
+		free(s);
+}

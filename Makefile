@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC = clang 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 NAME = cub3d
 
 

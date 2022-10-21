@@ -94,6 +94,7 @@ double	abs_value(double value);
 double	getLengthRay(t_coor point, t_coor origine, double angle);
 int     checkWall(char map[MHEIGHT][MLENGTH], int x, int y);
 void    free_rays(t_ray **rays, int l);
+void	free_tabs(char **s);
 
 //  exit.c
 int     exit_cross(t_data *data);

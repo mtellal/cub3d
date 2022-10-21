@@ -22,10 +22,18 @@ void	initImg3D(t_data *data, t_frame *img3D)
 
 int	get_color(char *s)
 {
-	int r = ft_atoi(s);
-	int g = ft_atoi(s + 4);
-	int b = ft_atoi(s + 8);
+	char **srgb;
+	int		r;
+	int		g;
+	int		b;
+
+	srgb = ft_split(s, ',');
+	r = ft_atoi(srgb[0]);
+	g = ft_atoi(srgb[1]);
+	b = ft_atoi(srgb[2]);
+	free_tabs(srgb);
 	return (r << 16 | g << 8 | b);
+	return (0);
 }
 
 void	initTexture(t_data *data, void *mlx, t_texture *texture)
