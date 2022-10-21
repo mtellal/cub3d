@@ -6,23 +6,23 @@
 /*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:57:36 by mtellal           #+#    #+#             */
-/*   Updated: 2022/09/23 12:57:44 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/10/21 15:39:44 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	initImg3D(t_data *data, t_frame *img3D)
+void	initimg3d(t_data *d, t_frame *i)
 {
-	img3D->window = mlx_new_window(data->mlx, img3D->width, img3D->height, "cub3d");
-	img3D->img = mlx_new_image(data->mlx, img3D->width, img3D->height);
-	img3D->addr = mlx_get_data_addr(img3D->img, &img3D->bpp, &img3D->length, &img3D->endian);
-	cast_and_display(data);
+	i->window = mlx_new_window(d->mlx, i->width, i->height, "cub3d");
+	i->img = mlx_new_image(d->mlx, i->width, i->height);
+	i->addr = mlx_get_data_addr(i->img, &i->bpp, &i->length, &i->endian);
+	cast_and_display(d);
 }
 
 int	get_color(char *s)
 {
-	char **srgb;
+	char	**srgb;
 	int		r;
 	int		g;
 	int		b;
@@ -36,29 +36,29 @@ int	get_color(char *s)
 	return (0);
 }
 
-void	initTexture(t_data *data, void *mlx, t_texture *texture)
+void	inittexture(t_data *d, void *mlx, t_texture *t)
 {
-	texture->walln.img = mlx_xpm_file_to_image(mlx, data->n_texture, &texture->walln.width, &texture->walln.height);
-	texture->walln.addr = mlx_get_data_addr(texture->walln.img, &texture->walln.bpp, 
-	&texture->walln.length,&texture->walln.endian);
-
-	texture->walls.img = mlx_xpm_file_to_image(mlx, data->s_texture, &texture->walls.width, &texture->walls.height);
-	texture->walls.addr = mlx_get_data_addr(texture->walls.img, &texture->walls.bpp, 
-	&texture->walls.length, &texture->walls.endian);
-
-	texture->wallo.img = mlx_xpm_file_to_image(mlx, data->w_texture, &texture->wallo.width, &texture->wallo.height);
-	texture->wallo.addr = mlx_get_data_addr(texture->wallo.img, &texture->wallo.bpp, 
-	&texture->wallo.length, &texture->wallo.endian);
-
-	texture->walle.img = mlx_xpm_file_to_image(mlx, data->e_texture, &texture->walle.width, &texture->walle.height);
-	texture->walle.addr = mlx_get_data_addr(texture->walle.img, &texture->walle.bpp, 
-	&texture->walle.length, &texture->walle.endian);
-
-	texture->cieling = get_color(data->c_texture);
-	texture->floor = get_color(data->f_texture);
+	t->walln.img = mlx_xpm_file_to_image(mlx, d->n_texture,
+			&t->walln.width, &t->walln.height);
+	t->walln.addr = mlx_get_data_addr(t->walln.img, &t->walln.bpp,
+			&t->walln.length, &t->walln.endian);
+	t->walls.img = mlx_xpm_file_to_image(mlx, d->s_texture,
+			&t->walls.width, &t->walls.height);
+	t->walls.addr = mlx_get_data_addr(t->walls.img, &t->walls.bpp,
+			&t->walls.length, &t->walls.endian);
+	t->wallo.img = mlx_xpm_file_to_image(mlx, d->w_texture,
+			&t->wallo.width, &t->wallo.height);
+	t->wallo.addr = mlx_get_data_addr(t->wallo.img, &t->wallo.bpp,
+			&t->wallo.length, &t->wallo.endian);
+	t->walle.img = mlx_xpm_file_to_image(mlx, d->e_texture,
+			&t->walle.width, &t->walle.height);
+	t->walle.addr = mlx_get_data_addr(t->walle.img, &t->walle.bpp,
+			&t->walle.length, &t->walle.endian);
+	t->cieling = get_color(d->c_texture);
+	t->floor = get_color(d->f_texture);
 }
 
-void	initImgDimensions(t_data *data)
+void	initimgdimensions(t_data *data)
 {
 	data->img2D.height = data->height * GRID;
 	data->img2D.width = data->len * GRID;
@@ -70,8 +70,8 @@ void	init(t_data *data)
 {
 	data->rays = NULL;
 	data->mlx = mlx_init();
-	initImgDimensions(data);
-	initImg2D(data, &data->img2D);
-	initTexture(data, data->mlx, &data->texture);
-	initImg3D(data, &data->img3D);
+	initimgdimensions(data);
+	initimg2d(data, &data->img2D);
+	inittexture(data, data->mlx, &data->texture);
+	initimg3d(data, &data->img3D);
 }

@@ -79,11 +79,11 @@ void	print_map(char	**map);
 void	init(t_data *img);
 
 // initTriangle.c
-void	initTriangle(t_frame *img, int i, int j, char c);
+void	inittriangle(t_frame *img, int i, int j, char c);
 
 // initImg2D
-void	initImg2D(t_data *data, t_frame *img2D);
-void	fillImg2D(t_data *data, t_frame *img);
+void	initimg2d(t_data *data, t_frame *img2D);
+void	fillimg2d(t_data *data, t_frame *img);
 
 
 // utils.c
