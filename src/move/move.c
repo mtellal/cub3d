@@ -6,84 +6,73 @@
 /*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 09:17:02 by mtellal           #+#    #+#             */
-/*   Updated: 2022/09/20 09:17:11 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/10/21 16:05:36 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    displayRays2D(t_frame *img2D, t_ray **rays, int color)
+void	displayrays2d(t_frame *img2d, t_ray **rays, int color)
 {
-        t_coor  _ray;
-        int     i;
+	int		i;
+	t_coor	_ray;
 
-        i = 0;
-        while (i < img2D->width)
-        {
-                if (rays[i])
-                {
-                        _ray = rays[i]->coor;
-                       put_pixel(img2D, _ray.y, _ray.x, color);
-                }
-                i++;
-        }
+	i = 0;
+	while (i < img2d->width)
+	{
+		if (rays[i])
+		{
+			_ray = rays[i]->coor;
+			put_pixel(img2d, _ray.y, _ray.x, color);
+		}
+		i++;
+	}
 }
 
-void    cast_and_display(t_data *data)
+void	cast_and_display(t_data *d)
 {
-        draw_triangle(&data->img2D, data->img2D.triangle, data->img2D.triangle.color);
-        data->rays = castRays(data);
-        if (!data->rays)
-                ft_putstr_fd("ERROR !RAYS", 1);
-        displayRays2D(&data->img2D, data->rays, 0x00FFFFFF);
-        displayRays(&data->img3D, data->img2D.width, data->rays, &data->texture);
-        minimap(data, &data->img2D, &data->img3D);
-	mlx_put_image_to_window(data->mlx, data->img3D.window, data->img3D.img, 0, 0);
+	draw_triangle(&d->img2D, d->img2D.triangle, d->img2D.triangle.color);
+	d->rays = castRays(d);
+	displayrays2d(&d->img2D, d->rays, 0x00FFFFFF);
+	displayRays(&d->img3D, d->img2D.width, d->rays, &d->texture);
+	minimap(d, &d->img2D, &d->img3D);
+	mlx_put_image_to_window(d->mlx, d->img3D.window, d->img3D.img, 0, 0);
 }
 
-void    erasePrecedentStateMovement(t_data *data)
+void	eraseprecedentstatemovement(t_data *data)
 {
-        if (data->rays)
-        {
-                draw_triangle(&data->img2D, data->img2D.triangle, 0);
-                displayRays2D(&data->img2D, data->rays, 0);
-                free_rays(data->rays, data->img2D.width);
-                data->rays = NULL;
-        }
+	if (data->rays)
+	{
+		draw_triangle(&data->img2D, data->img2D.triangle, 0);
+		displayrays2d(&data->img2D, data->rays, 0);
+		free_rays(data->rays, data->img2D.width);
+		data->rays = NULL;
+	}
 }
 
-void    move(t_data *data)
+void	move(t_data *data)
 {
-	t_frame *img2D = &data->img2D;
-        t_coor  direction_incup;
-        t_coor  direction_incrigth;
+	t_frame	*img2d;
+	t_coor	direction_incup;
+	t_coor	direction_incrigth;
 
-        (void)img2D;
-        (void)direction_incup;
-        (void)direction_incrigth;
-
-        if (!img2D->move)
-    	        return ;
-        
-        erasePrecedentStateMovement(data);
-
-        // coor a incrementer pour continuer la droite vers le haut/bas - droite/gauche
-        direction_incup = coorLine(img2D->triangle.a, img2D->triangle.milieu);
-        direction_incrigth = coorLine(img2D->triangle.c, img2D->triangle.b);
-
-        if (img2D->move & U)
-                moveUP(data, img2D, direction_incup);
-        if (img2D->move & D)
-                moveDOWN(data, img2D, direction_incup);
-        if (img2D->move & R) 
-                moveRIGHT(data, img2D, direction_incrigth);
-        if (img2D->move & L)
-                moveLEFT(data, img2D, direction_incrigth);
-        if (img2D->move & VR)
-                moveVRIGHT(img2D);
-        if (img2D->move & VL)
-                moveVLEFT(img2D);
-
-        cast_and_display(data);
-} 
-
+	img2d = &data->img2D;
+	if (!img2d->move)
+		return ;
+	eraseprecedentstatemovement(data);
+	direction_incup = coorLine(img2d->triangle.a, img2d->triangle.milieu);
+	direction_incrigth = coorLine(img2d->triangle.c, img2d->triangle.b);
+	if (img2d->move & U)
+		moveup(data, img2d, direction_incup);
+	if (img2d->move & D)
+		movedown(data, img2d, direction_incup);
+	if (img2d->move & R)
+		moverigth(data, img2d, direction_incrigth);
+	if (img2d->move & L)
+		moveleft(data, img2d, direction_incrigth);
+	if (img2d->move & VR)
+		movevrigth(img2d);
+	if (img2d->move & VL)
+		movevleft(img2d);
+	cast_and_display(data);
+}

@@ -84,7 +84,7 @@ void	castRigthRays(t_data *data, t_ray **rays, t_ray *first_ray, double angleinc
 	_ray = first_ray->coor;
 	while (i < (int)(data->img2D.width / 2))
 	{
-		rrotatePoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
+		rrotatepoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
 		angle -= angleinc;
 		cumulangle += angleinc;
 		_ray = castARay(data, _ray, data->img2D.triangle.milieu, deg2rad(angle), &rray->posstripwall, &rray->walldirection);
@@ -109,11 +109,11 @@ void	castLeftRays(t_data *data, t_ray **rays, t_ray *first_ray, double angleinc,
 	cumulangle = 0;
 	lray = rays[data->img2D.width / 2 - 1];
 	_ray = first_ray->coor;
-	rotatePoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
+	rotatepoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
 	angle += angleinc;
 	while (i < data->img2D.width / 2)
 	{
-		rotatePoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
+		rotatepoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
 		angle += angleinc;
 		cumulangle += angleinc;
 		_ray = castARay(data, _ray, data->img2D.triangle.milieu, deg2rad(angle), &lray->posstripwall, &lray->walldirection);

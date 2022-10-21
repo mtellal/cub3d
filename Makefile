@@ -21,7 +21,7 @@ DISPLAYDIR=$(addprefix display/, minimap.c)
 GNLDIR= $(addprefix get_next_line/, get_next_line.c get_next_line_utils.c)
 PARSINGDIR=$(addprefix parsing/, parse_content.c parse_file.c parse_map.c parse_map_utils.c \
 			chck_edge.c trim_map.c chck_player.c chck_textures.c init.c free_utils.c)
-MOVEDIR=$(addprefix move/, move.c movements.c vmovements.c rotate.c)
+MOVEDIR=$(addprefix move/, move.c movements.c movements_utils.c rotate.c radians_deg.c vmovements.c)
 RAYDIR=$(addprefix rays/, rays.c horizontal_cast.c vertical_cast.c utils.c \
 			display/displayRays.c )
 OBJ=$(SRC:.c=.o)

@@ -43,10 +43,10 @@ void	inittriangle(t_frame *img, int i, int j, char c)
 	inittrianglecollisions(img, i, j);
 	inittrianglepoints(img, i, j);
 	if (c == 'S')
-		rotateTriangle(&img->triangle, deg2rad(180));
+		rotatetriangle(&img->triangle, deg2rad(180));
 	else if (c == 'E')
-		rrotateTriangle(&img->triangle, deg2rad(90));
+		rrotatetriangle(&img->triangle, deg2rad(90));
 	else if (c == 'W')
-		rotateTriangle(&img->triangle, deg2rad(90));
+		rotatetriangle(&img->triangle, deg2rad(90));
 	img->triangle.color = PLAYERCOLOR;
 }

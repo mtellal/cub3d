@@ -144,25 +144,33 @@ void	minimap(t_data *data, t_frame *minimap, t_frame *img);
 void    move(t_data *img);
 
 // movements.c
-void    moveUP(t_data *data, t_frame *img, t_coor dda_inc);
-void    moveDOWN(t_data *data, t_frame *img, t_coor dda_inc);
-void    moveRIGHT(t_data *data, t_frame *img, t_coor dda_inc);
-void    moveLEFT(t_data *data, t_frame *img, t_coor dda_inc);
+void    moveup(t_data *data, t_frame *img, t_coor dda_inc);
+void    movedown(t_data *data, t_frame *img, t_coor dda_inc);
+void    moverigth(t_data *data, t_frame *img, t_coor dda_inc);
+void    moveleft(t_data *data, t_frame *img, t_coor dda_inc);
 
-//  vmovements.c
+// movements_utils.c
+void	addpixelx(t_triangle *t, double pixel);
+void	addpixely(t_triangle *t, double pixel);
+int     checkpointwall(t_data *data, t_coor point, t_coor dda_inc);
+int     checkcoorsquare(t_data *data, t_coor c1, t_coor c2, t_coor dda_inc);
+
+// radians_deg.c
 double  deg2rad(double degrees);
 double  rad2deg(double radians);
-void    rotateTriangle(t_triangle *t, double angle);
-void    rrotateTriangle(t_triangle *t, double angle);
-void    moveVRIGHT(t_frame *img);
-void    moveVLEFT(t_frame *img);
+
+//  vmovements.c
+void    rotatetriangle(t_triangle *t, double angle);
+void    rrotatetriangle(t_triangle *t, double angle);
+void    movevrigth(t_frame *img);
+void    movevleft(t_frame *img);
 
 
 //  rotate.c
-double      rotateX(double angle, double x, double y, int r);
-double      rotateY(double angle, double x, double y, int r);
-void        rotatePoint(double angle, double *x, double *y, t_coor origine);
-void        rrotatePoint(double angle, double *x, double *y, t_coor origine);
+double      rotatex(double angle, double x, double y, int r);
+double      rotatey(double angle, double x, double y, int r);
+void        rotatepoint(double angle, double *x, double *y, t_coor origine);
+void        rrotatepoint(double angle, double *x, double *y, t_coor origine);
 
 
 ///////////////         EVENTS             ////////////////
