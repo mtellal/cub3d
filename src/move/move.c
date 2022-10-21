@@ -16,22 +16,21 @@
 void	miniMap(t_data *data, t_frame *minimap, t_frame *img3D)
 {
         (void)data;
-        int l_minimap_img3D = img3D->width * 0.3;
-        int h_minimap_img3D = img3D->height * 0.3;
+        int     size_minimap_img3D;
 
-        if (l_minimap_img3D > h_minimap_img3D)
-                l_minimap_img3D = h_minimap_img3D;
+        if (img3D->width * 0.3 > img3D->height * 0.3)
+                size_minimap_img3D = img3D->height * 0.3;
         else 
-                h_minimap_img3D = l_minimap_img3D;
+                size_minimap_img3D = img3D->width * 0.3;
 
-        int posx_minimap_img3D = img3D->width - (l_minimap_img3D + 1);
-        int posy_minimap_img3D = img3D->height - (h_minimap_img3D + 1);
+        int posx_minimap_img3D = img3D->width - (size_minimap_img3D + size_minimap_img3D * 0.1);
+        int posy_minimap_img3D = img3D->height - (size_minimap_img3D + size_minimap_img3D * 0.1);
 
         int pos_playerx = minimap->triangle.milieu.x;
 	int pos_playery = minimap->triangle.milieu.y;
-
-        int posx_minimap_img2D = pos_playerx - l_minimap_img3D / 2;
-        int posy_minimap_img2D = pos_playery - h_minimap_img3D / 2;
+ 
+        int posx_minimap_img2D = pos_playerx - size_minimap_img3D / 2;
+        int posy_minimap_img2D = pos_playery - size_minimap_img3D / 2;
 
 	if (posx_minimap_img2D < 0)
 		posx_minimap_img2D = 0;
@@ -40,10 +39,10 @@ void	miniMap(t_data *data, t_frame *minimap, t_frame *img3D)
         
 	int i = 0;
 	int j = 0;
-	while (i < h_minimap_img3D)
+	while (i < size_minimap_img3D)
 	{
 		j = 0;
-	        while (j < l_minimap_img3D)
+	        while (j < size_minimap_img3D)
 		{
                         int pixelMinimap = 0;
                         if (posy_minimap_img2D + i < minimap->height && posx_minimap_img2D + j < minimap->width)
@@ -55,7 +54,7 @@ void	miniMap(t_data *data, t_frame *minimap, t_frame *img3D)
                                                 j * (minimap->bpp / 8));
                         }
 
-                        if (i == 0 || j == 0 || i + 1 >= h_minimap_img3D || j + 1 >= l_minimap_img3D)
+                        if (i == 0 || j == 0 || i + 1 >= size_minimap_img3D || j + 1 >= size_minimap_img3D)
                                 put_pixel(img3D, posy_minimap_img3D + i, posx_minimap_img3D + j, 0x00FFFFFF);
 			else
                                 put_pixel(img3D, posy_minimap_img3D + i, posx_minimap_img3D + j, pixelMinimap);
