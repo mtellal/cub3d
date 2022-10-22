@@ -6,19 +6,16 @@
 /*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 11:41:47 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/16 11:41:55 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/10/22 10:27:38 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_coor	firstIntersectionHorizontal(t_coor point, t_coor origine, double angle)
+t_coor	int_hor(t_coor point, t_coor origine, double angle)
 {
+	t_coor	npoint;
 
-	t_coor npoint;
-	(void)angle;
-
-	//face up / down
 	if (point.y < origine.y)
 		npoint.y = floor(origine.y / GRID) * GRID;
 	else
@@ -27,35 +24,30 @@ t_coor	firstIntersectionHorizontal(t_coor point, t_coor origine, double angle)
 	return (npoint);
 }
 
-t_coor	horizontalCast(t_data *data, t_coor point, t_coor origine, double angle)
+t_coor	hor_cast(t_data *d, t_coor p, t_coor o, double a)
 {
-	t_coor pointXA = firstIntersectionHorizontal(point, origine, angle);
+	t_coor	pxa;
+	double	xstep;
+	double	ystep;
 
-	double xstep = (double)GRID / tan(angle);
-	double ystep = GRID;
-
-	// facing right
-	if (origine.x > point.x && xstep > 0)
+	pxa = int_hor(p, o, a);
+	xstep = (double)GRID / tan(a);
+	ystep = GRID;
+	if (o.x > p.x && xstep > 0)
 		xstep *= -1;
-	// facing left
-	else if (origine.x < point.x && xstep < 0)
+	else if (o.x < p.x && xstep < 0)
 		xstep *= -1;
-
-	// facing down
-	if (origine.y > point.y)
+	if (o.y > p.y)
 		ystep *= -1;
-
-	while (pointXA.x >= 0 && pointXA.x < data->img2D.width &&
-			pointXA.y >= 0 && pointXA.y < data->img2D.height)
+	while (pxa.x >= 0 && pxa.x < d->img2D.width
+		&& pxa.y >= 0 && pxa.y < d->img2D.height)
 	{
-		if (data->map[(int)(pointXA.y / GRID)][(int)(pointXA.x / GRID)] == '1' ||
-			(ystep < 0 && data->map[(int)((pointXA.y - 1) / GRID)][(int)(pointXA.x / GRID)] == '1'))
-		{
+		if (d->map[(int)(pxa.y / GRID)][(int)(pxa.x / GRID)] == '1' ||
+			(ystep < 0
+			&& d->map[(int)((pxa.y - 1) / GRID)][(int)(pxa.x / GRID)] == '1'))
 			break ;
-		}
-			pointXA.y += ystep;
-			pointXA.x += xstep;
+		pxa.y += ystep;
+		pxa.x += xstep;
 	}
-
-	return (pointXA);
+	return (pxa);
 }

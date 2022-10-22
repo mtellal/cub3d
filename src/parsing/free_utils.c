@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 16:41:03 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/19 16:41:10 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/10/20 16:06:32 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_map(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (data->map)
@@ -41,12 +41,12 @@ void	free_texture(t_data *data)
 		free(data->s_texture);
 	if (data->w_texture)
 		free(data->w_texture);
-	if (data->e_texture)	
+	if (data->e_texture)
 		free(data->e_texture);
-	if (data->c_texture)	
+	if (data->c_texture)
 		free(data->c_texture);
-	if (data->f_texture)	
-		free(data->f_texture);	
+	if (data->f_texture)
+		free(data->f_texture);
 }
 
 void	exit_message(t_data *data, char *str)

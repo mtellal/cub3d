@@ -6,22 +6,21 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:06:19 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/20 13:15:37 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/10/22 10:33:54 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double	correctFishEye(double length, double cumulangle)
+double	correctfisheye(double length, double cumulangle)
 {
-
 	return (length * cos(cumulangle));
 }
 
-t_ray	**initTabRays(double nbrays)
+t_ray	**inittabrays(double nbrays)
 {
-	t_ray	**rays;
 	int		i;
+	t_ray	**rays;
 
 	i = 0;
 	rays = malloc(sizeof(t_ray *) * nbrays);
@@ -29,7 +28,7 @@ t_ray	**initTabRays(double nbrays)
 		ft_putstr_fd("ERROR RAYS[LENGTH]\n", 1);
 	while (i < nbrays)
 	{
-		rays[i] = (t_ray*)malloc(sizeof(t_ray));
+		rays[i] = (t_ray *)malloc(sizeof(t_ray));
 		if (!rays[i])
 		{
 			ft_putstr_fd("ERROR ALLOCATION RAYS[II]\n", 1);

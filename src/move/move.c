@@ -32,9 +32,9 @@ void	displayrays2d(t_frame *img2d, t_ray **rays, int color)
 void	cast_and_display(t_data *d)
 {
 	draw_triangle(&d->img2D, d->img2D.triangle, d->img2D.triangle.color);
-	d->rays = castRays(d);
+	d->rays = castrays(d);
 	displayrays2d(&d->img2D, d->rays, 0x00FFFFFF);
-	displayRays(&d->img3D, d->img2D.width, d->rays, &d->texture);
+	displayrays(d, d->rays);
 	minimap(d, &d->img2D, &d->img3D);
 	mlx_put_image_to_window(d->mlx, d->img3D.window, d->img3D.img, 0, 0);
 }

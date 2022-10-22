@@ -67,6 +67,13 @@ typedef struct s_triangle
 	int color;
 }				t_triangle;
 
+typedef struct s_drays
+{
+	t_coor_map w;
+	t_coor piw;
+	t_coor pw;
+}				t_drays;
+
 typedef struct s_ray
 {
 	double length;

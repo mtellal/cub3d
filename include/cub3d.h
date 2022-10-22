@@ -115,26 +115,35 @@ int dansLeTriangle (t_coor pt, t_triangle t);
 ////////////////            RAYS            /////////////////
 
 // rays.c
-t_ray	**castRays(t_data *data);
+t_ray	**castrays(t_data *data);
 void    cast_and_display(t_data *data);
 
-// horizontal_cast.c
-t_coor	firstIntersectionHorizontal(t_coor point, t_coor origine, double angle);
-t_coor	horizontalCast(t_data *data, t_coor point, t_coor origine, double angle);
+// cast_a_ray.c
+t_coor  castaray(t_data *d, t_coor p, double angle, t_ray *r);
 
+// horizontal_cast.c
+t_coor	hor_cast(t_data *data, t_coor point, t_coor origine, double angle);
 
 // vertical_cast.c
-t_coor	firstIntersectionVertical(t_coor point, t_coor origine, double angle);
-t_coor	verticalCast(t_data *data, t_coor point, t_coor origine, double angle);
+t_coor	vert_cast(t_data *data, t_coor point, t_coor origine, double angle);
+
+// utils.c
+double	correctfisheye(double length, double cumulangle);
+t_ray	**inittabrays(double);
 
 /////////////// DISPLAY
 
 // displayRays.c
-void	displayRays(t_frame *img, double, t_ray **rays, t_texture *texture);
+void	displayrays(t_data *data, t_ray **rays);
 
-// utils.c
-double	correctFishEye(double length, double cumulangle);
-t_ray	**initTabRays(double);
+// displayTextures.c
+void	dis_c(t_frame *img3D, int c, t_coor pos, int l);
+void	dis_f(t_frame *img3D, int f, t_coor pos, int l);
+void	dissw(t_frame *im, t_img *tw, t_drays *drays, double sy);
+
+
+
+
 
 
 ////////////////            MOVE            /////////////////

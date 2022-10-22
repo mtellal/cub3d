@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:49:24 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/30 13:24:37 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/10/20 16:05:05 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,27 +105,4 @@ int	nb_of_zeros(char **map, char c)
 		i++;
 	}
 	return (cpt);
-}
-
-void	print_map(char	**map) //to delete
-{
-	int	i;
-
-	i = 0;
-	if (!map)
-	{
-		ft_putendl_fd("**map error", 2);
-		return ;
-	}
-	while (map[i])
-	{
-		ft_putnbr_fd(i, 1);
-		ft_putstr_fd(" : len is ", 1);
-		ft_putnbr_fd(ft_strlen(map[i]), 1);
-		ft_putstr_fd(" : ", 1);
-		if (i < 10)
-			ft_putstr_fd(" ", 1);
-		ft_putendl_fd(map[i], 1);
-		i++;
-	}
 }

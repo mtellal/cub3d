@@ -6,128 +6,83 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:30:40 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/20 13:31:12 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/10/22 11:43:25 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_coor  	castARay(t_data *data, t_coor point, t_coor origine, double angle, int *strip_texture, int *walldirection)
+void	castfirstray(t_data *data, t_ray **rays, double angle)
 {
-	t_coor		pointXA;
-	t_coor		pointYA;
-	double		lxa;
-	double		lya;
-
-	pointXA = horizontalCast(data, point, origine, angle);
-	pointYA = verticalCast(data, point, origine, angle);
-	lxa = getLengthRay(pointXA, origine, angle);
-	lya = getLengthRay(pointYA, origine, angle);
-
-	if (lxa < lya)
-	{
-		if (pointXA.y < origine.y)
-			*walldirection = NORD;
-		else
-			*walldirection = SUD;
-		*strip_texture = (int)pointXA.x % GRID;
-		return (pointXA);
-	}
-	else
-	{
-		if (pointYA.x < origine.x)
-			*walldirection = OUEST;
-		else
-			*walldirection = EST;
-		*strip_texture = (int)pointYA.y % GRID;
-		return (pointYA);
-	}
-	return (point);
-}
-
-t_ray	*castFirstRay(t_data *data, t_ray **rays, double angle)
-{
-	t_coor point;
-	t_coor origine;
-	t_ray *first_ray;
+	t_coor	point;
+	t_coor	origine;
+	t_ray	*first_ray;
 
 	point = data->img2D.triangle.a;
 	origine = data->img2D.triangle.milieu;
 	first_ray = rays[(int)(data->img2D.width / 2)];
-	first_ray->coor = castARay(data, point, origine, angle, &first_ray->posstripwall, &first_ray->walldirection);
+	first_ray->coor = castaray(data, point, angle, first_ray);
 	first_ray->length = getLengthRay(first_ray->coor, origine, angle);
-	first_ray->length = correctFishEye(first_ray->length, 0);
-	return (first_ray);
+	first_ray->length = correctfisheye(first_ray->length, 0);
 }
 
-void	castRigthRays(t_data *data, t_ray **rays, t_ray *first_ray, double angleinc, double angle)
+void	c_rrays(t_data *d, t_ray **rays, double angleinc, double angle)
 {
 	int			i;
 	double		cumulangle;
-	t_ray		*rray;
-	t_coor		_ray;
-
-	(void)data;
-	(void)rays;
-	(void)first_ray;
-	(void)angleinc;
-	(void)angle;
-
-	(void)i;
-	(void)cumulangle;
-	(void)rray;
-	(void)_ray;
+	t_ray		*rr;
+	t_coor		cr;
 
 	i = 0;
 	cumulangle = 0;
-	rray = rays[(int)(data->img2D.width / 2) + 1];
-	_ray = first_ray->coor;
-	while (i < (int)(data->img2D.width / 2))
+	rr = rays[(int)(d->img2D.width / 2) + 1];
+	cr = rays[(int)(d->img2D.width / 2)]->coor;
+	while (i < (int)(d->img2D.width / 2))
 	{
-		rrotatepoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
+		rrotatepoint(deg2rad(angleinc), &cr.x, &cr.y, d->img2D.triangle.milieu);
 		angle -= angleinc;
 		cumulangle += angleinc;
-		_ray = castARay(data, _ray, data->img2D.triangle.milieu, deg2rad(angle), &rray->posstripwall, &rray->walldirection);
-		rray->length = getLengthRay(_ray, data->img2D.triangle.milieu, deg2rad(angle));
-		rray->length = correctFishEye(rray->length, deg2rad(cumulangle));
+		cr = castaray(d, cr, deg2rad(angle), rr);
+		rr->length = getLengthRay(cr, d->img2D.triangle.milieu, deg2rad(angle));
+		rr->length = correctfisheye(rr->length, deg2rad(cumulangle));
 		i++;
-		rray->coor.x = _ray.x;
-		rray->coor.y = _ray.y;
-		if (data->img2D.width / 2 + 1 + i < data->img2D.width)
-			rray = rays[(int)(data->img2D.width / 2) + 1 + i];
+		rr->coor.x = cr.x;
+		rr->coor.y = cr.y;
+		if (d->img2D.width / 2 + 1 + i < d->img2D.width)
+			rr = rays[(int)(d->img2D.width / 2) + 1 + i];
 	}
 }
 
-void	castLeftRays(t_data *data, t_ray **rays, t_ray *first_ray, double angleinc, double angle)
+void	c_frays(t_data *d, t_ray **rays, double angleinc, double angle)
 {
 	int			i;
 	double		cumulangle;
-	t_ray		*lray;
-	t_coor		_ray;
+	t_ray		*lr;
+	t_coor		cr;
 
 	i = 0;
 	cumulangle = 0;
-	lray = rays[data->img2D.width / 2 - 1];
-	_ray = first_ray->coor;
-	rotatepoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
+	lr = rays[(int)(d->img2D.width / 2 - 1)];
+	cr = rays[(int)(d->img2D.width / 2)]->coor;
+	rotatepoint(deg2rad(angleinc), &cr.x, &cr.y, d->img2D.triangle.milieu);
 	angle += angleinc;
-	while (i < data->img2D.width / 2)
+	while (i < d->img2D.width / 2)
 	{
-		rotatepoint(deg2rad(angleinc), &_ray.x, &_ray.y, data->img2D.triangle.milieu);
+		rotatepoint(deg2rad(angleinc), &cr.x, &cr.y, d->img2D.triangle.milieu);
 		angle += angleinc;
 		cumulangle += angleinc;
-		_ray = castARay(data, _ray, data->img2D.triangle.milieu, deg2rad(angle), &lray->posstripwall, &lray->walldirection);
-		lray->length = getLengthRay(_ray, data->img2D.triangle.milieu, deg2rad(angle));
-		lray->length = correctFishEye(lray->length, deg2rad(cumulangle));
+		cr = castaray(d, cr, deg2rad(angle), lr);
+		lr->length = getLengthRay(cr, d->img2D.triangle.milieu, deg2rad(angle));
+		lr->length = correctfisheye(lr->length, deg2rad(cumulangle));
 		i++;
-		lray->coor.x = _ray.x;
-		lray->coor.y = _ray.y;
-		if (data->img2D.width / 2 - 1 - i >= 0)
-			lray = rays[data->img2D.width / 2 - 1 - i];
+		lr->coor.x = cr.x;
+		lr->coor.y = cr.y;
+		if (d->img2D.width / 2 - 1 - i >= 0)
+			lr = rays[d->img2D.width / 2 - 1 - i];
 	}
 }
 
-t_ray	**castRays(t_data *data)
+t_ray	**castrays(t_data *data)
 {
 	double		angle;
 	double		angleinc;
@@ -135,20 +90,11 @@ t_ray	**castRays(t_data *data)
 	t_ray		**rays;
 
 	origine = data->img2D.triangle.milieu;
-	rays = initTabRays(data->img2D.width);
-    angleinc = 60 / (double)(data->img2D.width); 
+	rays = inittabrays(data->img2D.width);
+	angleinc = 60 / (double)(data->img2D.width);
 	angle = rad2deg(getAnlge(data->img2D.triangle.a, origine));
-
-	t_ray *first_ray = castFirstRay(data, rays, deg2rad(angle));
-
-	(void)first_ray;
-	castRigthRays(data, rays, first_ray, angleinc, angle);
-	castLeftRays(data, rays, first_ray, angleinc, angle);
-
+	castfirstray(data, rays, deg2rad(angle));
+	c_rrays(data, rays, angleinc, angle);
+	c_frays(data, rays, angleinc, angle);
 	return (rays);
 }
-
-
-
-
-

@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 13:10:58 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/30 14:54:41 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/10/20 16:04:36 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	chck_map_edges(t_data *data)
 	flood_algo(new_map, 0, 0);
 	free_map(data);
 	data->map = new_map;
-	if (cpt_zeros != nb_of_zeros(data->map, '0')) // change to > to allow hollow maps
+	if (cpt_zeros != nb_of_zeros(data->map, '0'))
 		exit_message(data, "Map is not closed");
 	stock_player_and_replace(data->map);
 }
