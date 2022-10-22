@@ -60,8 +60,8 @@ void	move(t_data *data)
 	if (!img2d->move)
 		return ;
 	eraseprecedentstatemovement(data);
-	direction_incup = coorLine(img2d->triangle.a, img2d->triangle.milieu);
-	direction_incrigth = coorLine(img2d->triangle.c, img2d->triangle.b);
+	direction_incup = coorline(img2d->triangle.a, img2d->triangle.milieu);
+	direction_incrigth = coorline(img2d->triangle.c, img2d->triangle.b);
 	if (img2d->move & U)
 		moveup(data, img2d, direction_incup);
 	if (img2d->move & D)

@@ -40,6 +40,8 @@
 void	init_struct_and_parsing(t_data *data, char *str);
 
 // free_utils.c
+void    free_rays(t_ray **rays, int l);
+void	free_tabs(char **s);
 void	free_map(t_data *data);
 void	free_texture(t_data *data);
 void	exit_message(t_data *data, char *str);
@@ -85,16 +87,9 @@ void	inittriangle(t_frame *img, int i, int j, char c);
 void	initimg2d(t_data *data, t_frame *img2D);
 void	fillimg2d(t_data *data, t_frame *img);
 
-
 // utils.c
-t_coor	coorLine(t_coor point, t_coor origine);
-double	getAnlge(t_coor point, t_coor origine);
-void	displayCoor(t_coor point);
+void	displaycoor(t_coor point);
 double	abs_value(double value);
-double	getLengthRay(t_coor point, t_coor origine, double angle);
-int     checkWall(char map[MHEIGHT][MLENGTH], int x, int y);
-void    free_rays(t_ray **rays, int l);
-void	free_tabs(char **s);
 
 //  exit.c
 int     exit_cross(t_data *data);
@@ -108,7 +103,7 @@ void    put_pixel(t_frame *img, int x, int y, int color);
 void	draw_triangle(t_frame *img, t_triangle triangle, int color);
 void	draw_wall(t_frame *, int, int);
 float barycentre (t_coor p1, t_coor p2, t_coor p3);
-int dansLeTriangle (t_coor pt, t_triangle t);
+int     dansletriangle (t_coor pt, t_triangle t);
 
 
 
@@ -130,6 +125,9 @@ t_coor	vert_cast(t_data *data, t_coor point, t_coor origine, double angle);
 // utils.c
 double	correctfisheye(double length, double cumulangle);
 t_ray	**inittabrays(double);
+double	getlengthray(t_coor point, t_coor origine, double angle);
+t_coor	coorline(t_coor point, t_coor origine);
+double	getanlge(t_coor point, t_coor origine);
 
 /////////////// DISPLAY
 
@@ -186,8 +184,8 @@ void        rrotatepoint(double angle, double *x, double *y, t_coor origine);
 
 //events.c
 int	handle_input(void *img);
-int keyPressed(int keycode, t_data *data);
-int keyReleased(int keycode, t_frame *img);
+int keypressed(int keycode, t_data *data);
+int keyreleased(int keycode, t_frame *img);
 
 
 #endif

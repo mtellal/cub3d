@@ -6,11 +6,35 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 16:41:03 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/20 16:06:32 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/10/22 14:35:45 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	free_rays(t_ray **rays, int l)
+{
+	int	i;
+
+	i = 0;
+	while (i < l)
+	{
+		free(rays[i]);
+		i++;
+	}
+	free(rays);
+}
+
+void	free_tabs(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s && s[i])
+		free(s[i++]);
+	if (s)
+		free(s);
+}
 
 void	free_map(t_data *data)
 {

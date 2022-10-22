@@ -22,7 +22,7 @@ void	castfirstray(t_data *data, t_ray **rays, double angle)
 	origine = data->img2D.triangle.milieu;
 	first_ray = rays[(int)(data->img2D.width / 2)];
 	first_ray->coor = castaray(data, point, angle, first_ray);
-	first_ray->length = getLengthRay(first_ray->coor, origine, angle);
+	first_ray->length = getlengthray(first_ray->coor, origine, angle);
 	first_ray->length = correctfisheye(first_ray->length, 0);
 }
 
@@ -43,7 +43,7 @@ void	c_rrays(t_data *d, t_ray **rays, double angleinc, double angle)
 		angle -= angleinc;
 		cumulangle += angleinc;
 		cr = castaray(d, cr, deg2rad(angle), rr);
-		rr->length = getLengthRay(cr, d->img2D.triangle.milieu, deg2rad(angle));
+		rr->length = getlengthray(cr, d->img2D.triangle.milieu, deg2rad(angle));
 		rr->length = correctfisheye(rr->length, deg2rad(cumulangle));
 		i++;
 		rr->coor.x = cr.x;
@@ -72,7 +72,7 @@ void	c_frays(t_data *d, t_ray **rays, double angleinc, double angle)
 		angle += angleinc;
 		cumulangle += angleinc;
 		cr = castaray(d, cr, deg2rad(angle), lr);
-		lr->length = getLengthRay(cr, d->img2D.triangle.milieu, deg2rad(angle));
+		lr->length = getlengthray(cr, d->img2D.triangle.milieu, deg2rad(angle));
 		lr->length = correctfisheye(lr->length, deg2rad(cumulangle));
 		i++;
 		lr->coor.x = cr.x;
@@ -92,7 +92,7 @@ t_ray	**castrays(t_data *data)
 	origine = data->img2D.triangle.milieu;
 	rays = inittabrays(data->img2D.width);
 	angleinc = 60 / (double)(data->img2D.width);
-	angle = rad2deg(getAnlge(data->img2D.triangle.a, origine));
+	angle = rad2deg(getanlge(data->img2D.triangle.a, origine));
 	castfirstray(data, rays, deg2rad(angle));
 	c_rrays(data, rays, angleinc, angle);
 	c_frays(data, rays, angleinc, angle);

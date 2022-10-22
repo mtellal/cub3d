@@ -6,15 +6,11 @@
 /*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 11:35:19 by mtellal           #+#    #+#             */
-/*   Updated: 2022/09/23 11:35:30 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/10/22 14:30:12 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*	fonction appelee avec loop_hook
- *	update l'image lors des mouvements
- */
 
 int	handle_input(void *data)
 {
@@ -22,10 +18,7 @@ int	handle_input(void *data)
 	return (0);
 }
 
-/*	ajoute une puissance de 2 au masque, correspondant a un mouvement 
-*/
-
-int keyPressed(int keycode, t_data *data)
+int	keypressed(int keycode, t_data *data)
 {
 	if (keycode == UP)
 		data->img2D.move |= U;
@@ -41,26 +34,22 @@ int keyPressed(int keycode, t_data *data)
 		data->img2D.move |= VL;
 	if (keycode == XK_Escape)
 		exit_game(data);
-
 	return (0);
 }
 
-/*	supprime du masque un mouvement, lorsque la touche est relachee 
-*/
-
-int keyReleased(int keycode, t_frame *img2D)
+int	keyreleased(int keycode, t_frame *img2d)
 {
 	if (keycode == UP)
-		img2D->move &= ~U;
+		img2d->move &= ~U;
 	if (keycode == DOWN)
-		img2D->move &= ~D;
+		img2d->move &= ~D;
 	if (keycode == RIGHT)
-		img2D->move &= ~R;
+		img2d->move &= ~R;
 	if (keycode == LEFT)
-		img2D->move &= ~L;
+		img2d->move &= ~L;
 	if (keycode == VRIGHT)
-		img2D->move &= ~VR;
+		img2d->move &= ~VR;
 	if (keycode == VLEFT)
-		img2D->move &= ~VL;
+		img2d->move &= ~VL;
 	return (0);
 }
