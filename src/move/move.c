@@ -31,21 +31,21 @@ void	displayrays2d(t_frame *img2d, t_ray **rays, int color)
 
 void	cast_and_display(t_data *d)
 {
-	draw_triangle(&d->img2D, d->img2D.triangle, d->img2D.triangle.color);
+	draw_triangle(&d->img2d, d->img2d.triangle, d->img2d.triangle.color);
 	d->rays = castrays(d);
-	displayrays2d(&d->img2D, d->rays, 0x00FFFFFF);
+	displayrays2d(&d->img2d, d->rays, 0x00FFFFFF);
 	displayrays(d, d->rays);
-	minimap(d, &d->img2D, &d->img3D);
-	mlx_put_image_to_window(d->mlx, d->img3D.window, d->img3D.img, 0, 0);
+	minimap(d, &d->img2d, &d->img3d);
+	mlx_put_image_to_window(d->mlx, d->img3d.window, d->img3d.img, 0, 0);
 }
 
 void	eraseprecedentstatemovement(t_data *data)
 {
 	if (data->rays)
 	{
-		draw_triangle(&data->img2D, data->img2D.triangle, 0);
-		displayrays2d(&data->img2D, data->rays, 0);
-		free_rays(data->rays, data->img2D.width);
+		draw_triangle(&data->img2d, data->img2d.triangle, 0);
+		displayrays2d(&data->img2d, data->rays, 0);
+		free_rays(data->rays, data->img2d.width);
 		data->rays = NULL;
 	}
 }
@@ -56,7 +56,7 @@ void	move(t_data *data)
 	t_coor	direction_incup;
 	t_coor	direction_incrigth;
 
-	img2d = &data->img2D;
+	img2d = &data->img2d;
 	if (!img2d->move)
 		return ;
 	eraseprecedentstatemovement(data);

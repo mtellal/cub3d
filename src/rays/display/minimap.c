@@ -12,14 +12,14 @@
 
 #include "cub3d.h"
 
-void	minimap_init_img3d(t_frame *img3D, int *s_map, t_coor *pos_mnmap3D)
+void	minimap_init_img3d(t_frame *img3d, int *s_map, t_coor *pos_mnmap3D)
 {
-	if (img3D->width * 0.3 > img3D->height * 0.3)
-		*s_map = img3D->height * 0.3;
+	if (img3d->width * 0.3 > img3d->height * 0.3)
+		*s_map = img3d->height * 0.3;
 	else
-		*s_map = img3D->width * 0.3;
-	pos_mnmap3D->x = img3D->width - (*s_map + *s_map * 0.1);
-	pos_mnmap3D->y = img3D->height - (*s_map + *s_map * 0.1);
+		*s_map = img3d->width * 0.3;
+	pos_mnmap3D->x = img3d->width - (*s_map + *s_map * 0.1);
+	pos_mnmap3D->y = img3d->height - (*s_map + *s_map * 0.1);
 }
 
 int	pick_pixel_img2d(t_frame *minimap, t_coor pos_mnmap, int i, int j)
@@ -42,7 +42,7 @@ void	display_map(t_data *data, int _s, t_coor p2d, t_coor p3d)
 	int		j;
 
 	i = 0;
-	map = &data->img2D;
+	map = &data->img2d;
 	while (i < _s)
 	{
 		j = 0;
@@ -52,9 +52,9 @@ void	display_map(t_data *data, int _s, t_coor p2d, t_coor p3d)
 			if (p2d.y + i < map->height && p2d.x + j < map->width)
 				pm = pick_pixel_img2d(map, p2d, i, j);
 			if (i == 0 || j == 0 || i + 1 >= _s || j + 1 >= _s)
-				put_pixel(&data->img3D, (int)p3d.y + i, (int)p3d.x + j, BLANC);
+				put_pixel(&data->img3d, (int)p3d.y + i, (int)p3d.x + j, BLANC);
 			else
-				put_pixel(&data->img3D, (int)p3d.y + i, (int)p3d.x + j, pm);
+				put_pixel(&data->img3d, (int)p3d.y + i, (int)p3d.x + j, pm);
 			j++;
 		}
 		i++;

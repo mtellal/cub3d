@@ -20,14 +20,14 @@ int	exit_cross(t_data *data)
 
 void	exit_game(t_data *data)
 {
-	mlx_destroy_window(data->mlx, data->img3D.window);
-	data->img3D.window = NULL;
+	mlx_destroy_window(data->mlx, data->img3d.window);
+	data->img3d.window = NULL;
 }
 
 void	exit_game_clean(t_data *data)
 {
-	mlx_destroy_image(data->mlx, data->img2D.img);
-	mlx_destroy_image(data->mlx, data->img3D.img);
+	mlx_destroy_image(data->mlx, data->img2d.img);
+	mlx_destroy_image(data->mlx, data->img3d.img);
 	mlx_destroy_image(data->mlx, data->texture.walle.img);
 	mlx_destroy_image(data->mlx, data->texture.wallo.img);
 	mlx_destroy_image(data->mlx, data->texture.walls.img);

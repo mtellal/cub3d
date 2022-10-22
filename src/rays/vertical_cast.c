@@ -39,8 +39,8 @@ t_coor	vert_cast(t_data *d, t_coor p, t_coor o, double a)
 		ystep *= -1;
 	if (p.y > o.y && ystep < 0)
 		ystep *= -1;
-	while (pya.x >= 0 && pya.x < d->img2D.width
-		&& pya.y >= 0 && pya.y < d->img2D.height)
+	while (pya.x >= 0 && pya.x < d->img2d.width
+		&& pya.y >= 0 && pya.y < d->img2d.height)
 	{
 		if (d->map[(int)(pya.y / GRID)][(int)(pya.x / GRID)] == '1'
 			|| (xstep < 0

@@ -60,10 +60,10 @@ void	inittexture(t_data *d, void *mlx, t_texture *t)
 
 void	initimgdimensions(t_data *data)
 {
-	data->img2D.height = data->height * GRID;
-	data->img2D.width = data->len * GRID;
-	data->img3D.height = data->height * GRID2;
-	data->img3D.width = data->len * GRID2;
+	data->img2d.height = data->height * GRID;
+	data->img2d.width = data->len * GRID;
+	data->img3d.height = data->height * GRID2;
+	data->img3d.width = data->len * GRID2;
 }
 
 void	init(t_data *data)
@@ -71,7 +71,7 @@ void	init(t_data *data)
 	data->rays = NULL;
 	data->mlx = mlx_init();
 	initimgdimensions(data);
-	initimg2d(data, &data->img2D);
+	initimg2d(data, &data->img2d);
 	inittexture(data, data->mlx, &data->texture);
-	initimg3d(data, &data->img3D);
+	initimg3d(data, &data->img3d);
 }

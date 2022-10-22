@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	dis_c(t_frame *img3D, int c, t_coor pos, int l)
+void	dis_c(t_frame *img3d, int c, t_coor pos, int l)
 {
 	int		i;
 	int		j;
@@ -23,25 +23,25 @@ void	dis_c(t_frame *img3D, int c, t_coor pos, int l)
 		j = 0;
 		while (j < l)
 		{
-			put_pixel(img3D, i, pos.x + j, c);
+			put_pixel(img3d, i, pos.x + j, c);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	dis_f(t_frame *img3D, int f, t_coor pos, int l)
+void	dis_f(t_frame *img3d, int f, t_coor pos, int l)
 {
 	int	i;
 	int	j;
 
 	i = pos.y;
-	while (i < img3D->height)
+	while (i < img3d->height)
 	{
 		j = 0;
 		while (j < l)
 		{
-			put_pixel(img3D, i, pos.x + j, f);
+			put_pixel(img3d, i, pos.x + j, f);
 			j++;
 		}
 		i++;

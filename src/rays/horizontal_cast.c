@@ -39,8 +39,8 @@ t_coor	hor_cast(t_data *d, t_coor p, t_coor o, double a)
 		xstep *= -1;
 	if (o.y > p.y)
 		ystep *= -1;
-	while (pxa.x >= 0 && pxa.x < d->img2D.width
-		&& pxa.y >= 0 && pxa.y < d->img2D.height)
+	while (pxa.x >= 0 && pxa.x < d->img2d.width
+		&& pxa.y >= 0 && pxa.y < d->img2d.height)
 	{
 		if (d->map[(int)(pxa.y / GRID)][(int)(pxa.x / GRID)] == '1' ||
 			(ystep < 0

@@ -38,7 +38,7 @@ t_coor	castaray(t_data *d, t_coor p, double angle, t_ray *r)
 	t_coor	pointxa;
 	t_coor	pointya;
 
-	origine = d->img2D.triangle.milieu;
+	origine = d->img2d.triangle.milieu;
 	pointxa = hor_cast(d, p, origine, angle);
 	pointya = vert_cast(d, p, origine, angle);
 	if (getlengthray(pointxa, origine, angle)

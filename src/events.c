@@ -21,17 +21,17 @@ int	handle_input(void *data)
 int	keypressed(int keycode, t_data *data)
 {
 	if (keycode == UP)
-		data->img2D.move |= U;
+		data->img2d.move |= U;
 	if (keycode == DOWN)
-		data->img2D.move |= D;
+		data->img2d.move |= D;
 	if (keycode == RIGHT)
-		data->img2D.move |= R;
+		data->img2d.move |= R;
 	if (keycode == LEFT)
-		data->img2D.move |= L;
+		data->img2d.move |= L;
 	if (keycode == VRIGHT)
-		data->img2D.move |= VR;
+		data->img2d.move |= VR;
 	if (keycode == VLEFT)
-		data->img2D.move |= VL;
+		data->img2d.move |= VL;
 	if (keycode == XK_Escape)
 		exit_game(data);
 	return (0);

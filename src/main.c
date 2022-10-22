@@ -14,9 +14,9 @@
 
 void	game(t_data *data)
 {
-	mlx_hook(data->img3D.window, 3, 1L << 1, keyreleased, &data->img2D);
-	mlx_hook(data->img3D.window, 2, 1L << 0, keypressed, data);
-	mlx_hook(data->img3D.window, ClientMessage,
+	mlx_hook(data->img3d.window, 3, 1L << 1, keyreleased, &data->img2d);
+	mlx_hook(data->img3d.window, 2, 1L << 0, keypressed, data);
+	mlx_hook(data->img3d.window, ClientMessage,
 		StructureNotifyMask, exit_cross, data);
 	mlx_loop_hook(data->mlx, handle_input, data);
 }
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	game(&data);
 	mlx_loop(data.mlx);
 	exit_game_clean(&data);
-	free_rays(data.rays, data.img2D.width);
+	free_rays(data.rays, data.img2d.width);
 	free_texture(&data);
 	free_map(&data);
 }

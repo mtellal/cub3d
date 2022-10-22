@@ -38,7 +38,7 @@ void	movevleft(t_frame *img)
 {
 	double	angle;
 
-	angle = deg2rad(GRID * 0.03);
+	angle = deg2rad(GRID * 0.04);
 	rotatetriangle(&img->triangle, angle);
 }
 
@@ -46,6 +46,6 @@ void	movevrigth(t_frame *img)
 {
 	double	angle;
 
-	angle = deg2rad(GRID * 0.03);
+	angle = deg2rad(GRID * 0.04);
 	rrotatetriangle(&img->triangle, angle);
 }
