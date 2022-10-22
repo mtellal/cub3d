@@ -10,10 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC = clang 
-FLAGS = -Wall -Wextra -Werror -g 
-NAME = cub3d
-
+CC=clang 
+FLAGS=-Wall -Wextra -Werror -g 
+NAME=cub3d
+NAMEB=cub3d_bonus
 
 SRC=$(addprefix src/, main.c draw.c events.c utils.c exit.c free_utils.c \
 		$(INITDIR) $(GNLDIR) $(PARSINGDIR) $(RAYDIR) $(MOVEDIR))
@@ -26,23 +26,30 @@ RAYDIR=$(addprefix rays/, rays.c cast_a_ray.c horizontal_cast.c vertical_cast.c 
 			display/minimap.c display/displayRays.c display/displayTextures.c)
 OBJ=$(SRC:.c=.o)
 
-HEADERMLX = -I/usr/include -I./libft/ -I./include/ -I./minilibx-linux
 
-HEADERS = $(addprefix include/, types.h cub3d.h macros.h)
+SRCBONUS= $(addprefix bonus/, $(SRC:.c=_bonus.c)) 
+OBJBONUS=$(SRCBONUS:_bonus.c=_bonus.o)
 
+HEADERS = -I/usr/include -I./libft/ -I./include/ -I./minilibx-linux
 LIBMLX  =  -Llibft/ -lft -L./minilibx-linux -lmlx_Linux -lmlx -lXext -lX11 -lm -lz
-
 
 all: $(NAME)
 
 $(NAME): LIBS $(OBJ) 
-	@$(CC) $(FLAGS) $(HEADERMLX) -o $(NAME) $(OBJ) $(LIBMLX)
+	@$(CC) $(FLAGS) $(HEADERS) -o $(NAME) $(OBJ) $(LIBMLX)
 	@echo '\033[0;32m' "compilation succeed"
 
+bonus: LIBS $(OBJBONUS)
+	@$(CC) $(FLAGS) $(HEADERS) -o $(NAME) $(OBJBONUS) $(LIBMLX)
+	@echo '\033[0;32m' "compilation succeed"
+
+%_bonus.o: %_bonus.c
+	@echo "compiling " $(@D) "/" $(@F)
+	@$(CC) $(FLAGS) $(HEADERS) -o $@ -c $<
 
 %.o: %.c 
 	@echo "compiling " $(@D) "/" $(@F)
-	@$(CC) $(FLAGS) $(HEADERMLX) -o $@ -c $<
+	@$(CC) $(FLAGS) $(HEADERS) -o $@ -c $<
 
 LIBS:
 	@make -C libft/ 
@@ -50,6 +57,7 @@ LIBS:
 
 clean:
 	@rm -rf $(OBJ)
+	@rm -rf $(OBJBONUS)
 	@make clean -C libft/
 	@make clean -C minilibx-linux/
 	
