@@ -35,7 +35,8 @@ void	cast_and_display(t_data *d)
 	d->rays = castrays(d);
 	displayrays2d(&d->img2d, d->rays, 0x00FFFFFF);
 	displayrays(d, d->rays);
-	mlx_put_image_to_window(d->mlx, d->img3d.window, d->img3d.img, 0, 0);
+	if (d && d->mlx && d->img3d.window)
+		mlx_put_image_to_window(d->mlx, d->img3d.window, d->img3d.img, 0, 0);
 }
 
 void	eraseprecedentstatemovement(t_data *data)
