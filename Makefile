@@ -6,12 +6,12 @@
 #    By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/17 16:32:26 by mtellal           #+#    #+#              #
-#    Updated: 2022/10/21 11:33:30 by mtellal          ###   ########.fr        #
+#    Updated: 2022/10/31 10:24:46 by mtellal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=clang 
-FLAGS=-Wall -Wextra -Werror -g -fsanitize=address
+FLAGS=-Wall -Wextra -Werror -g 
 NAME=cub3D
 
 SRCDIR=src
@@ -71,6 +71,7 @@ $(OBJDIR)/$(SRCDIR)/%.o: $(SRCDIR)/%.c
 
 clean:
 	@rm -rf $(OBJDIR)
+	@rm -rf $(OBJBONUS)
 	@make clean -C libft/
 	@make clean -C minilibx-linux/
 
