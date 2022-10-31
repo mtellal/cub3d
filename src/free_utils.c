@@ -80,5 +80,7 @@ void	exit_message(t_data *data, char *str)
 		ft_putendl_fd(str, 2);
 	free_texture(data);
 	free_map(data);
-	exit(-1);
+	if (data->mlx)
+		free(data->mlx);
+	exit(1);
 }

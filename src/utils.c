@@ -28,3 +28,11 @@ double	abs_value(double value)
 		return (-value);
 	return (value);
 }
+
+void	quit_err_msg(char *s)
+{
+	ft_putstr_fd("Error\n", STDERR_FILENO);
+	ft_putstr_fd(s, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	exit(EXIT_FAILURE);
+}

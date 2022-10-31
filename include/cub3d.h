@@ -69,6 +69,7 @@ void	fillimg2d(t_data *data, t_frame *img);
 // utils.c
 void	displaycoor(t_coor point);
 double	abs_value(double value);
+void    quit_err_msg(char *s);
 
 //  exit.c
 int		exit_cross(t_data *data);

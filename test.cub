@@ -1,5 +1,5 @@
 NO ./assets/wall.xpm
-SO ./assets/cat.xpm
+SO /bin/ls
 WE ./assets/shrek.xpm
 EA ./assets/floor.xpm
 

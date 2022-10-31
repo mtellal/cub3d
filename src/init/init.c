@@ -36,42 +36,42 @@ int	get_color(char *s)
 	return (0);
 }
 
+int		init_one_texture(t_img *texture, void *mlx, char *file)
+{
+	texture->img = mlx_xpm_file_to_image(mlx, file,
+			&texture->width, &texture->height);
+	if (!texture->img)
+		return (1);
+	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp,
+			&texture->length, &texture->endian);
+	return (0);
+}
+
 void	inittexture(t_data *d, void *mlx, t_texture *t)
 {
-	t->walln.img = mlx_xpm_file_to_image(mlx, d->n_texture,
-			&t->walln.width, &t->walln.height);
-	t->walln.addr = mlx_get_data_addr(t->walln.img, &t->walln.bpp,
-			&t->walln.length, &t->walln.endian);
-	t->walls.img = mlx_xpm_file_to_image(mlx, d->s_texture,
-			&t->walls.width, &t->walls.height);
-	t->walls.addr = mlx_get_data_addr(t->walls.img, &t->walls.bpp,
-			&t->walls.length, &t->walls.endian);
-	t->wallo.img = mlx_xpm_file_to_image(mlx, d->w_texture,
-			&t->wallo.width, &t->wallo.height);
-	t->wallo.addr = mlx_get_data_addr(t->wallo.img, &t->wallo.bpp,
-			&t->wallo.length, &t->wallo.endian);
-	t->walle.img = mlx_xpm_file_to_image(mlx, d->e_texture,
-			&t->walle.width, &t->walle.height);
-	t->walle.addr = mlx_get_data_addr(t->walle.img, &t->walle.bpp,
-			&t->walle.length, &t->walle.endian);
+	if (init_one_texture(&t->walln, mlx, d->n_texture))
+		exit_message(d, "NO file can't be converted to xpm file");
+	if (init_one_texture(&t->walls, mlx, d->s_texture))
+		exit_message(d, "SO file can't be converted to xpm file");
+	if (init_one_texture(&t->wallo, mlx, d->w_texture))
+		exit_message(d, "WE file can't be converted to xpm file");
+	if (init_one_texture(&t->walle, mlx, d->e_texture))
+		exit_message(d, "EA file can't be converted to xpm file");
 	t->cieling = get_color(d->c_texture);
 	t->floor = get_color(d->f_texture);
 }
 
-void	initimgdimensions(t_data *data)
+void	init(t_data *data)
 {
 	data->img2d.height = data->height * GRID;
 	data->img2d.width = data->len * GRID;
 	data->img3d.height = data->height * GRID2;
 	data->img3d.width = data->len * GRID2;
-}
-
-void	init(t_data *data)
-{
 	data->rays = NULL;
 	data->mlx = mlx_init();
-	initimgdimensions(data);
-	initimg2d(data, &data->img2d);
+	if (!data->mlx)
+			exit_message(data, "Mlx init failed");
 	inittexture(data, data->mlx, &data->texture);
+	initimg2d(data, &data->img2d);
 	initimg3d(data, &data->img3d);
 }
