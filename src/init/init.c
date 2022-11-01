@@ -16,6 +16,8 @@ void	initimg3d(t_data *d, t_frame *i)
 {
 	i->window = mlx_new_window(d->mlx, i->width, i->height, "cub3d");
 	i->img = mlx_new_image(d->mlx, i->width, i->height);
+	if (!i->window || !i->img)
+		exit_message(d, "Mlx new window/img failed");
 	i->addr = mlx_get_data_addr(i->img, &i->bpp, &i->length, &i->endian);
 	cast_and_display(d);
 }
@@ -36,7 +38,7 @@ int	get_color(char *s)
 	return (0);
 }
 
-int		init_one_texture(t_img *texture, void *mlx, char *file)
+int		err_init_texture(t_img *texture, void *mlx, char *file)
 {
 	texture->img = mlx_xpm_file_to_image(mlx, file,
 			&texture->width, &texture->height);
@@ -49,13 +51,13 @@ int		init_one_texture(t_img *texture, void *mlx, char *file)
 
 void	inittexture(t_data *d, void *mlx, t_texture *t)
 {
-	if (init_one_texture(&t->walln, mlx, d->n_texture))
+	if (err_init_texture(&t->walln, mlx, d->n_texture))
 		exit_message(d, "NO file can't be converted to xpm file");
-	if (init_one_texture(&t->walls, mlx, d->s_texture))
+	if (err_init_texture(&t->walls, mlx, d->s_texture))
 		exit_message(d, "SO file can't be converted to xpm file");
-	if (init_one_texture(&t->wallo, mlx, d->w_texture))
+	if (err_init_texture(&t->wallo, mlx, d->w_texture))
 		exit_message(d, "WE file can't be converted to xpm file");
-	if (init_one_texture(&t->walle, mlx, d->e_texture))
+	if (err_init_texture(&t->walle, mlx, d->e_texture))
 		exit_message(d, "EA file can't be converted to xpm file");
 	t->cieling = get_color(d->c_texture);
 	t->floor = get_color(d->f_texture);
