@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:28:34 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/22 15:30:58 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/11/01 15:22:37 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	free_texture(t_data *data);
 void	exit_message(t_data *data, char *str);
 
 // Parsing
-
 int		is_xpm_file(int fd);
 int		rgb_f(t_data *data, int rgb);
 int		rgb_c(t_data *data, int rgb);
@@ -71,7 +70,7 @@ void	fillimg2d(t_data *data, t_frame *img);
 // utils.c
 void	displaycoor(t_coor point);
 double	abs_value(double value);
-void    quit_err_msg(char *s);
+void	quit_err_msg(char *s);
 
 //  exit.c
 int		exit_cross(t_data *data);

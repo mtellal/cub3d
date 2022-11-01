@@ -6,7 +6,7 @@
 /*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:57:36 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/21 15:39:44 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/11/01 15:24:58 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	get_color(char *s)
 	return (0);
 }
 
-int		err_init_texture(t_img *texture, void *mlx, char *file)
+int	err_init_texture(t_img *texture, void *mlx, char *file)
 {
 	texture->img = mlx_xpm_file_to_image(mlx, file,
 			&texture->width, &texture->height);
@@ -72,7 +72,7 @@ void	init(t_data *data)
 	data->rays = NULL;
 	data->mlx = mlx_init();
 	if (!data->mlx)
-			exit_message(data, "Mlx init failed");
+		exit_message(data, "Mlx init failed");
 	inittexture(data, data->mlx, &data->texture);
 	initimg2d(data, &data->img2d);
 	initimg3d(data, &data->img3d);

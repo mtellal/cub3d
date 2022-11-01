@@ -6,7 +6,7 @@
 /*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 13:34:06 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/22 14:46:40 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/11/01 15:23:31 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,12 @@ double	abs_value(double value)
 	if (value < 0)
 		return (-value);
 	return (value);
+}
+
+void	quit_err_msg(char *s)
+{
+	ft_putstr_fd("Error\n", STDERR_FILENO);
+	ft_putstr_fd(s, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	exit(EXIT_FAILURE);
 }

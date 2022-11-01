@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:26 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/30 12:58:40 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/01 15:23:56 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	chck_color(t_data *data, char *str)
 {
 	int	i;
 	int	cpt;
-	int cpt_color;
+	int	cpt_color;
 
 	i = 0;
 	cpt = 0;
