@@ -17,19 +17,19 @@ void	chck_path(t_data *data)
 	int	fd;
 
 	fd = open(data->n_texture, O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 || !is_xpm_file(fd))
 		exit_message(data, "NO File not found");
 	close(fd);
 	fd = open(data->s_texture, O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 || !is_xpm_file(fd))
 		exit_message(data, "SO File not found");
 	close(fd);
 	fd = open(data->w_texture, O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 || !is_xpm_file(fd))
 		exit_message(data, "WE File not found");
 	close(fd);
 	fd = open(data->e_texture, O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 || !is_xpm_file(fd))
 		exit_message(data, "EA File not found");
 	close(fd);
 }
@@ -38,9 +38,11 @@ void	chck_color(t_data *data, char *str)
 {
 	int	i;
 	int	cpt;
+	int cpt_color;
 
 	i = 0;
 	cpt = 0;
+	cpt_color = 0;
 	while (str[i])
 	{
 		if (str[i] >= '0' && str[i] <= '9')
@@ -50,12 +52,13 @@ void	chck_color(t_data *data, char *str)
 			if (cpt < 1 || cpt > 3)
 				exit_message(data, "Color error");
 			cpt = 0;
+			cpt_color++;
 		}
 		else
 			exit_message(data, "Color wrong args");
 		i++;
 	}
-	if (cpt < 1 || cpt > 3)
+	if (cpt < 1 || cpt > 3 || cpt_color > 2)
 		exit_message(data, "Color error");
 }
 

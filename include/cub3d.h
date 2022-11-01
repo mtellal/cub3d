@@ -35,6 +35,8 @@ void	free_texture(t_data *data);
 void	exit_message(t_data *data, char *str);
 
 // Parsing
+
+int		is_xpm_file(int fd);
 int		rgb_f(t_data *data, int rgb);
 int		rgb_c(t_data *data, int rgb);
 int		parse_content(t_data *data, char *line);
