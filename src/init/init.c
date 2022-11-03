@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:57:36 by mtellal           #+#    #+#             */
-/*   Updated: 2022/11/03 15:16:51 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/03 15:27:02 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,21 @@ void	inittexture(t_data *d, void *mlx, t_texture *t)
 {
 	if (err_init_texture(&t->walln, mlx, d->n_texture))
 	{
-		write(1, "here\n", 5);
 		exit_game_clean(d);
 		exit_message(d, "NO file can't be converted to xpm file");
 	}
 	if (err_init_texture(&t->walls, mlx, d->s_texture))
 	{
-		write(1, "here\n", 5);
 		exit_game_clean(d);
 		exit_message(d, "SO file can't be converted to xpm file");
 	}
 	if (err_init_texture(&t->wallo, mlx, d->w_texture))
 	{
-		write(1, "here\n", 5);
 		exit_game_clean(d);
 		exit_message(d, "WE file can't be converted to xpm file");
 	}
 	if (err_init_texture(&t->walle, mlx, d->e_texture))
 	{
-		write(1, "here\n", 5);
 		exit_game_clean(d);
 		exit_message(d, "EA file can't be converted to xpm file");
 	}
