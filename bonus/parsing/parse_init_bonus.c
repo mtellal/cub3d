@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chck_textures_utils.c                              :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 15:12:47 by mtellal           #+#    #+#             */
-/*   Updated: 2022/11/03 15:22:36 by antbarbi         ###   ########.fr       */
+/*   Created: 2022/10/19 16:40:42 by mtellal           #+#    #+#             */
+/*   Updated: 2022/10/20 16:04:51 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_xpm_file(int fd)
+void	init_struct_and_parsing(t_data *data, char *str)
 {
-	int		i;
-	char	c;
-	char	*s;
-
-	i = 0;
-	s = "/* XPM */";
-	c = 0;
-	while (i < 9)
-	{
-		if (read(fd, &c, 1) != -1 && c == s[i])
-			i++;
-		else
-		{
-			close(fd);
-			return (0);
-		}
-	}
-	return (1);
+	data->map = NULL;
+	data->n_texture = NULL;
+	data->s_texture = NULL;
+	data->w_texture = NULL;
+	data->e_texture = NULL;
+	data->f_texture = NULL;
+	data->c_texture = NULL;
+	check_file_name(data, str);
+	read_cub(data, str);
+	chck_textures(data);
+	chck_map_elem(data);
+	chck_map_edges(data);
+	final_map(data);
 }

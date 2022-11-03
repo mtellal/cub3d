@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_bonus.c                                       :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:57:36 by mtellal           #+#    #+#             */
-/*   Updated: 2022/11/03 15:28:25 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/03 15:27:02 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,12 @@ void	init(t_data *data)
 	data->img2d.width = data->len * GRID;
 	data->img3d.height = data->height * GRID2;
 	data->img3d.width = data->len * GRID2;
+	data->img2d.img = NULL;
+	data->img3d.img = NULL;
+	data->texture.walln.img = NULL;
+	data->texture.walls.img = NULL;
+	data->texture.wallo.img = NULL;
+	data->texture.walle.img = NULL;
 	data->rays = NULL;
 	data->mlx = mlx_init();
 	if (!data->mlx)

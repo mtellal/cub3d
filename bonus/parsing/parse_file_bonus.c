@@ -68,7 +68,7 @@ void	read_cub(t_data *data, char *path_cub)
 
 	gnl = -1;
 	line_read = NULL;
-	fd = open(path_cub, O_RDONLY);
+	fd = open(path_cub, O_RDONLY | O_NOFOLLOW);
 	if (fd == -1)
 		exit_message(data, "File does not exist");
 	while (gnl != 0)

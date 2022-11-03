@@ -52,6 +52,8 @@ void	fillimg2d(t_data *d, t_frame *im)
 void	initimg2d(t_data *d, t_frame *i)
 {
 	i->img = mlx_new_image(d->mlx, i->width, i->height);
+	if (!i->img)
+		exit_message(d, "Mlx new image failed");
 	i->addr = mlx_get_data_addr(i->img, &i->bpp, &i->length, &i->endian);
 	i->move = 0;
 	fillimg2d(d, i);
