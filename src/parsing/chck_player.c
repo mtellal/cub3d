@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:18:26 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/11/04 15:45:39 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/04 15:56:27 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_player(char c)
 	return (0);
 }
 
-void	stock_player_and_replace(t_data *data, char **map)
+int	stock_player_and_replace(char **map)
 {
 	static int	y = 0;
 	static int	x = 0;
@@ -29,9 +29,9 @@ void	stock_player_and_replace(t_data *data, char **map)
 	if (y || x)
 	{
 		if (map[y][x] == ' ')
-			exit_message(data, "Player out of bound");
+			return (1);
 		map[y][x] = c;
-		return ;
+		return (0);
 	}
 	while (map[y++])
 	{
@@ -42,9 +42,29 @@ void	stock_player_and_replace(t_data *data, char **map)
 			{
 				c = map[y][x];
 				map[y][x] = '0';
-				return ;
 			}
 			x++;
 		}
 	}
+	return (0);
+}
+
+int	compare_maps(char **map, char **tab)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != tab[i][j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }

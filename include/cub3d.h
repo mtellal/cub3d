@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:28:34 by mtellal           #+#    #+#             */
-/*   Updated: 2022/11/04 15:46:22 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/04 15:54:30 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	chck_map_edges(t_data *data);
 void	check_file_name(t_data *data, char *file);
 void	chck_textures(t_data *data);
 void	read_cub(t_data *data, char *path_cub);
-void	stock_player_and_replace(t_data *data, char **map);
+int		stock_player_and_replace(char **map);
+int		compare_maps(char **map, char **tab);
 void	final_map(t_data *data);
 
 // Todelete
