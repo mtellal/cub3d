@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:18:26 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/11/04 15:56:27 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:10:39 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ int	is_player(char c)
 	return (0);
 }
 
+int	place_player(char **map, int x, int y, char c)
+{
+	if (map[y][x] == ' ')
+		return (1);
+	map[y][x] = c;
+	return (0);
+}
+
 int	stock_player_and_replace(char **map)
 {
 	static int	y = 0;
@@ -27,12 +35,7 @@ int	stock_player_and_replace(char **map)
 	static char	c;
 
 	if (y || x)
-	{
-		if (map[y][x] == ' ')
-			return (1);
-		map[y][x] = c;
-		return (0);
-	}
+		return (place_player(map, x, y, c));
 	while (map[y++])
 	{
 		x = 0;
@@ -42,6 +45,7 @@ int	stock_player_and_replace(char **map)
 			{
 				c = map[y][x];
 				map[y][x] = '0';
+				return (0);
 			}
 			x++;
 		}
