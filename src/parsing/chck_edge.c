@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 13:10:58 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/10/20 16:04:36 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/04 15:46:01 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	floodable_map_assign(t_data *data, char **new_map, char c)
 	new_map[i] = NULL;
 }
 
-void	map_insert(t_data *data, char **new_map)
+void	map_insert(t_data *data, char **new_map, char replacement)
 {
 	int	i;
 	int	j;
@@ -65,7 +65,7 @@ void	map_insert(t_data *data, char **new_map)
 		while (data->map[i][j])
 		{
 			if (data->map[i][j] == ' ')
-				new_map[i + 1][j + 1] = '0';
+				new_map[i + 1][j + 1] = replacement;
 			else
 				new_map[i + 1][j + 1] = data->map[i][j];
 			j++;
@@ -87,22 +87,50 @@ void	flood_algo(char **map, int x, int y)
 	return ;
 }
 
+int	compare_maps(char **map, char **tab)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while(map[i][j])
+		{
+			if (map[i][j] != tab[i][j])
+			{
+				free_tabs(tab);
+				return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	free_tabs(tab);
+	return (0);
+}
+
 void	chck_map_edges(t_data *data)
 {
 	char	**new_map;
+	char	**tmp_map;
 	int		cpt_zeros;
 
-	cpt_zeros = nb_of_zeros(data->map, '0') + 1;
+	cpt_zeros = nb_of_zeros(data->map, '0');
 	new_map = floodable_map_alloc(data);
-	if (!new_map)
+	tmp_map = floodable_map_alloc(data);
+	if (!new_map || !tmp_map)
 		exit_message(data, "new_map alloc failed");
 	floodable_map_assign(data, new_map, '0');
-	map_insert(data, new_map);
-	stock_player_and_replace(new_map);
+	floodable_map_assign(data, tmp_map, ' ');
+	map_insert(data, new_map, '0');
+	map_insert(data, tmp_map, ' ');
+	stock_player_and_replace(data, new_map);
 	flood_algo(new_map, 0, 0);
 	free_map(data);
 	data->map = new_map;
-	if (cpt_zeros != nb_of_zeros(data->map, '0'))
+	stock_player_and_replace(data, data->map);
+	if (cpt_zeros != nb_of_zeros(data->map, '0') || compare_maps(data->map, tmp_map))
 		exit_message(data, "Map is not closed");
-	stock_player_and_replace(data->map);
 }

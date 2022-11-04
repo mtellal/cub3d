@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:49:24 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/10/20 16:05:05 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/04 15:42:34 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	nb_of_zeros(char **map, char c)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == '0' || map[i][j] == c)
+			if (map[i][j] == c)
 				cpt++;
 			j++;
 		}
