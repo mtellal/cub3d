@@ -13,12 +13,6 @@
 #ifndef MACROS_H
 # define MACROS_H
 
-# define PATHWALLN "assets/wall.xpm"
-# define PATHWALLS "assets/shrek.xpm"
-# define PATHWALLO "assets/cat.xpm"
-# define PATHWALLE "assets/floor.xpm"
-# define PATHCIELING "assets/cieling.xpm"
-# define PATHFLOOR "assets/floor.xpm"
 # define GRID 100
 # define GRID2 50
 # define MHEIGHT 14

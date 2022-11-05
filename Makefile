@@ -6,12 +6,12 @@
 #    By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/17 16:32:26 by mtellal           #+#    #+#              #
-#    Updated: 2022/10/31 10:24:46 by mtellal          ###   ########.fr        #
+#    Updated: 2022/11/05 16:55:52 by mtellal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=clang 
-FLAGS=-Wall -Wextra -Werror -g 
+FLAGS=-Wall -Wextra -Werror -g -fsanitize=address 
 NAME=cub3D
 
 SRCDIR=src
@@ -24,7 +24,7 @@ MOVE=move.c movements.c movements_utils.c rotate.c radians_deg.c vmovements.c
 GNL=get_next_line.c get_next_line_utils.c
 PARSING=parse_content.c parse_file.c parse_map.c parse_map_utils.c chck_edge.c trim_map.c chck_player.c chck_textures.c chck_textures_utils.c init.c
 RAYS=rays.c cast_a_ray.c horizontal_cast.c vertical_cast.c rays_utils.c
-RAYS_DISPLAY=minimap.c displayRays.c displayTextures.c
+RAYS_DISPLAY= displayRays.c displayTextures.c
 
 INITDIR=$(addprefix init/, $(INIT))
 MOVEDIR=$(addprefix move/, $(MOVE))
@@ -34,7 +34,8 @@ RAYSDIR=$(addprefix rays/, $(RAYS) $(RAYS_DISPLAY:%.c=display/%.c))
 
 SRCFILES=$(addprefix $(SRCDIR)/, $(SRC) $(INITDIR) $(MOVEDIR) $(GNLDIR) $(PARSINGDIR) $(RAYSDIR))
 SRCFILESB=$(addprefix $(BONUSDIR)/, $(SRC:.c=_bonus.c) $(INITDIR:.c=_bonus.c) $(MOVEDIR:.c=_bonus.c) \
-						$(GNLDIR:.c=_bonus.c) $(PARSINGDIR:.c=_bonus.c) $(RAYSDIR:.c=_bonus.c))
+						$(GNLDIR:.c=_bonus.c) $(PARSINGDIR:.c=_bonus.c) $(RAYSDIR:.c=_bonus.c)) \
+						bonus/rays/display/minimap_bonus.c
 
 OBJ=$(addprefix $(OBJDIR)/, $(SRCFILES:.c=.o))
 OBJBONUS=$(addprefix $(OBJDIR)/, $(SRCFILESB:.c=.o))
