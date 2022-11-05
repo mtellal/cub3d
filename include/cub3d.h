@@ -101,7 +101,7 @@ t_coor	vert_cast(t_data *data, t_coor point, t_coor origine, double angle);
 
 // utils.c
 double	correctfisheye(double length, double cumulangle);
-t_ray	**inittabrays(double nb);
+t_ray	**inittabrays(int nb);
 double	getlengthray(t_coor point, t_coor origine, double angle);
 t_coor	coorline(t_coor point, t_coor origine);
 double	getanlge(t_coor point, t_coor origine);

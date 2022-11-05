@@ -36,13 +36,8 @@ void	fillimg2d(t_data *d, t_frame *im)
 		j = 0;
 		while (j < im->width / GRID)
 		{
-			if (d->map[i][j] == '1')
-				draw_wall(im, i * GRID, j * GRID);
-			else if (ft_belong(d->map[i][j], "NSEW"))
-			{
+			if (ft_belong(d->map[i][j], "NSEW"))
 				inittriangle(im, i, j, d->map[i][j]);
-				draw_triangle(im, im->triangle, im->triangle.color);
-			}
 			j++;
 		}
 		i++;

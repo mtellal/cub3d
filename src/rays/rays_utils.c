@@ -17,7 +17,7 @@ double	correctfisheye(double length, double cumulangle)
 	return (length * cos(cumulangle));
 }
 
-t_ray	**inittabrays(double nbrays)
+t_ray	**inittabrays(int nbrays)
 {
 	int		i;
 	t_ray	**rays;

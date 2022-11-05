@@ -64,10 +64,15 @@ void	displayrays(t_data *d, t_ray **rays)
 	t_ray		*_ray;
 	t_drays		drays;
 
+	(void)rays;
+	(void)distpp;
+	(void)_ray;
+	(void)drays;
+
 	i = 0;
 	distpp = ((double)d->img3d.height / 2) / tan(deg2rad(30));
-	drays.w.l = (double)(d->img3d.width) / (double)(d->img2d.width);
-	while (i < d->img2d.width)
+	drays.w.l = 1;
+	while (i < d->img3d.width)
 	{
 		_ray = rays[i];
 		if (_ray)
@@ -77,6 +82,10 @@ void	displayrays(t_data *d, t_ray **rays)
 			drays.pw.y = ((double)d->img3d.height / 2) - (drays.w.h / 2);
 			displayimg3d(d, _ray, &drays);
 		}
+		else
+			ft_putstr_fd("non rayon", 1);
 		i++;
+		/* put_pixel(&d->img3d, 0, i, 0x00FFFFFF);
+		i++; */
 	}
 }
