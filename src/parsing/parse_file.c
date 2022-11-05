@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 16:54:21 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/10/09 15:03:32 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/05 13:14:15 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,12 @@ void	check_file_name(t_data *data, char *file)
 	int	i;
 
 	i = 0;
-	if (file[i] == '.')
+	if (ft_strlen(file) < 4)
 		exit_message(data, "File : No name found");
+	if (file[0] == '.')
+		i++;
+	if (file[1] == '.')
+		i++;
 	while (file[i] && file[i] != '.')
 		i++;
 	if (file[i] != '.')
