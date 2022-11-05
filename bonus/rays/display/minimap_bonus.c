@@ -49,7 +49,7 @@ void	display_map(t_data *data, int _s, t_coor p2d, t_coor p3d)
 		while (j < _s)
 		{
 			pm = 0;
-			if (p2d.y + i < map->height && p2d.x + j < map->width)
+			if (p2d.y + i * 4 < map->height && p2d.x + j * 4 < map->width)
 				pm = pick_pixel_img2d(map, p2d, i, j);
 			if (i == 0 || j == 0 || i + 1 >= _s || j + 1 >= _s)
 				put_pixel(&data->img3d, (int)p3d.y + i, (int)p3d.x + j, BLANC);
