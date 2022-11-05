@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 17:33:04 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/09/29 18:18:24 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/05 13:30:57 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ char	*chck_texture_id(char *id, char *line)
 	{
 		if (line[i] == id[0] && line[i + 1] == id[1])
 		{
-			found = 1;
+			found++;
 			i++;
 		}
-		else if (found && line[i] != ' ')
+		else if (found == 1 && line[i] != ' ')
 			return (line + i);
 		i++;
 	}
@@ -43,8 +43,8 @@ char	*chck_fc_color(char c, char *line)
 	while (line[i])
 	{
 		if (line[i] == c)
-			found = 1;
-		else if (found && line[i] != 32)
+			found++;
+		else if (found == 1 && line[i] != 32)
 			return (line + i);
 		i++;
 	}
