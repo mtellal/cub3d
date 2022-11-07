@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 13:10:58 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/11/07 15:27:06 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:37:38 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,6 @@ void	map_insert(t_data *data, char **new_map, char replacement)
 		}
 		i++;
 	}
-}
-
-void	flood_algo(char **map, int x, int y)
-{
-	if (x < 0 || y < 0 || x >= ft_maplen(map)
-		|| y >= ft_mapsize(map) || map[y][x] != '0')
-		return ;
-	map[y][x] = ' ';
-	flood_algo(map, x + 1, y);
-	flood_algo(map, x - 1, y);
-	flood_algo(map, x, y + 1);
-	flood_algo(map, x, y - 1);
-	return ;
 }
 
 int	map_check_zero(char **map)
