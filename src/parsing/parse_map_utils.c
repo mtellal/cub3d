@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:49:24 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/11/04 15:42:34 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:22:07 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,26 +83,4 @@ void	chck_map_elem(t_data *data)
 	}
 	if (player != 1)
 		exit_message(data, "Wrong number of player in map");
-}
-
-int	nb_of_zeros(char **map, char c)
-{
-	int	j;
-	int	i;
-	int	cpt;
-
-	i = 0;
-	cpt = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == c)
-				cpt++;
-			j++;
-		}
-		i++;
-	}
-	return (cpt);
 }
