@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:18:26 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/11/04 16:10:39 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:26:15 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,6 @@ int	stock_player_and_replace(char **map)
 			}
 			x++;
 		}
-	}
-	return (0);
-}
-
-int	compare_maps(char **map, char **tab)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != tab[i][j])
-				return (1);
-			j++;
-		}
-		i++;
 	}
 	return (0);
 }

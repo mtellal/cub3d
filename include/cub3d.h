@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:28:34 by mtellal           #+#    #+#             */
-/*   Updated: 2022/11/07 12:56:19 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:26:22 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,12 @@ int		parse_by_id(char **texture, char *line, char *id);
 int		parse_map(t_data *data, char *line);
 int		ft_maplen(char **map);
 int		ft_mapsize(char **map);
-int		nb_of_zeros(char **map, char c);
 void	chck_map_elem(t_data *data);
 void	chck_map_edges(t_data *data);
 void	check_file_name(t_data *data, char *file);
 void	chck_textures(t_data *data);
 void	read_cub(t_data *data, char *path_cub);
 int		stock_player_and_replace(char **map);
-int		compare_maps(char **map, char **tab);
 void	final_map(t_data *data);
 
 // Todelete

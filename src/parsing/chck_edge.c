@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 13:10:58 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/11/07 15:21:27 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:27:06 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	chck_map_edges(t_data *data)
 		exit_message(data, "new/tmp_map alloc failed");
 	floodable_map_assign(data, new_map, ' ');
 	map_insert(data, new_map, ' ');
-	print_map(new_map);
 	stock_player_and_replace(new_map);
 	free_map(data);
 	data->map = new_map;
