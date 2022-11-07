@@ -19,7 +19,7 @@ BONUSDIR=bonus
 OBJDIR=obj
 
 SRC=main.c draw.c events.c utils.c exit.c free_utils.c
-INIT=init.c initTriangle.c initimg2d.c
+INIT=init.c initimg2d.c
 MOVE=move.c movements.c movements_utils.c rotate.c radians_deg.c vmovements.c
 GNL=get_next_line.c get_next_line_utils.c
 PARSING=parse_content.c parse_file.c parse_map.c parse_map_utils.c chck_edge.c trim_map.c chck_player.c chck_textures.c chck_textures_utils.c init.c

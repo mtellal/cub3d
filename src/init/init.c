@@ -69,8 +69,8 @@ void	init(t_data *data)
 {
 	data->img2d.height = data->height * GRID;
 	data->img2d.width = data->len * GRID;
-	data->img3d.height = data->height * GRID2;
-	data->img3d.width = data->len * GRID2;
+	data->img3d.height = 9 * 100;
+	data->img3d.width = 16 * 100;
 	data->img2d.img = NULL;
 	data->img3d.img = NULL;
 	data->texture.walln.img = NULL;
@@ -82,6 +82,6 @@ void	init(t_data *data)
 	if (!data->mlx)
 		exit_cub(data, "Mlx init failed");
 	inittexture(data, data->mlx, &data->texture);
-	initimg2d(data, &data->img2d);
+	initimg2d(data);
 	initimg3d(data, &data->img3d);
 }

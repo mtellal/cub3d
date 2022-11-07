@@ -25,33 +25,44 @@ int	ft_belong(char c, char *s)
 	return (0);
 }
 
-void	fillimg2d(t_data *d, t_frame *im)
+void	init_player_pos(t_data *d, int i, int j)
+{
+	d->p.north.x = j * GRID + GRID / 2;
+	d->p.north.y = i * GRID + GRID / 3;
+	d->p.left.x = j * GRID + GRID;
+	d->p.left.y = i * GRID + GRID / 2;
+	d->p.pos.x = j * GRID + GRID / 2;
+	d->p.pos.y = i * GRID + GRID / 2;
+	d->p.projection = d->p.pos.y - d->p.north.y;
+}
+
+void	init_player(t_data *d, int i, int j, char c)
+{
+	init_player_pos(d, i, j);
+	if (c == 'S')
+		rotatepoint(deg2rad(180), &d->p.north.x, &d->p.north.y, d->p.pos);
+	else if (c == 'E')
+		rrotatepoint(deg2rad(90), &d->p.north.x, &d->p.north.y, d->p.pos);
+	else if (c == 'W')
+		rotatepoint(deg2rad(90), &d->p.north.x, &d->p.north.y, d->p.pos);
+}
+
+void	initimg2d(t_data *d)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < im->height / GRID)
+	d->move = 0;
+	while (i < d->height)
 	{
 		j = 0;
-		while (j < im->width / GRID)
+		while (j < d->len)
 		{
 			if (ft_belong(d->map[i][j], "NSEW"))
-				inittriangle(im, i, j, d->map[i][j]);
+				init_player(d, i, j, d->map[i][j]);
 			j++;
 		}
 		i++;
 	}
-}
-
-void	initimg2d(t_data *d, t_frame *i)
-{
-	i->img = mlx_new_image(d->mlx, i->width, i->height);
-	if (!i->img)
-		exit_cub(d, "Mlx new image failed");
-	i->addr = mlx_get_data_addr(i->img, &i->bpp, &i->length, &i->endian);
-	if (!i->addr)
-		exit_cub(d, "Mlx get adrr img2D failed");
-	i->move = 0;
-	fillimg2d(d, i);
 }

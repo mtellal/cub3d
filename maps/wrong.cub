@@ -1,7 +1,7 @@
 F 255,255,0
 C 255,255,255
 EA ./assets/wall.xpm
-NO ./assets/wall.xpm
+NO ./assets/floor.xpm
 WE ./assets/wall.xpm
 SO ./assets/wall.xpm
 

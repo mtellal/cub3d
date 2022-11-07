@@ -34,18 +34,26 @@ void	rrotatetriangle(t_triangle *t, double angle)
 	rrotatepoint(angle, &t->se.x, &t->se.y, t->milieu);
 }
 
-void	movevleft(t_frame *img)
+void	movevleft(t_data *d, t_frame *img)
 {
-	double	angle;
+	double		angle;
+	t_player	*player;
+	(void)img;
 
-	angle = deg2rad(GRID * 0.04);
-	rotatetriangle(&img->triangle, angle);
+	player = &d->p;
+	angle = deg2rad(GRID * 0.006);
+	rotatepoint(angle, &player->north.x, &player->north.y, d->p.pos);
+	rotatepoint(angle, &player->left.x, &player->left.y, d->p.pos);
 }
 
-void	movevrigth(t_frame *img)
+void	movevrigth(t_data *d, t_frame *img)
 {
-	double	angle;
+	double		angle;
+	t_player	*player;
+	(void)img;
 
-	angle = deg2rad(GRID * 0.04);
-	rrotatetriangle(&img->triangle, angle);
+	player = &d->p;
+	angle = deg2rad(GRID * 0.006);
+	rrotatepoint(angle, &player->north.x, &player->north.y, d->p.pos);
+	rrotatepoint(angle, &player->left.x, &player->left.y, d->p.pos);
 }

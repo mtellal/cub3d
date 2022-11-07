@@ -31,27 +31,31 @@ void	eraseprecedentstatemovement(t_data *data)
 
 void	move(t_data *data)
 {
-	t_frame	*img2d;
+	t_frame		*img2d;
+	t_player	*p;
 	t_coor	direction_incup;
 	t_coor	direction_incrigth;
 
 	img2d = &data->img2d;
-	if (!img2d->move)
+	p = &data->p;
+	if (!data->move)
 		return ;
 	eraseprecedentstatemovement(data);
-	direction_incup = coorline(img2d->triangle.a, img2d->triangle.milieu);
-	direction_incrigth = coorline(img2d->triangle.c, img2d->triangle.b);
-	if (img2d->move & U)
+
+	direction_incup = coorline(p->north, p->pos);
+	direction_incrigth = coorline(p->left, p->pos);
+
+	if (data->move & U)
 		moveup(data, img2d, direction_incup);
-	if (img2d->move & D)
+	if (data->move & D)
 		movedown(data, img2d, direction_incup);
-	if (img2d->move & R)
+	if (data->move & R)
 		moverigth(data, img2d, direction_incrigth);
-	if (img2d->move & L)
+	if (data->move & L)
 		moveleft(data, img2d, direction_incrigth);
-	if (img2d->move & VR)
-		movevrigth(img2d);
-	if (img2d->move & VL)
-		movevleft(img2d);
+	if (data->move & VR)
+		movevrigth(data, img2d);
+	if (data->move & VL)
+		movevleft(data, img2d);
 	cast_and_display(data);
 }

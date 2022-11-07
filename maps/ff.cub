@@ -1,8 +1,8 @@
 F 255,255,0
 C 255,255,255
-EA ./assets/wall.xpm
+EA ./assets/camored.xpm
 NO ./assets/wall.xpm
-WE ./assets/wall.xpm
+WE ./assets/camorange.xpm
 SO ./assets/wall.xpm
 
 1111

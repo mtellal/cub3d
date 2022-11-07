@@ -62,10 +62,10 @@ void	print_map(char	**map);
 void	init(t_data *img);
 
 // initTriangle.c
-void	inittriangle(t_frame *img, int i, int j, char c);
+void	inittriangle(t_data *d, t_frame *img, int i, int j, char c);
 
 // initimg2d
-void	initimg2d(t_data *data, t_frame *img2d);
+void	initimg2d(t_data *data);
 void	fillimg2d(t_data *data, t_frame *img);
 
 // utils.c
@@ -140,8 +140,8 @@ double	rad2deg(double radians);
 //  vmovements.c
 void	rotatetriangle(t_triangle *t, double angle);
 void	rrotatetriangle(t_triangle *t, double angle);
-void	movevrigth(t_frame *img);
-void	movevleft(t_frame *img);
+void	movevrigth(t_data *d, t_frame *img);
+void	movevleft(t_data *d, t_frame *img);
 
 //  rotate.c
 double	rotatex(double angle, double x, double y, int r);
@@ -153,6 +153,6 @@ void	rrotatepoint(double angle, double *x, double *y, t_coor origine);
 //events.c
 int		handle_input(void *img);
 int		keypressed(int keycode, t_data *data);
-int		keyreleased(int keycode, t_frame *img);
+int		keyreleased(int keycode, t_data *data);
 
 #endif

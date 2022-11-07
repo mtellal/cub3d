@@ -13,13 +13,10 @@
 #ifndef MACROS_H
 # define MACROS_H
 
-# define GRID 100
-# define GRID2 50
-# define MHEIGHT 14
-# define MLENGTH 33
-# define NBRAYS LENGTH
+# define GRID 500
 # define WALLCOLOR 0x00143D3D
 # define PLAYERCOLOR 0x0000FFFB
+# define BLANC 0x00FFFFFF
 # define VRIGHT 65363
 # define VLEFT 65361
 # define UP 119
@@ -32,7 +29,6 @@
 # define L 8
 # define VR 16
 # define VL 32
-# define ANGLE 60
-# define BLANC 0x00FFFFFF
+
 
 #endif

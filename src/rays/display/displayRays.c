@@ -72,7 +72,7 @@ void	displayrays(t_data *d, t_ray **rays)
 		_ray = rays[i];
 		if (_ray)
 		{
-			drays.w.h = ((double)GRID / _ray->length) * distpp;
+			drays.w.h = ((double)GRID / (_ray->length / 2)) * distpp;
 			drays.pw.x = drays.w.l * i;
 			drays.pw.y = ((double)d->img3d.height / 2) - (drays.w.h / 2);
 			displayimg3d(d, _ray, &drays);

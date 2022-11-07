@@ -75,6 +75,15 @@ typedef struct s_ray
 
 }				t_ray;
 
+typedef struct s_player
+{
+	t_coor pos;
+	t_coor north;
+	t_coor left;
+	int direction;
+	int	projection;
+}			t_player;
+
 typedef struct s_frame
 {
 	int				bpp;
@@ -86,8 +95,6 @@ typedef struct s_frame
 	void			*window;
 	void			*img;
 	char			*addr;
-	t_triangle		triangle;
-
 }		t_frame;
 
 typedef struct s_texture
@@ -104,6 +111,7 @@ typedef struct s_data
 {
 	int			len;
 	int			height;
+	int			move;
 	void		*mlx;
 	char		**map;
 	char		*n_texture;
@@ -116,6 +124,7 @@ typedef struct s_data
 	t_frame		img3d;
 	t_texture	texture;
 	t_ray		**rays;
+	t_player	p;
 }				t_data;
 
 #endif
