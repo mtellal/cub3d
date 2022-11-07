@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 13:10:58 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/11/05 11:19:44 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:21:27 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,31 +87,42 @@ void	flood_algo(char **map, int x, int y)
 	return ;
 }
 
+int	map_check_zero(char **map)
+{
+	int i;
+	int j;
+
+	i = 1;
+	while (map[i] && map[i + 1])
+	{
+		j = 1;
+		while (map[i][j] && map[i][j + 1])
+		{
+			if (map[i][j] == '0'
+				&& (map[i - 1][j] == ' ' || map[i + 1][j] == ' '
+				|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 void	chck_map_edges(t_data *data)
 {
 	char	**new_map;
-	char	**tmp_map;
-	int		cpt_zeros;
 
-	cpt_zeros = nb_of_zeros(data->map, '0');
 	new_map = floodable_map_alloc(data);
-	tmp_map = floodable_map_alloc(data);
-	if (!new_map || !tmp_map)
+	if (!new_map)
 		exit_message(data, "new/tmp_map alloc failed");
-	floodable_map_assign(data, new_map, '0');
-	floodable_map_assign(data, tmp_map, ' ');
-	map_insert(data, new_map, '0');
-	map_insert(data, tmp_map, ' ');
+	floodable_map_assign(data, new_map, ' ');
+	map_insert(data, new_map, ' ');
+	print_map(new_map);
 	stock_player_and_replace(new_map);
-	flood_algo(new_map, 0, 0);
 	free_map(data);
 	data->map = new_map;
-	if (stock_player_and_replace(data->map)
-		|| cpt_zeros != nb_of_zeros(data->map, '0')
-		|| compare_maps(data->map, tmp_map))
-	{
-		free_tabs(tmp_map);
-		exit_message(data, "Map is not closed");
-	}
-	free_tabs(tmp_map);
+	if (map_check_zero(data->map)
+		|| stock_player_and_replace(data->map))
+			exit_message(data, "Map is not closed");
 }
