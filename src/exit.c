@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:56:06 by mtellal           #+#    #+#             */
-/*   Updated: 2022/11/03 15:15:24 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:45:26 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	exit_cross(t_data *data)
 
 void	exit_game(t_data *data)
 {
-	mlx_destroy_window(data->mlx, data->img3d.window);
+	if (data->img3d.window)
+		mlx_destroy_window(data->mlx, data->img3d.window);
 	data->img3d.window = NULL;
 }
 
@@ -44,4 +45,11 @@ void	exit_game_clean(t_data *data)
 		free(data->mlx);
 		data->mlx = NULL;
 	}
+}
+
+void	exit_cub(t_data *data, char *str)
+{
+	exit_game(data);
+	exit_game_clean(data);
+	exit_message(data, str);
 }

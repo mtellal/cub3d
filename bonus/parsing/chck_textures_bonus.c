@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:26 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/11/01 15:23:56 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/11/05 13:17:39 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	chck_color(t_data *data, char *str)
 			exit_message(data, "Color wrong args");
 		i++;
 	}
-	if (cpt < 1 || cpt > 3 || cpt_color > 2)
+	if (cpt < 1 || cpt > 3 || cpt_color != 2)
 		exit_message(data, "Color error");
 }
 

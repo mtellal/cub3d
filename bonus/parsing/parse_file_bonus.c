@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_file.c                                       :+:      :+:    :+:   */
+/*   parse_file_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 16:54:21 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/10/09 15:03:32 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/07 10:01:23 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,26 @@ void	check_file_name(t_data *data, char *file)
 	int	i;
 
 	i = 0;
-	if (file[i] == '.')
-		exit_message(data, "File : No name found");
-	while (file[i] && file[i] != '.')
+	if (ft_strlen(file) < 4)
+		exit_message(data, "File extension need to be: \".cub\".");
+	while (file[i] != '\0')
 		i++;
-	if (file[i] != '.')
-		exit_message(data, "File : No extention found");
-	if (file[i + 1] == 'c' && file[i + 2] == 'u'
-		&& file[i + 3] == 'b' && file[i + 4] == '\0')
-		return ;
+	while (file[i] != '.')
+	{
+		i--;
+		if (i < 0)
+			exit_message(data, "File extension need to be: \".cub\".");
+	}
+	if (ft_strlen(file + i) == 4)
+	{
+		if (file[i + 1] == 'c' && file[i + 2] == 'u'
+			&& file[i + 3] == 'b')
+			return ;
+		else
+			exit_message(data, "File extension need to be: \".cub\".");
+	}
 	else
-		exit_message(data, "File : Wrong extention");
+		exit_message(data, "File extension need to be: \".cub\".");
 }
 
 void	read_cub(t_data *data, char *path_cub)

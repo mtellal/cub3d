@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:28:34 by mtellal           #+#    #+#             */
-/*   Updated: 2022/11/04 15:54:30 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:56:19 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	quit_err_msg(char *s);
 int		exit_cross(t_data *data);
 void	exit_game(t_data *data);
 void	exit_game_clean(t_data *data);
+void	exit_cub(t_data *data, char *str);
 
 /////////////////           DRAW            ///////////////////
 int		dansletriangle(t_coor pt, t_triangle t);

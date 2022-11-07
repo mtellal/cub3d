@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initimg2d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 16:09:12 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/21 15:45:27 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/11/07 13:00:10 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	initimg2d(t_data *d, t_frame *i)
 {
 	i->img = mlx_new_image(d->mlx, i->width, i->height);
 	if (!i->img)
-		exit_message(d, "Mlx new image failed");
+		exit_cub(d, "Mlx new image failed");
 	i->addr = mlx_get_data_addr(i->img, &i->bpp, &i->length, &i->endian);
+	if (!i->addr)
+		exit_cub(d, "Mlx get adrr img2D failed");
 	i->move = 0;
 	fillimg2d(d, i);
 }
