@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_putendl_fd("Error", 2);
-		ft_putendl_fd("Not enough arguments", 2);
+		ft_putendl_fd("Bad arguments", 2);
 		return (-1);
 	}
 	init_struct_and_parsing(&data, argv[1]);

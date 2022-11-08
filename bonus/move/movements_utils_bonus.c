@@ -6,7 +6,7 @@
 /*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 16:18:24 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/21 16:18:32 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/11/08 16:49:20 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,12 @@ void	addpixely(t_triangle *t, double pixel)
 	t->ipos.h += pixel;
 }
 
-int	checkpointwall(t_data *data, t_coor point, t_coor dda_inc)
+double	deg2rad(double degrees)
 {
-	if (data->map[(int)((point.y + dda_inc.y + 1) / GRID)]
-			[(int)((point.x + dda_inc.x + 1) / GRID)] == '1')
-		return (1);
-	return (0);
+	return (degrees * (M_PI / 180));
 }
 
-int	checkcoorsquare(t_data *data, t_coor c1, t_coor c2, t_coor dda_inc)
+double	rad2deg(double radians)
 {
-	if (!checkpointwall(data, c1, dda_inc)
-		&& !checkpointwall(data, c2, dda_inc))
-		return (1);
-	return (0);
+	return (radians * (180 / M_PI));
 }

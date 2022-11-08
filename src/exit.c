@@ -27,8 +27,6 @@ void	exit_game(t_data *data)
 
 void	exit_game_clean(t_data *data)
 {
-	if (data->img2d.img)
-		mlx_destroy_image(data->mlx, data->img2d.img);
 	if (data->img3d.img)
 		mlx_destroy_image(data->mlx, data->img3d.img);
 	if (data->texture.walle.img)

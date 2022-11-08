@@ -21,17 +21,17 @@ int	handle_input(void *data)
 int	keypressed(int keycode, t_data *data)
 {
 	if (keycode == UP)
-		data->move |= U;
+		data->p.move |= U;
 	if (keycode == DOWN)
-		data->move |= D;
+		data->p.move |= D;
 	if (keycode == RIGHT)
-		data->move |= R;
+		data->p.move |= R;
 	if (keycode == LEFT)
-		data->move |= L;
+		data->p.move |= L;
 	if (keycode == VRIGHT)
-		data->move |= VR;
+		data->p.move |= VR;
 	if (keycode == VLEFT)
-		data->move |= VL;
+		data->p.move |= VL;
 	if (keycode == XK_Escape)
 		exit_game(data);
 	return (0);
@@ -40,16 +40,16 @@ int	keypressed(int keycode, t_data *data)
 int	keyreleased(int keycode, t_data *data)
 {
 	if (keycode == UP)
-		data->move &= ~U;
+		data->p.move &= ~U;
 	if (keycode == DOWN)
-		data->move &= ~D;
+		data->p.move &= ~D;
 	if (keycode == RIGHT)
-		data->move &= ~R;
+		data->p.move &= ~R;
 	if (keycode == LEFT)
-		data->move &= ~L;
+		data->p.move &= ~L;
 	if (keycode == VRIGHT)
-		data->move &= ~VR;
+		data->p.move &= ~VR;
 	if (keycode == VLEFT)
-		data->move &= ~VL;
+		data->p.move &= ~VL;
 	return (0);
 }

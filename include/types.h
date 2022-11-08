@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:25:49 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/22 15:12:00 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/11/08 18:14:51 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,10 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-	t_coor pos;
-	t_coor north;
-	t_coor left;
-	int direction;
-	int	projection;
+	int		move;
+	t_coor	pos;
+	t_coor	up;
+	t_coor	left;
 }			t_player;
 
 typedef struct s_frame
@@ -111,7 +110,6 @@ typedef struct s_data
 {
 	int			len;
 	int			height;
-	int			move;
 	void		*mlx;
 	char		**map;
 	char		*n_texture;
@@ -120,7 +118,6 @@ typedef struct s_data
 	char		*e_texture;
 	char		*f_texture;
 	char		*c_texture;
-	t_frame		img2d;
 	t_frame		img3d;
 	t_texture	texture;
 	t_ray		**rays;

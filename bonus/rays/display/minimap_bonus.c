@@ -6,7 +6,7 @@
 /*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:29:44 by mtellal           #+#    #+#             */
-/*   Updated: 2022/11/05 16:42:48 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/11/08 18:14:00 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,40 @@ void	minimap_init_img3d(t_frame *img3d, int *s_map, t_coor *pos_mnmap3D)
 	pos_mnmap3D->y = img3d->height - (*s_map + *s_map * 0.1);
 }
 
-int	pick_pixel_img2d(t_frame *minimap, t_coor pos_mnmap, int i, int j)
+int	pixel(t_data *d, t_coor pos_pixel, int i, int j)
 {
-	char	*addr;
-	int		l;
-	int		h;
-
-	addr = minimap->addr;
-	h = (int)pos_mnmap.y * minimap->length + i * 4 * minimap->length;
-	l = (int)pos_mnmap.x * (minimap->bpp / 8) + j * 4 * (minimap->bpp / 8);
-	return (*(int *)(addr + h + l));
+	if ((int)(pos_pixel.y + i * 4) / GRID >= d->height ||
+		(int)(pos_pixel.x + j * 4) / GRID >= d->len ||
+		(int)(pos_pixel.y + i * 4) / GRID < 0 ||
+		(int)(pos_pixel.x + j * 4) / GRID < 0)
+		return (0);
+	else if (d->map[(int)(pos_pixel.y + i * 4) / GRID]
+		[(int)(pos_pixel.x + j * 4) / GRID] == '1')
+		return (WALLCOLOR);
+	else if (d->p.pos.y == (pos_pixel.y + i * 4)
+		&& d->p.pos.x == (pos_pixel.x + j * 4))
+		return (BLANC);
+	else
+		return (0);
 }
 
-void	display_map(t_data *data, int _s, t_coor p2d, t_coor p3d)
+void	display_map(t_data *data, int size, t_coor p3d)
 {
-	t_frame	*map;
+	t_coor	pos_pixel;
 	int		pm;
 	int		i;
 	int		j;
 
 	i = 0;
-	map = &data->img2d;
-	while (i < _s)
+	pos_pixel.x = data->p.pos.x - size * 2;
+	pos_pixel.y = data->p.pos.y - size * 2;
+	while (i < size)
 	{
 		j = 0;
-		while (j < _s)
+		while (j < size)
 		{
-			pm = 0;
-			if (p2d.y + i * 4 < map->height && p2d.x + j * 4 < map->width)
-				pm = pick_pixel_img2d(map, p2d, i, j);
-			if (i == 0 || j == 0 || i + 1 >= _s || j + 1 >= _s)
+			pm = pixel(data, pos_pixel, i, j);
+			if (i == 0 || j == 0 || i + 1 >= size || j + 1 >= size)
 				put_pixel(&data->img3d, (int)p3d.y + i, (int)p3d.x + j, BLANC);
 			else
 				put_pixel(&data->img3d, (int)p3d.y + i, (int)p3d.x + j, pm);
@@ -61,21 +65,11 @@ void	display_map(t_data *data, int _s, t_coor p2d, t_coor p3d)
 	}
 }
 
-void	minimap(t_data *data, t_frame *minimap, t_frame *img3d)
+void	minimap(t_data *data, t_frame *img3d)
 {
 	int		size_minimap;
 	t_coor	pos_minimap_img3d;
-	t_coor	pos_player;
-	t_coor	pos_minimap_img2d;
 
 	minimap_init_img3d(img3d, &size_minimap, &pos_minimap_img3d);
-	pos_player.x = minimap->triangle.milieu.x;
-	pos_player.y = minimap->triangle.milieu.y;
-	pos_minimap_img2d.x = pos_player.x - size_minimap * 2;
-	pos_minimap_img2d.y = pos_player.y - size_minimap * 2;
-	if (pos_minimap_img2d.x < 0)
-		pos_minimap_img2d.x = 0;
-	if (pos_minimap_img2d.y < 0)
-		pos_minimap_img2d.y = 0;
-	display_map(data, size_minimap, pos_minimap_img2d, pos_minimap_img3d);
+	display_map(data, size_minimap, pos_minimap_img3d);
 }

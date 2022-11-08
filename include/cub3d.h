@@ -59,12 +59,8 @@ void	print_map(char	**map);
 // init.c
 void	init(t_data *img);
 
-// initTriangle.c
-void	inittriangle(t_data *d, t_frame *img, int i, int j, char c);
-
 // initimg2d
-void	initimg2d(t_data *data);
-void	fillimg2d(t_data *data, t_frame *img);
+void	initplayer(t_data *data);
 
 // utils.c
 void	displaycoor(t_coor point);
@@ -110,36 +106,30 @@ double	getanlge(t_coor point, t_coor origine);
 void	displayrays(t_data *data, t_ray **rays);
 
 // displayTextures.c
-void	dis_c(t_frame *img3d, int c, t_coor pos, int l);
-void	dis_f(t_frame *img3d, int f, t_coor pos, int l);
-void	dissw(t_frame *im, t_img *tw, t_drays *drays, double sy);
+void	dcieling(t_frame *img3d, int c, t_coor pos_wall, int l);
+void	dfloor(t_frame *img3d, int f, t_coor pos, int l);
+void	dwall(t_frame *im, t_img *tw, t_drays *drays, double sy);
 
 ////////////////            MOVE            /////////////////
 // move.c
-void	minimap(t_data *data, t_frame *minimap, t_frame *img);
+void	minimap(t_data *data, t_frame *img);
 void	move(t_data *img);
 
 // movements.c
-void	moveup(t_data *data, t_frame *img, t_coor dda_inc);
-void	movedown(t_data *data, t_frame *img, t_coor dda_inc);
-void	moverigth(t_data *data, t_frame *img, t_coor dda_inc);
-void	moveleft(t_data *data, t_frame *img, t_coor dda_inc);
+void	moveup(t_data *data, t_coor dda_inc);
+void	movedown(t_data *data, t_coor dda_inc);
+void	moverigth(t_data *data, t_coor dda_inc);
+void	moveleft(t_data *data, t_coor dda_inc);
 
 // movements_utils.c
-int		checkpointwall(t_data *data, t_coor point, t_coor dda_inc);
-int		checkcoorsquare(t_data *data, t_coor c1, t_coor c2, t_coor dda_inc);
 void	addpixelx(t_triangle *t, double pixel);
 void	addpixely(t_triangle *t, double pixel);
-
-// radians_deg.c
 double	deg2rad(double degrees);
 double	rad2deg(double radians);
 
 //  vmovements.c
-void	rotatetriangle(t_triangle *t, double angle);
-void	rrotatetriangle(t_triangle *t, double angle);
-void	movevrigth(t_data *d, t_frame *img);
-void	movevleft(t_data *d, t_frame *img);
+void	movevrigth(t_data *d);
+void	movevleft(t_data *d);
 
 //  rotate.c
 double	rotatex(double angle, double x, double y, int r);

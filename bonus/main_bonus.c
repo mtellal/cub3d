@@ -14,7 +14,7 @@
 
 void	game(t_data *data)
 {
-	mlx_hook(data->img3d.window, 3, 1L << 1, keyreleased, &data->img2d);
+	mlx_hook(data->img3d.window, 3, 1L << 1, keyreleased, data);
 	mlx_hook(data->img3d.window, 2, 1L << 0, keypressed, data);
 	mlx_hook(data->img3d.window, ClientMessage,
 		StructureNotifyMask, exit_cross, data);
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_putendl_fd("Error", 2);
-		ft_putendl_fd("Not enough arguments", 2);
+		ft_putendl_fd("Bad arguments", 2);
 		return (-1);
 	}
 	init_struct_and_parsing(&data, argv[1]);

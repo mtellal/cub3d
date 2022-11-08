@@ -27,40 +27,41 @@ int	ft_belong(char c, char *s)
 
 void	init_player_pos(t_data *d, int i, int j)
 {
-	d->p.north.x = j * GRID + GRID / 2;
-	d->p.north.y = i * GRID + GRID / 3;
-	d->p.left.x = j * GRID + GRID;
-	d->p.left.y = i * GRID + GRID / 2;
 	d->p.pos.x = j * GRID + GRID / 2;
 	d->p.pos.y = i * GRID + GRID / 2;
-	d->p.projection = d->p.pos.y - d->p.north.y;
+	d->p.up.x = d->p.pos.x;
+	d->p.up.y = d->p.pos.y - GRID * 0.1;
+	d->p.left.x = j * GRID - GRID * 0.1;
+	d->p.left.y = d->p.pos.y;
 }
 
-void	init_player(t_data *d, int i, int j, char c)
+void	direction_player(t_player *p, char c)
 {
-	init_player_pos(d, i, j);
 	if (c == 'S')
-		rotatepoint(deg2rad(180), &d->p.north.x, &d->p.north.y, d->p.pos);
+		rotatepoint(deg2rad(180), &p->up.x, &p->up.y, p->pos);
 	else if (c == 'E')
-		rrotatepoint(deg2rad(90), &d->p.north.x, &d->p.north.y, d->p.pos);
+		rrotatepoint(deg2rad(90), &p->up.x, &p->up.y, p->pos);
 	else if (c == 'W')
-		rotatepoint(deg2rad(90), &d->p.north.x, &d->p.north.y, d->p.pos);
+		rotatepoint(deg2rad(90), &p->up.x, &p->up.y, p->pos);
 }
 
-void	initimg2d(t_data *d)
+void	initplayer(t_data *d)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	d->move = 0;
+	d->p.move = 0;
 	while (i < d->height)
 	{
 		j = 0;
 		while (j < d->len)
 		{
 			if (ft_belong(d->map[i][j], "NSEW"))
-				init_player(d, i, j, d->map[i][j]);
+			{
+				init_player_pos(d, i, j);
+				direction_player(&d->p, d->map[i][j]);
+			}
 			j++;
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initimg2d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 16:09:12 by mtellal           #+#    #+#             */
-/*   Updated: 2022/10/21 15:45:27 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/11/07 13:00:10 by antbarbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,36 +25,45 @@ int	ft_belong(char c, char *s)
 	return (0);
 }
 
-void	fillimg2d(t_data *d, t_frame *im)
+void	init_player_pos(t_data *d, int i, int j)
+{
+	d->p.pos.x = j * GRID + GRID / 2;
+	d->p.pos.y = i * GRID + GRID / 2;
+	d->p.up.x = d->p.pos.x;
+	d->p.up.y = d->p.pos.y - GRID * 0.1;
+	d->p.left.x = j * GRID - GRID * 0.1;
+	d->p.left.y = d->p.pos.y;
+}
+
+void	direction_player(t_player *p, char c)
+{
+	if (c == 'S')
+		rotatepoint(deg2rad(180), &p->up.x, &p->up.y, p->pos);
+	else if (c == 'E')
+		rrotatepoint(deg2rad(90), &p->up.x, &p->up.y, p->pos);
+	else if (c == 'W')
+		rotatepoint(deg2rad(90), &p->up.x, &p->up.y, p->pos);
+}
+
+void	initplayer(t_data *d)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < im->height / GRID)
+	d->p.move = 0;
+	while (i < d->height)
 	{
 		j = 0;
-		while (j < im->width / GRID)
+		while (j < d->len)
 		{
-			if (d->map[i][j] == '1')
-				draw_wall(im, i * GRID, j * GRID);
 			if (ft_belong(d->map[i][j], "NSEW"))
 			{
-				inittriangle(im, i, j, d->map[i][j]);
-				draw_triangle(im, im->triangle, im->triangle.color);
+				init_player_pos(d, i, j);
+				direction_player(&d->p, d->map[i][j]);
 			}
 			j++;
 		}
 		i++;
 	}
-}
-
-void	initimg2d(t_data *d, t_frame *i)
-{
-	i->img = mlx_new_image(d->mlx, i->width, i->height);
-	if (!i->img)
-		exit_message(d, "Mlx new image failed");
-	i->addr = mlx_get_data_addr(i->img, &i->bpp, &i->length, &i->endian);
-	i->move = 0;
-	fillimg2d(d, i);
 }

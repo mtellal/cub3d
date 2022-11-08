@@ -18,8 +18,8 @@ void	castfirstray(t_data *data, t_ray **rays, double angle)
 	t_coor	origine;
 	t_ray	*first_ray;
 
-	point = data->img2d.triangle.a;
-	origine = data->img2d.triangle.milieu;
+	point = data->p.up;
+	origine = data->p.pos;
 	first_ray = rays[(int)(data->img3d.width / 2)];
 	first_ray->coor = castaray(data, point, angle, first_ray);
 	first_ray->length = getlengthray(first_ray->coor, origine, angle);
@@ -39,11 +39,11 @@ void	c_rrays(t_data *d, t_ray **rays, double angleinc, double angle)
 	cr = rays[(int)(d->img3d.width / 2)]->coor;
 	while (i < (int)(d->img3d.width / 2))
 	{
-		rrotatepoint(deg2rad(angleinc), &cr.x, &cr.y, d->img2d.triangle.milieu);
+		rrotatepoint(deg2rad(angleinc), &cr.x, &cr.y, d->p.pos);
 		angle -= angleinc;
 		cumulangle += angleinc;
 		cr = castaray(d, cr, deg2rad(angle), rr);
-		rr->length = getlengthray(cr, d->img2d.triangle.milieu, deg2rad(angle));
+		rr->length = getlengthray(cr, d->p.pos, deg2rad(angle));
 		rr->length = correctfisheye(rr->length, deg2rad(cumulangle));
 		i++;
 		rr->coor.x = cr.x;
@@ -64,15 +64,15 @@ void	c_lrays(t_data *d, t_ray **rays, double angleinc, double angle)
 	cumulangle = 0;
 	lr = rays[(int)(d->img3d.width / 2 - 1)];
 	cr = rays[(int)(d->img3d.width / 2)]->coor;
-	rotatepoint(deg2rad(angleinc), &cr.x, &cr.y, d->img2d.triangle.milieu);
+	rotatepoint(deg2rad(angleinc), &cr.x, &cr.y, d->p.pos);
 	angle += angleinc;
 	while (i < d->img3d.width / 2)
 	{
-		rotatepoint(deg2rad(angleinc), &cr.x, &cr.y, d->img2d.triangle.milieu);
+		rotatepoint(deg2rad(angleinc), &cr.x, &cr.y, d->p.pos);
 		angle += angleinc;
 		cumulangle += angleinc;
 		cr = castaray(d, cr, deg2rad(angle), lr);
-		lr->length = getlengthray(cr, d->img2d.triangle.milieu, deg2rad(angle));
+		lr->length = getlengthray(cr, d->p.pos, deg2rad(angle));
 		lr->length = correctfisheye(lr->length, deg2rad(cumulangle));
 		i++;
 		lr->coor.x = cr.x;
@@ -89,10 +89,10 @@ t_ray	**castrays(t_data *data)
 	t_coor		origine;
 	t_ray		**rays;
 
-	origine = data->img2d.triangle.milieu;
+	origine = data->p.pos;
 	rays = inittabrays(data->img3d.width);
 	angleinc = 60 / (double)(data->img3d.width);
-	angle = rad2deg(getanlge(data->img2d.triangle.a, origine));
+	angle = rad2deg(getanlge(data->p.up, origine));
 	castfirstray(data, rays, deg2rad(angle));
 	c_rrays(data, rays, angleinc, angle);
 	c_lrays(data, rays, angleinc, angle);

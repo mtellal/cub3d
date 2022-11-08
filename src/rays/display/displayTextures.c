@@ -12,36 +12,36 @@
 
 #include "cub3d.h"
 
-void	dis_c(t_frame *img3d, int c, t_coor pos, int l)
+void	dcieling(t_frame *img3d, int c, t_coor pos_wall, int l)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	while (i < pos.y)
+	while (i < pos_wall.y)
 	{
 		j = 0;
 		while (j < l)
 		{
-			put_pixel(img3d, i, pos.x + j, c);
+			put_pixel(img3d, i, pos_wall.x + j, c);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	dis_f(t_frame *img3d, int f, t_coor pos, int l)
+void	dfloor(t_frame *img3d, int f, t_coor pos_wall, int l)
 {
 	int	i;
 	int	j;
 
-	i = pos.y;
+	i = pos_wall.y;
 	while (i < img3d->height)
 	{
 		j = 0;
 		while (j < l)
 		{
-			put_pixel(img3d, i, pos.x + j, f);
+			put_pixel(img3d, i, pos_wall.x + j, f);
 			j++;
 		}
 		i++;
@@ -62,7 +62,7 @@ int	f_pixelt(t_img *tw, t_drays *drays, t_coor dim, double sy)
 	return (*(int *)(tw->addr + l + h));
 }
 
-void	dissw(t_frame *im, t_img *tw, t_drays *d, double sy)
+void	dwall(t_frame *im, t_img *tw, t_drays *d, double sy)
 {
 	int		i;
 	int		j;

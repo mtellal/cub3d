@@ -6,12 +6,12 @@
 #    By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/17 16:32:26 by mtellal           #+#    #+#              #
-#    Updated: 2022/11/05 17:07:46 by mtellal          ###   ########.fr        #
+#    Updated: 2022/11/08 17:57:16 by mtellal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=clang 
-FLAGS=-Wall -Wextra -Werror -g 
+FLAGS=-Wall -Wextra -Werror -g
 NAME=cub3D
 
 SRCDIR=src
@@ -19,8 +19,8 @@ BONUSDIR=bonus
 OBJDIR=obj
 
 SRC=main.c draw.c events.c utils.c exit.c free_utils.c
-INIT=init.c initimg2d.c
-MOVE=move.c movements.c movements_utils.c rotate.c radians_deg.c vmovements.c
+INIT=init.c initplayer.c
+MOVE=move.c movements.c movements_utils.c rotate.c vmovements.c
 GNL=get_next_line.c get_next_line_utils.c
 PARSING=parse_content.c parse_file.c parse_map.c parse_map_utils.c chck_edge.c trim_map.c chck_player.c chck_textures.c chck_textures_utils.c init.c
 RAYS=rays.c cast_a_ray.c horizontal_cast.c vertical_cast.c rays_utils.c

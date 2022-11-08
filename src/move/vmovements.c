@@ -12,48 +12,36 @@
 
 #include "cub3d.h"
 
-void	rotatetriangle(t_triangle *t, double angle)
+void	rotate_player(t_player *player, double angle, int reverse)
 {
-	rotatepoint(angle, &t->a.x, &t->a.y, t->milieu);
-	rotatepoint(angle, &t->b.x, &t->b.y, t->milieu);
-	rotatepoint(angle, &t->c.x, &t->c.y, t->milieu);
-	rotatepoint(angle, &t->no.x, &t->no.y, t->milieu);
-	rotatepoint(angle, &t->ne.x, &t->ne.y, t->milieu);
-	rotatepoint(angle, &t->so.x, &t->so.y, t->milieu);
-	rotatepoint(angle, &t->se.x, &t->se.y, t->milieu);
+	if (!reverse)
+	{
+		rotatepoint(angle, &player->up.x, &player->up.y, player->pos);
+		rotatepoint(angle, &player->left.x, &player->left.y, player->pos);
+	}
+	else
+	{
+		rrotatepoint(angle, &player->up.x, &player->up.y, player->pos);
+		rrotatepoint(angle, &player->left.x, &player->left.y, player->pos);
+	}
 }
 
-void	rrotatetriangle(t_triangle *t, double angle)
-{
-	rrotatepoint(angle, &t->a.x, &t->a.y, t->milieu);
-	rrotatepoint(angle, &t->b.x, &t->b.y, t->milieu);
-	rrotatepoint(angle, &t->c.x, &t->c.y, t->milieu);
-	rrotatepoint(angle, &t->no.x, &t->no.y, t->milieu);
-	rrotatepoint(angle, &t->ne.x, &t->ne.y, t->milieu);
-	rrotatepoint(angle, &t->so.x, &t->so.y, t->milieu);
-	rrotatepoint(angle, &t->se.x, &t->se.y, t->milieu);
-}
-
-void	movevleft(t_data *d, t_frame *img)
+void	movevleft(t_data *d)
 {
 	double		angle;
 	t_player	*player;
-	(void)img;
 
 	player = &d->p;
-	angle = deg2rad(GRID * 0.006);
-	rotatepoint(angle, &player->north.x, &player->north.y, d->p.pos);
-	rotatepoint(angle, &player->left.x, &player->left.y, d->p.pos);
+	angle = deg2rad(GRID * 0.03);
+	rotate_player(player, angle, 0);
 }
 
-void	movevrigth(t_data *d, t_frame *img)
+void	movevrigth(t_data *d)
 {
 	double		angle;
 	t_player	*player;
-	(void)img;
 
 	player = &d->p;
-	angle = deg2rad(GRID * 0.006);
-	rrotatepoint(angle, &player->north.x, &player->north.y, d->p.pos);
-	rrotatepoint(angle, &player->left.x, &player->left.y, d->p.pos);
+	angle = deg2rad(GRID * 0.03);
+	rotate_player(player, angle, 1);
 }

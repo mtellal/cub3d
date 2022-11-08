@@ -18,7 +18,7 @@ void	castfirstray(t_data *data, t_ray **rays, double angle)
 	t_coor	origine;
 	t_ray	*first_ray;
 
-	point = data->p.north;
+	point = data->p.up;
 	origine = data->p.pos;
 	first_ray = rays[(int)(data->img3d.width / 2)];
 	first_ray->coor = castaray(data, point, angle, first_ray);
@@ -92,7 +92,7 @@ t_ray	**castrays(t_data *data)
 	origine = data->p.pos;
 	rays = inittabrays(data->img3d.width);
 	angleinc = 60 / (double)(data->img3d.width);
-	angle = rad2deg(getanlge(data->p.north, origine));
+	angle = rad2deg(getanlge(data->p.up, origine));
 	castfirstray(data, rays, deg2rad(angle));
 	c_rrays(data, rays, angleinc, angle);
 	c_lrays(data, rays, angleinc, angle);

@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 13:10:58 by antbarbi          #+#    #+#             */
-/*   Updated: 2022/11/07 15:37:38 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:47:17 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	map_insert(t_data *data, char **new_map, char replacement)
 
 int	map_check_zero(char **map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (map[i] && map[i + 1])
@@ -110,5 +110,5 @@ void	chck_map_edges(t_data *data)
 	data->map = new_map;
 	if (map_check_zero(data->map)
 		|| stock_player_and_replace(data->map))
-			exit_message(data, "Map is not closed");
+		exit_message(data, "Map is not closed");
 }

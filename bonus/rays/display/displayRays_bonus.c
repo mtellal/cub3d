@@ -41,7 +41,7 @@ void	calculstripwall(t_data *d, t_ray *r, t_drays *drays)
 		drays->piw.y = (drays->w.h - (double)d->img3d.height) / 2 * scale_y;
 		drays->w.h = d->img3d.height;
 	}
-	dissw(&d->img3d, twall, drays, scale_y);
+	dwall(&d->img3d, twall, drays, scale_y);
 }
 
 void	displayimg3d(t_data *d, t_ray *r, t_drays *drays)
@@ -51,10 +51,10 @@ void	displayimg3d(t_data *d, t_ray *r, t_drays *drays)
 
 	t = &d->texture;
 	i = &d->img3d;
-	dis_c(i, t->cieling, drays->pw, drays->w.l);
+	dcieling(i, t->cieling, drays->pw, drays->w.l);
 	calculstripwall(d, r, drays);
 	drays->pw.y += drays->w.h;
-	dis_f(i, t->floor, drays->pw, drays->w.l);
+	dfloor(i, t->floor, drays->pw, drays->w.l);
 }
 
 void	displayrays(t_data *d, t_ray **rays)
@@ -72,7 +72,7 @@ void	displayrays(t_data *d, t_ray **rays)
 		_ray = rays[i];
 		if (_ray)
 		{
-			drays.w.h = ((double)GRID / _ray->length) * distpp;
+			drays.w.h = ((double)GRID / (_ray->length / 2)) * distpp;
 			drays.pw.x = drays.w.l * i;
 			drays.pw.y = ((double)d->img3d.height / 2) - (drays.w.h / 2);
 			displayimg3d(d, _ray, &drays);
