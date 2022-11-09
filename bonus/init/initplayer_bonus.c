@@ -39,14 +39,32 @@ void	init_player_pos(t_data *d, int i, int j)
 	d->p.left.y = d->p.pos.y;
 }
 
+void	init_rotate_player(t_player *p, double angle, int r)
+{
+	if (!r)
+	{
+		rotatepoint(deg2rad(angle), &p->up.x, &p->up.y, p->pos);
+		rotatepoint(deg2rad(angle), &p->down.x, &p->down.y, p->pos);
+		rotatepoint(deg2rad(angle), &p->right.x, &p->right.y, p->pos);
+		rotatepoint(deg2rad(angle), &p->left.x, &p->left.y, p->pos);
+	}
+	else
+	{
+		rrotatepoint(deg2rad(angle), &p->up.x, &p->up.y, p->pos);
+		rrotatepoint(deg2rad(angle), &p->down.x, &p->down.y, p->pos);
+		rrotatepoint(deg2rad(angle), &p->right.x, &p->right.y, p->pos);
+		rrotatepoint(deg2rad(angle), &p->left.x, &p->left.y, p->pos);
+	}
+}
+
 void	direction_player(t_player *p, char c)
 {
 	if (c == 'S')
-		rotatepoint(deg2rad(180), &p->up.x, &p->up.y, p->pos);
+		init_rotate_player(p, 180, 0);
 	else if (c == 'E')
-		rrotatepoint(deg2rad(90), &p->up.x, &p->up.y, p->pos);
+		init_rotate_player(p, 90, 1);
 	else if (c == 'W')
-		rotatepoint(deg2rad(90), &p->up.x, &p->up.y, p->pos);
+		init_rotate_player(p, 90, 0);
 }
 
 void	initplayer(t_data *d)
