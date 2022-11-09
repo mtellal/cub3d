@@ -26,6 +26,14 @@ void	castfirstray(t_data *data, t_ray **rays, double angle)
 	first_ray->length = correctfisheye(first_ray->length, 0);
 }
 
+void	uniformize_rays(t_ray *rr, t_ray *ri)
+{
+	if ((int)rr->coor.x == (int)ri->coor.x
+		&& (int)rr->coor.y == (int)ri->coor.y
+		&& (int)rr->length != (int)ri->length)
+		ri->length = rr->length;
+}
+
 void	c_rrays(t_data *d, t_ray **rays, double angleinc, double angle)
 {
 	int			i;
@@ -37,7 +45,7 @@ void	c_rrays(t_data *d, t_ray **rays, double angleinc, double angle)
 	cumulangle = 0;
 	rr = rays[(int)(d->img3d.width / 2) + 1];
 	cr = rays[(int)(d->img3d.width / 2)]->coor;
-	while (i < (int)(d->img3d.width / 2))
+	while (i < d->img3d.width / 2)
 	{
 		rrotatepoint(deg2rad(angleinc), &cr.x, &cr.y, d->p.pos);
 		angle -= angleinc;
@@ -45,9 +53,10 @@ void	c_rrays(t_data *d, t_ray **rays, double angleinc, double angle)
 		cr = castaray(d, cr, deg2rad(angle), rr);
 		rr->length = getlengthray(cr, d->p.pos, deg2rad(angle));
 		rr->length = correctfisheye(rr->length, deg2rad(cumulangle));
-		i++;
 		rr->coor.x = cr.x;
 		rr->coor.y = cr.y;
+		uniformize_rays(rr, rays[(int)(d->img3d.width / 2) + i]);
+		i++;
 		if (d->img3d.width / 2 + 1 + i < d->img3d.width)
 			rr = rays[(int)(d->img3d.width / 2) + 1 + i];
 	}
@@ -74,9 +83,9 @@ void	c_lrays(t_data *d, t_ray **rays, double angleinc, double angle)
 		cr = castaray(d, cr, deg2rad(angle), lr);
 		lr->length = getlengthray(cr, d->p.pos, deg2rad(angle));
 		lr->length = correctfisheye(lr->length, deg2rad(cumulangle));
-		i++;
 		lr->coor.x = cr.x;
 		lr->coor.y = cr.y;
+		uniformize_rays(lr, rays[(int)(d->img3d.width / 2) - i++]);
 		if (d->img3d.width / 2 - 1 - i >= 0)
 			lr = rays[d->img3d.width / 2 - 1 - i];
 	}
