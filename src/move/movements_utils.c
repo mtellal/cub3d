@@ -66,7 +66,7 @@ int	check_wall(t_data *d, t_coor ipoint, int inc_x, int inc_y)
 	}
 	rpoint.x = ipoint.x;
 	rpoint.y = ipoint.y;
-	while (i - 30 < 30)
+	while (i - 29 < 30)
 	{
 		if (d->map[(int)((rpoint.y + inc_y) / GRID)]
 			[(int)((rpoint.x + inc_x) / GRID)] == '1')

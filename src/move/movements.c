@@ -32,8 +32,8 @@ void	moveup(t_data *data, t_coor dda_inc)
 	int			inc_y;
 	t_player	*p;
 
-	inc_x = dda_inc.x * GRID * 0.08;
-	inc_y = dda_inc.y * GRID * 0.08;
+	inc_x = dda_inc.x * GRID * 0.05;
+	inc_y = dda_inc.y * GRID * 0.05;
 	p = &data->p;
 	if (check_wall(data, p->up, inc_x, inc_y))
 		move_player(p, inc_x, inc_y);
@@ -45,8 +45,8 @@ void	movedown(t_data *data, t_coor dda_inc)
 	int			inc_y;
 	t_player	*p;
 
-	inc_x = -dda_inc.x * GRID * 0.08;
-	inc_y = -dda_inc.y * GRID * 0.08;
+	inc_x = -dda_inc.x * GRID * 0.05;
+	inc_y = -dda_inc.y * GRID * 0.05;
 	p = &data->p;
 	if (check_wall(data, p->down, inc_x, inc_y))
 		move_player(p, inc_x, inc_y);
@@ -58,8 +58,8 @@ void	moverigth(t_data *data, t_coor dda_inc)
 	int			inc_y;
 	t_player	*p;
 
-	inc_x = dda_inc.x * GRID * 0.08;
-	inc_y = dda_inc.y * GRID * 0.08;
+	inc_x = dda_inc.x * GRID * 0.05;
+	inc_y = dda_inc.y * GRID * 0.05;
 	p = &data->p;
 	if (check_wall(data, p->right, inc_x, inc_y))
 		move_player(p, inc_x, inc_y);
@@ -71,8 +71,8 @@ void	moveleft(t_data *data, t_coor dda_inc)
 	int			inc_y;
 	t_player	*p;
 
-	inc_x = -dda_inc.x * GRID * 0.08;
-	inc_y = -dda_inc.y * GRID * 0.08;
+	inc_x = -dda_inc.x * GRID * 0.05;
+	inc_y = -dda_inc.y * GRID * 0.05;
 	p = &data->p;
 	if (check_wall(data, p->left, inc_x, inc_y))
 		move_player(p, inc_x, inc_y);
