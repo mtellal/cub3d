@@ -17,11 +17,15 @@ void	rotate_player(t_player *player, double angle, int reverse)
 	if (!reverse)
 	{
 		rotatepoint(angle, &player->up.x, &player->up.y, player->pos);
+		rotatepoint(angle, &player->down.x, &player->down.y, player->pos);
+		rotatepoint(angle, &player->right.x, &player->right.y, player->pos);
 		rotatepoint(angle, &player->left.x, &player->left.y, player->pos);
 	}
 	else
 	{
 		rrotatepoint(angle, &player->up.x, &player->up.y, player->pos);
+		rrotatepoint(angle, &player->down.x, &player->down.y, player->pos);
+		rrotatepoint(angle, &player->right.x, &player->right.y, player->pos);
 		rrotatepoint(angle, &player->left.x, &player->left.y, player->pos);
 	}
 }

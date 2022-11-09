@@ -6,7 +6,7 @@
 /*   By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:28:34 by mtellal           #+#    #+#             */
-/*   Updated: 2022/11/07 15:26:22 by antbarbi         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:51:38 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void	addpixelx(t_triangle *t, double pixel);
 void	addpixely(t_triangle *t, double pixel);
 double	deg2rad(double degrees);
 double	rad2deg(double radians);
+int		check_wall(t_data *d, t_coor ipoint, int inc_x, int inc_y);
 
 //  vmovements.c
 void	movevrigth(t_data *d);

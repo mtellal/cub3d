@@ -47,3 +47,32 @@ double	rad2deg(double radians)
 {
 	return (radians * (180 / M_PI));
 }
+
+int	check_wall(t_data *d, t_coor ipoint, int inc_x, int inc_y)
+{
+	int		i;
+	t_coor	rpoint;
+
+	i = 0;
+	rpoint.x = ipoint.x;
+	rpoint.y = ipoint.y;
+	while (i < 30)
+	{
+		if (d->map[(int)((rpoint.y + inc_y) / GRID)]
+			[(int)((rpoint.x + inc_x) / GRID)] == '1')
+			return (0);
+		rotatepoint(deg2rad(i), &rpoint.x, &rpoint.y, d->p.pos);
+		i++;
+	}
+	rpoint.x = ipoint.x;
+	rpoint.y = ipoint.y;
+	while (i - 30 < 30)
+	{
+		if (d->map[(int)((rpoint.y + inc_y) / GRID)]
+			[(int)((rpoint.x + inc_x) / GRID)] == '1')
+			return (0);
+		rrotatepoint(deg2rad(i), &rpoint.x, &rpoint.y, d->p.pos);
+		i++;
+	}
+	return (1);
+}

@@ -80,6 +80,8 @@ typedef struct s_player
 	int		move;
 	t_coor	pos;
 	t_coor	up;
+	t_coor	down;
+	t_coor	right;
 	t_coor	left;
 }			t_player;
 

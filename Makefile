@@ -6,12 +6,12 @@
 #    By: antbarbi <antbarbi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/17 16:32:26 by mtellal           #+#    #+#              #
-#    Updated: 2022/11/08 17:57:16 by mtellal          ###   ########.fr        #
+#    Updated: 2022/11/09 11:20:39 by mtellal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=clang 
-FLAGS=-Wall -Wextra -Werror -g
+FLAGS=-Wall -Wextra -Werror -g 
 NAME=cub3D
 
 SRCDIR=src

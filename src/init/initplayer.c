@@ -31,7 +31,11 @@ void	init_player_pos(t_data *d, int i, int j)
 	d->p.pos.y = i * GRID + GRID / 2;
 	d->p.up.x = d->p.pos.x;
 	d->p.up.y = d->p.pos.y - GRID * 0.1;
-	d->p.left.x = j * GRID - GRID * 0.1;
+	d->p.down.x = d->p.pos.x;
+	d->p.down.y = d->p.pos.y + GRID * 0.1;
+	d->p.right.x = d->p.pos.x + GRID * 0.1;
+	d->p.right.y = d->p.pos.y;
+	d->p.left.x = d->p.pos.x - GRID * 0.1;
 	d->p.left.y = d->p.pos.y;
 }
 
