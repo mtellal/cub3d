@@ -36,7 +36,7 @@ void	movevleft(t_data *d)
 	t_player	*player;
 
 	player = &d->p;
-	angle = deg2rad(GRID * 0.03);
+	angle = deg2rad(GRID * 0.02);
 	rotate_player(player, angle, 0);
 }
 
@@ -46,6 +46,6 @@ void	movevrigth(t_data *d)
 	t_player	*player;
 
 	player = &d->p;
-	angle = deg2rad(GRID * 0.03);
+	angle = deg2rad(GRID * 0.02);
 	rotate_player(player, angle, 1);
 }

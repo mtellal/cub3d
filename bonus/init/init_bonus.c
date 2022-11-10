@@ -14,8 +14,8 @@
 
 void	initimg3d(t_data *d, t_frame *i)
 {
-	i->window = mlx_new_window(d->mlx, i->width, i->height, "cub3d");
-	i->img = mlx_new_image(d->mlx, i->width, i->height);
+	i->window = mlx_new_window(d->mlx, WIDTH, HEIGHT, "cub3d");
+	i->img = mlx_new_image(d->mlx, WIDTH, HEIGHT);
 	if (!i->window || !i->img)
 		exit_cub(d, "Mlx new window/img failed");
 	i->addr = mlx_get_data_addr(i->img, &i->bpp, &i->length, &i->endian);
@@ -67,8 +67,6 @@ void	inittexture(t_data *d, void *mlx, t_texture *t)
 
 void	init(t_data *data)
 {
-	data->img3d.height = 9 * 100;
-	data->img3d.width = 16 * 100;
 	data->img3d.img = NULL;
 	data->texture.walln.img = NULL;
 	data->texture.walls.img = NULL;

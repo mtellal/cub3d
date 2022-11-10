@@ -112,7 +112,7 @@ void	dwall(t_frame *im, t_img *tw, t_drays *drays, double sy);
 
 ////////////////            MOVE            /////////////////
 // move.c
-void	minimap(t_data *data, t_frame *img);
+void	minimap(t_data *data);
 void	move(t_data *img);
 
 // movements.c

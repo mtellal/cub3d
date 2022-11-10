@@ -18,11 +18,11 @@ char	**final_map_alloc(t_data *data)
 	char	**flood_map;
 
 	i = 0;
-	flood_map = malloc(sizeof(char *) * (data->height + 1));
+	flood_map = malloc(sizeof(char *) * (HEIGHT + 1));
 	if (!flood_map)
 		return (NULL);
-	flood_map[data->height] = NULL;
-	while (i < data->height)
+	flood_map[HEIGHT] = NULL;
+	while (i < HEIGHT)
 	{
 		flood_map[i] = malloc(sizeof(char) * (data->len + 1));
 		if (!flood_map[i])
@@ -39,7 +39,7 @@ void	final_map_assign(t_data *data, char **new_map, char c)
 	int	j;
 
 	i = 0;
-	while (i < data->height)
+	while (i < HEIGHT)
 	{
 		j = 0;
 		while (j < data->len)

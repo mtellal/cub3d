@@ -6,7 +6,7 @@
 /*   By: mtellal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 09:17:02 by mtellal           #+#    #+#             */
-/*   Updated: 2022/11/09 11:49:57 by mtellal          ###   ########.fr       */
+/*   Updated: 2022/11/10 10:00:09 by mtellal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	cast_and_display(t_data *d)
 {
 	d->rays = castrays(d);
 	displayrays(d, d->rays);
-	minimap(d, &d->img3d);
+	minimap(d);
 	if (d && d->mlx && d->img3d.window && d->img3d.img)
 		mlx_put_image_to_window(d->mlx, d->img3d.window, d->img3d.img, 0, 0);
 }
@@ -25,7 +25,7 @@ void	eraseprecedentstatemovement(t_data *data)
 {
 	if (data->rays)
 	{
-		free_rays(data->rays, data->img3d.width);
+		free_rays(data->rays, WIDTH);
 		data->rays = NULL;
 	}
 }

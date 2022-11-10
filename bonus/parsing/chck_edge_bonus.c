@@ -18,11 +18,11 @@ char	**floodable_map_alloc(t_data *data)
 	char	**flood_map;
 
 	i = 0;
-	flood_map = malloc(sizeof(char *) * (data->height + 3));
+	flood_map = malloc(sizeof(char *) * (HEIGHT + 3));
 	if (!flood_map)
 		return (NULL);
-	flood_map[data->height + 2] = NULL;
-	while (i < data->height + 2)
+	flood_map[HEIGHT + 2] = NULL;
+	while (i < HEIGHT + 2)
 	{
 		flood_map[i] = malloc(sizeof(char) * (data->len + 3));
 		if (!flood_map[i])
@@ -39,7 +39,7 @@ void	floodable_map_assign(t_data *data, char **new_map, char c)
 	int	j;
 
 	i = 0;
-	while (i < data->height + 2)
+	while (i < HEIGHT + 2)
 	{
 		j = 0;
 		while (j < data->len + 2)

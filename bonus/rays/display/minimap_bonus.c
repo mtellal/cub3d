@@ -12,14 +12,11 @@
 
 #include "cub3d.h"
 
-void	minimap_init_img3d(t_frame *img3d, int *s_map, t_coor *pos_mnmap3D)
+void	minimap_init_img3d(int *s_map, t_coor *pos_mnmap3D)
 {
-	if (img3d->width * 0.3 > img3d->height * 0.3)
-		*s_map = img3d->height * 0.3;
-	else
-		*s_map = img3d->width * 0.3;
-	pos_mnmap3D->x = img3d->width - (*s_map + *s_map * 0.1);
-	pos_mnmap3D->y = img3d->height - (*s_map + *s_map * 0.1);
+	*s_map = WIDTH * 0.2;
+	pos_mnmap3D->x = WIDTH - (*s_map + *s_map * 0.1);
+	pos_mnmap3D->y = HEIGHT - (*s_map + *s_map * 0.1);
 }
 
 int	pixel(t_data *d, t_coor pos_pixel, int i, int j)
@@ -65,11 +62,11 @@ void	display_map(t_data *data, int size, t_coor p3d)
 	}
 }
 
-void	minimap(t_data *data, t_frame *img3d)
+void	minimap(t_data *data)
 {
 	int		size_minimap;
 	t_coor	pos_minimap_img3d;
 
-	minimap_init_img3d(img3d, &size_minimap, &pos_minimap_img3d);
+	minimap_init_img3d(&size_minimap, &pos_minimap_img3d);
 	display_map(data, size_minimap, pos_minimap_img3d);
 }

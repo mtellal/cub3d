@@ -36,10 +36,10 @@ void	calculstripwall(t_data *d, t_ray *r, t_drays *drays)
 	scale_y = (double)(twall->height) / drays->w.h;
 	if (drays->pw.y < 0)
 		drays->pw.y = 0;
-	if (drays->w.h >= (double)(d->img3d.height))
+	if (drays->w.h >= (double)(HEIGHT))
 	{
-		drays->piw.y = (drays->w.h - (double)d->img3d.height) / 2 * scale_y;
-		drays->w.h = d->img3d.height;
+		drays->piw.y = (drays->w.h - (double)HEIGHT) / 2 * scale_y;
+		drays->w.h = HEIGHT;
 	}
 	dwall(&d->img3d, twall, drays, scale_y);
 }
@@ -65,16 +65,16 @@ void	displayrays(t_data *d, t_ray **rays)
 	t_drays		drays;
 
 	i = 0;
-	distpp = ((double)d->img3d.height / 2) / tan(deg2rad(30));
+	distpp = ((double)HEIGHT / 2) / tan(deg2rad(30));
 	drays.w.l = 1;
-	while (i < d->img3d.width)
+	while (i < WIDTH)
 	{
 		_ray = rays[i];
 		if (_ray)
 		{
-			drays.w.h = ((double)GRID / (_ray->length / 2)) * distpp;
+			drays.w.h = ((double)GRID / (_ray->length)) * distpp;
 			drays.pw.x = drays.w.l * i;
-			drays.pw.y = ((double)d->img3d.height / 2) - (drays.w.h / 2);
+			drays.pw.y = ((double)HEIGHT / 2) - (drays.w.h / 2);
 			displayimg3d(d, _ray, &drays);
 		}
 		i++;

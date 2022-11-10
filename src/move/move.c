@@ -24,7 +24,7 @@ void	eraseprecedentstatemovement(t_data *data)
 {
 	if (data->rays)
 	{
-		free_rays(data->rays, data->img3d.width);
+		free_rays(data->rays, WIDTH);
 		data->rays = NULL;
 	}
 }

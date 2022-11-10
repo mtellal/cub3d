@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	game(&data);
 	mlx_loop(data.mlx);
 	exit_game_clean(&data);
-	free_rays(data.rays, data.img3d.width);
+	free_rays(data.rays, WIDTH);
 	free_texture(&data);
 	free_map(&data);
 }

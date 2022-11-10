@@ -36,7 +36,7 @@ void	dfloor(t_frame *img3d, int f, t_coor pos_wall, int l)
 	int	j;
 
 	i = pos_wall.y;
-	while (i < img3d->height)
+	while (i < HEIGHT)
 	{
 		j = 0;
 		while (j < l)

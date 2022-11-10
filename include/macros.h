@@ -14,6 +14,8 @@
 # define MACROS_H
 
 # define GRID 100
+# define HEIGHT 1000
+# define WIDTH 1000
 # define WALLCOLOR 0x00143D3D
 # define PLAYERCOLOR 0x0000FFFB
 # define BLANC 0x00FFFFFF

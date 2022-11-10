@@ -91,8 +91,6 @@ typedef struct s_frame
 	int				length;
 	int				endian;
 	int				move;
-	int				height;
-	int				width;
 	void			*window;
 	void			*img;
 	char			*addr;
